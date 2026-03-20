@@ -18,7 +18,7 @@ public static class SaveSystem
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetPath(data.deckId), json);
 
-        Debug.Log($"Saved Deck: {GetPath(data.deckId)}");
+        Log.LogMessage($"Saved Deck: {GetPath(data.deckId)}");
     }
 
     public static SaveData Load(string deckId)

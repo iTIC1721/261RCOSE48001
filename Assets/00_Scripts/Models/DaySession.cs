@@ -9,6 +9,13 @@ public class StageProgress
 
     public List<ReviewResult> results = new();
     public bool isCompleted = false;
+
+    public void Clear()
+    {
+        currentIndex = 0;
+        results.Clear();
+        isCompleted = false;
+    }
 }
 
 [Serializable]
@@ -21,5 +28,11 @@ public class DaySession
 
     public List<WordState> totalWords;
 
-    public Dictionary<string, StageProgress> stages = new();
+    public StageProgress stage;
+
+    public bool IsNull()
+    {
+        if (totalWords.Count == 0) return true;
+        return false;
+    }
 }

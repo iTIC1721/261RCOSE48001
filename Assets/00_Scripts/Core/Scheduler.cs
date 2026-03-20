@@ -56,12 +56,4 @@ public class Scheduler
         float overdue = today - w.nextReviewDay;
         return Mathf.Max(0, overdue) * 3f + w.difficulty;
     }
-
-    public void ApplyExtraPull(int count, ref int remainingWords)
-    {
-        if (extraPullUsed >= maxExtraPull) return;
-
-        remainingWords -= count;
-        extraPullUsed++;
-    }
 }

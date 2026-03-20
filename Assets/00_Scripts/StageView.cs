@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StageView : MonoBehaviour
@@ -65,6 +66,20 @@ public class StageView : MonoBehaviour
             GameObject stage = Instantiate(stagePrefab, content);
             RectTransform stageTr = stage.GetComponent<RectTransform>();
             stageTr.anchoredPosition = new Vector2(x, y);
+            if (i == currentDay)
+            {
+                stage.GetComponent<Button>().onClick.AddListener(() => {
+                    // TODO: 퀴즈 씬으로 이동
+                    if (!MANAGER.StudyManager.GetStage().isCompleted)
+                    {
+                        SceneManager.LoadScene("StudyDungeon_Quiz");
+                    }
+                    else
+                    {
+                        Log.LogMessage("오늘의 학습이 종료되었습니다.");
+                    }
+                });
+            }
 
             stages.Add(stage);
         }

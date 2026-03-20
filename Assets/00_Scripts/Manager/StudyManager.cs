@@ -21,12 +21,12 @@ public class StudyManager : MonoBehaviour
     DateTime startDate;
     DateTime lastStudyDate;
 
-    public void SaveDeck()
+    public void Save()
     {
-        SaveData data = new SaveData();
-
-        data.deckId = deckId;
+        var data = SaveSystem.Load(deckId);
+        
         data.words = words;
+
         data.dailyLimit = dailyLimit;
         data.extraPullUsed = scheduler.extraPullUsed;
 
@@ -37,12 +37,14 @@ public class StudyManager : MonoBehaviour
         SaveSystem.Save(data);
     }
 
-    public void LoadDeck(string deckId)
+    public void Load(string deckId)
     {
         var data = SaveSystem.Load(deckId);
 
         if (data != null)
         {
+            this.deckId = data.deckId;
+
             words = data.words;
             dailyLimit = data.dailyLimit;
 
@@ -52,6 +54,7 @@ public class StudyManager : MonoBehaviour
             lastStudyDate = DateTime.Parse(data.lastStudyDate);
 
             currentSession = data.currentSession;
+            Log.LogMessage($"Load: {data}");
         }
         else
         {
@@ -66,9 +69,82 @@ public class StudyManager : MonoBehaviour
         }
     }
 
-    int GetMissedDays()
+
+    public void StartToday()
+    {
+        // 오늘 세션이 이미 진행 중이면 그대로 사용
+        if (!currentSession.IsNull() && currentSession.dayIndex == GetCurrentDay())
+        {
+            return;
+        }
+
+        // 날짜가 지났다면 이전 데이터는 정산
+        if(!currentSession.IsNull() && currentSession.dayIndex != GetCurrentDay())
+        {
+            EndDay();
+        }
+
+        // 이전 기록에서 정산한 기록을 바탕으로 오늘의 학습량 및 학습 데이터를 가져옴
+        List<ReviewResult> recentResults = (!currentSession.IsNull()) ? GetSettlementResults() : new List<ReviewResult>();
+        var (newWords, reviewWords) = GetTodaySchedule(recentResults);
+
+        // 오늘의 DaySession을 새로 생성
+        currentSession = new DaySession
+        {
+            dayIndex = GetCurrentDay(),
+            newWords = newWords,
+            reviewWords = reviewWords,
+            totalWords = GetCombinedList(newWords, reviewWords),
+            stage = new StageProgress()
+        };
+    }
+
+    private (List<WordState> newWords, List<WordState> reviewWords) GetTodaySchedule(List<ReviewResult> recentResults)
+    {
+        int missed = GetMissedDays();
+
+        if (missed > 0)
+        {
+            lastStudyDate = DateTime.Now;
+        }
+
+        float LSS = AdaptiveEngine.CalculateLSS(recentResults, missed);
+        Log.LogMessage($"LSS: {LSS}");
+
+        var reviewCandidates = words
+            .Where(w => w.isLearned && w.nextReviewDay <= GetCurrentDay())
+            .ToList();
+
+        string tmp = "Reviews: ";
+        foreach (var rc in reviewCandidates)
+        {
+            tmp += rc.word + " ";
+        }
+        Log.LogMessage(tmp);
+
+        var (newCount, reviewCount) =
+            scheduler.DecideDailyLoad(dailyLimit, reviewCandidates.Count, LSS);
+        Log.LogMessage($"New: {newCount}, Review: {reviewCount}");
+
+        var reviewWords = scheduler.GetReviewWords(words, GetCurrentDay(), reviewCount);
+        var newWords = scheduler.GetNewWords(newCount);
+
+        return (newWords, reviewWords);
+    }
+
+    private int GetMissedDays()
     {
         return (DateTime.Now.Date - lastStudyDate.Date).Days;
+    }
+
+    private List<WordState> GetCombinedList(List<WordState> newWords, List<WordState> reviewWords)
+    {
+        var list = new List<WordState>();
+
+        list.AddRange(reviewWords);
+        list.AddRange(newWords);
+
+        return list;
     }
 
     public int PredictLeftDays()
@@ -87,74 +163,12 @@ public class StudyManager : MonoBehaviour
         return Mathf.CeilToInt(remaining / (float)dailyLimit);
     }
 
-    public (List<WordState> newWords, List<WordState> reviewWords) GetTodaySchedule(List<ReviewResult> recentResults)
-    {
-        int missed = GetMissedDays();
 
-        if (missed > 0)
+    public StageProgress GetStage()
+    {
+        if (currentSession.stage == null)
         {
-            lastStudyDate = DateTime.Now;
-        }
-
-        float LSS = AdaptiveEngine.CalculateLSS(recentResults, missed);
-
-        var reviewCandidates = words
-            .Where(w => w.nextReviewDay <= GetCurrentDay())
-            .ToList();
-
-        var (newCount, reviewCount) =
-            scheduler.DecideDailyLoad(dailyLimit, reviewCandidates.Count, LSS);
-
-        var reviewWords = scheduler.GetReviewWords(words, GetCurrentDay(), reviewCount);
-        var newWords = scheduler.GetNewWords(newCount);
-
-        return (newWords, reviewWords);
-    }
-
-    public void StartToday()
-    {
-        // 이미 진행 중이면 그대로 사용
-        if (currentSession != null && currentSession.dayIndex == GetCurrentDay())
-            return;
-
-        // 날짜가 지났다면 이전 데이터는 정산
-        EndDay();
-
-        List<ReviewResult> recentResults =
-            currentSession != null
-            ? currentSession.stages
-                .SelectMany(s => s.Value.results)
-                .GroupBy(r => r.word)
-                .Select(g => g.Last())
-                .ToList()
-            : new List<ReviewResult>();
-        var (newWords, reviewWords) = GetTodaySchedule(recentResults);
-
-        currentSession = new DaySession
-        {
-            dayIndex = GetCurrentDay(),
-            newWords = newWords,
-            reviewWords = reviewWords,
-            totalWords = GetCombinedList(newWords, reviewWords),
-            stages = new Dictionary<string, StageProgress>()
-        };
-    }
-
-    List<WordState> GetCombinedList(List<WordState> newWords, List<WordState> reviewWords)
-    {
-        var list = new List<WordState>();
-
-        list.AddRange(reviewWords);
-        list.AddRange(newWords);
-
-        return list;
-    }
-
-    StageProgress GetStage()
-    {
-        if (!currentSession.stages.ContainsKey(currentStage))
-        {
-            currentSession.stages[currentStage] = new StageProgress
+            currentSession.stage = new StageProgress
             {
                 stageName = currentStage,
                 currentIndex = 0,
@@ -162,7 +176,7 @@ public class StudyManager : MonoBehaviour
             };
         }
 
-        return currentSession.stages[currentStage];
+        return currentSession.stage;
     }
 
     public WordState GetNextWord()
@@ -170,7 +184,10 @@ public class StudyManager : MonoBehaviour
         var stage = GetStage();
 
         if (stage.currentIndex >= currentSession.totalWords.Count)
+        {
+            Log.LogMessage($"{stage.currentIndex}, {currentSession.totalWords.Count}");
             return null;
+        }
 
         return currentSession.totalWords[stage.currentIndex];
     }
@@ -182,11 +199,12 @@ public class StudyManager : MonoBehaviour
         stage.results.Add(result);
         stage.currentIndex++;
 
-        SaveDeck();
+        Save();
 
         if (stage.currentIndex >= currentSession.totalWords.Count)
         {
-            CompleteStage();
+            int reward = CompleteStage();
+            Log.LogMessage(reward);
         }
     }
 
@@ -194,36 +212,43 @@ public class StudyManager : MonoBehaviour
     {
         var stage = GetStage();
 
-        // 이미 클리어한 경우
+        // 이미 클리어한 스테이지일 경우
         if (stage.isCompleted)
             return 0;
 
+        // 스테이지가 아직 끝나지 않았을 경우
         if (stage.currentIndex < currentSession.totalWords.Count)
             return 0;
 
         stage.isCompleted = true;
 
+        Save();
+
         int reward = RewardSystem.Calculate(stage.results);
-
-        SaveDeck();
-
         return reward;
     }
 
-    public void EndDay()
+    private void EndDay()
     {
-        var allResults = currentSession.stages
-        .SelectMany(s => s.Value.results)
-        .GroupBy(r => r.word)
-        .Select(g => g.Last())
-        .ToList();
+        // 공부한 결과가 있는 단어만 정산
+        var allResults = GetSettlementResults();
 
         foreach (var r in allResults)
         {
             AdaptiveEngine.UpdateWord(r.word, r, GetCurrentDay());
         }
 
-        SaveDeck();
+        Save();
+    }
+
+    private List<ReviewResult> GetSettlementResults()
+    {
+        var allResults = currentSession.stage.results
+        .GroupBy(r => r.word)
+        .Select(g => g.Last())
+        .ToList();
+
+        return allResults;
     }
 
     public int GetCurrentDay()
@@ -232,11 +257,5 @@ public class StudyManager : MonoBehaviour
         DateTime today = DateTime.Now.Date;
 
         return (today - start).Days;
-    }
-
-    public void PullExtra(int count)
-    {
-        int remaining = scheduler.newQueue.Count;
-        scheduler.ApplyExtraPull(count, ref remaining);
     }
 }

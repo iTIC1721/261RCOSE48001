@@ -76,11 +76,13 @@ public static class DeckSystem
 
         data.words = words;
 
-        data.startDate = DateTime.Now.Date.ToString();
         data.dailyLimit = dailyLimit;
         data.extraPullUsed = 0;
 
+        data.startDate = DateTime.Now.Date.ToString();
         data.lastStudyDate = DateTime.Now.ToString();
+
+        data.currentSession = null;
 
         SaveSystem.Save(data);
 

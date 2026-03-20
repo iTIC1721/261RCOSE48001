@@ -8,7 +8,7 @@ public static class RewardSystem
 
         foreach (var r in results)
         {
-            int baseVal = r.isNew ? 10 : 5;
+            int baseVal = 10;
 
             if (r.correct) baseVal += 5;
             if (r.responseTime < 1.5f) baseVal += 3;
