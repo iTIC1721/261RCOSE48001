@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
 
+public enum StageDifficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
+
 [Serializable]
 public class StageProgress
 {
-    public string stageName; // "Easy", "Normal", "Hard"
     public int currentIndex;
 
     public List<ReviewResult> results = new();
@@ -28,7 +34,7 @@ public class DaySession
 
     public List<WordState> totalWords;
 
-    public StageProgress stage;
+    public StageProgress[] stages = new StageProgress[Enum.GetValues(typeof(StageDifficulty)).Length];
 
     public bool IsNull()
     {

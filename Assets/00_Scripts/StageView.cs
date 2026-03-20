@@ -70,7 +70,7 @@ public class StageView : MonoBehaviour
             {
                 stage.GetComponent<Button>().onClick.AddListener(() => {
                     // TODO: ƒ˚¡Ó æ¿¿∏∑Œ ¿Ãµø
-                    if (!MANAGER.StudyManager.GetStage().isCompleted)
+                    if (!MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).isCompleted)
                     {
                         SceneManager.LoadScene("StudyDungeon_Quiz");
                     }

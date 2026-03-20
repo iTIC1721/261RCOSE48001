@@ -16,7 +16,7 @@ public class StudyManager : MonoBehaviour
     public Scheduler scheduler;
 
     public DaySession currentSession;
-    public string currentStage = "Easy";
+    public StageDifficulty currentStageDifficulty;
 
     DateTime startDate;
     DateTime lastStudyDate;
@@ -95,7 +95,7 @@ public class StudyManager : MonoBehaviour
             newWords = newWords,
             reviewWords = reviewWords,
             totalWords = GetCombinedList(newWords, reviewWords),
-            stage = new StageProgress()
+            stages = new StageProgress[Enum.GetValues(typeof(StageDifficulty)).Length]
         };
     }
 
@@ -164,24 +164,24 @@ public class StudyManager : MonoBehaviour
     }
 
 
-    public StageProgress GetStage()
+    public StageProgress GetStageProgress(StageDifficulty diff)
     {
-        if (currentSession.stage == null)
+        if (currentSession.stages[(int)diff] == null)
         {
-            currentSession.stage = new StageProgress
+            currentSession.stages[(int)diff] = new StageProgress
             {
-                stageName = currentStage,
                 currentIndex = 0,
-                results = new List<ReviewResult>()
+                results = new List<ReviewResult>(),
+                isCompleted = false
             };
         }
 
-        return currentSession.stage;
+        return currentSession.stages[(int)diff];
     }
 
     public WordState GetNextWord()
     {
-        var stage = GetStage();
+        var stage = GetStageProgress(currentStageDifficulty);
 
         if (stage.currentIndex >= currentSession.totalWords.Count)
         {
@@ -194,7 +194,7 @@ public class StudyManager : MonoBehaviour
 
     public void SubmitAnswer(ReviewResult result)
     {
-        var stage = GetStage();
+        var stage = GetStageProgress(currentStageDifficulty);
 
         stage.results.Add(result);
         stage.currentIndex++;
@@ -210,7 +210,7 @@ public class StudyManager : MonoBehaviour
 
     public int CompleteStage()
     {
-        var stage = GetStage();
+        var stage = GetStageProgress(currentStageDifficulty);
 
         // 이미 클리어한 스테이지일 경우
         if (stage.isCompleted)
@@ -243,10 +243,11 @@ public class StudyManager : MonoBehaviour
 
     private List<ReviewResult> GetSettlementResults()
     {
-        var allResults = currentSession.stage.results
-        .GroupBy(r => r.word)
-        .Select(g => g.Last())
-        .ToList();
+        var allResults = currentSession.stages
+            .SelectMany(s => s.results)
+            .GroupBy(r => r.word)
+            .Select(g => g.Last())
+            .ToList();
 
         return allResults;
     }
