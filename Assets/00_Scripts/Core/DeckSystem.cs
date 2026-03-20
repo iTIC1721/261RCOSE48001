@@ -79,8 +79,8 @@ public static class DeckSystem
         data.dailyLimit = dailyLimit;
         data.extraPullUsed = 0;
 
-        data.startDate = DateTime.Now.Date.ToString();
-        data.lastStudyDate = DateTime.Now.ToString();
+        data.startDate = CustomTime.GetTimeNow().Date.ToString();
+        data.lastStudyDate = CustomTime.GetTimeNow().ToString();
 
         data.currentSession = null;
 

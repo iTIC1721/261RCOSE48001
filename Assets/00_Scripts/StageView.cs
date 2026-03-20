@@ -7,6 +7,7 @@ public class StageView : MonoBehaviour
 {
     [SerializeField] ScrollRect scrollView;
     [SerializeField] RectTransform content;
+    [SerializeField] StageSelectPanel stageSelectPanel;
 
     [SerializeField] float marginY = 300;
     [SerializeField] float spaceY = 100;
@@ -69,15 +70,7 @@ public class StageView : MonoBehaviour
             if (i == currentDay)
             {
                 stage.GetComponent<Button>().onClick.AddListener(() => {
-                    // TODO: 퀴즈 씬으로 이동
-                    if (!MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).isCompleted)
-                    {
-                        SceneManager.LoadScene("StudyDungeon_Quiz");
-                    }
-                    else
-                    {
-                        Log.LogMessage("오늘의 학습이 종료되었습니다.");
-                    }
+                    stageSelectPanel.ShowStageSelectPanel();
                 });
             }
 

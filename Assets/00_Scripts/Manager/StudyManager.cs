@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using UnityEditor.Overlays;
 using UnityEngine;
 
 public class StudyManager : MonoBehaviour
@@ -15,7 +13,7 @@ public class StudyManager : MonoBehaviour
 
     public Scheduler scheduler;
 
-    public DaySession currentSession;
+    public DaySession currentDaySession;
     public StageDifficulty currentStageDifficulty;
 
     DateTime startDate;
@@ -30,9 +28,9 @@ public class StudyManager : MonoBehaviour
         data.dailyLimit = dailyLimit;
         data.extraPullUsed = scheduler.extraPullUsed;
 
-        data.lastStudyDate = DateTime.Now.ToString();
+        data.lastStudyDate = CustomTime.GetTimeNow().ToString();
 
-        data.currentSession = currentSession;
+        data.currentSession = currentDaySession;
 
         SaveSystem.Save(data);
     }
@@ -53,7 +51,7 @@ public class StudyManager : MonoBehaviour
             startDate = DateTime.Parse(data.startDate);
             lastStudyDate = DateTime.Parse(data.lastStudyDate);
 
-            currentSession = data.currentSession;
+            currentDaySession = data.currentSession;
             Log.LogMessage($"Load: {data}");
         }
         else
@@ -62,10 +60,10 @@ public class StudyManager : MonoBehaviour
 
             scheduler = new Scheduler(words);
 
-            startDate = DateTime.Now;
-            lastStudyDate = DateTime.Now;
+            startDate = CustomTime.GetTimeNow();
+            lastStudyDate = CustomTime.GetTimeNow();
 
-            currentSession = null;
+            currentDaySession = null;
         }
     }
 
@@ -73,23 +71,24 @@ public class StudyManager : MonoBehaviour
     public void StartToday()
     {
         // 오늘 세션이 이미 진행 중이면 그대로 사용
-        if (!currentSession.IsNull() && currentSession.dayIndex == GetCurrentDay())
+        if (!currentDaySession.IsNull() && currentDaySession.dayIndex == GetCurrentDay())
         {
             return;
         }
 
         // 날짜가 지났다면 이전 데이터는 정산
-        if(!currentSession.IsNull() && currentSession.dayIndex != GetCurrentDay())
+        if(!currentDaySession.IsNull() && currentDaySession.dayIndex != GetCurrentDay())
         {
+            Log.LogMessage("이전 데이터를 정산했습니다");
             EndDay();
         }
 
         // 이전 기록에서 정산한 기록을 바탕으로 오늘의 학습량 및 학습 데이터를 가져옴
-        List<ReviewResult> recentResults = (!currentSession.IsNull()) ? GetSettlementResults() : new List<ReviewResult>();
+        List<ReviewResult> recentResults = (!currentDaySession.IsNull()) ? GetSettlementResults() : new List<ReviewResult>();
         var (newWords, reviewWords) = GetTodaySchedule(recentResults);
 
         // 오늘의 DaySession을 새로 생성
-        currentSession = new DaySession
+        currentDaySession = new DaySession
         {
             dayIndex = GetCurrentDay(),
             newWords = newWords,
@@ -122,8 +121,7 @@ public class StudyManager : MonoBehaviour
         }
         Log.LogMessage(tmp);
 
-        var (newCount, reviewCount) =
-            scheduler.DecideDailyLoad(dailyLimit, reviewCandidates.Count, LSS);
+        var (newCount, reviewCount) = scheduler.DecideDailyLoad(dailyLimit, reviewCandidates.Count, LSS);
         Log.LogMessage($"New: {newCount}, Review: {reviewCount}");
 
         var reviewWords = scheduler.GetReviewWords(words, GetCurrentDay(), reviewCount);
@@ -134,7 +132,7 @@ public class StudyManager : MonoBehaviour
 
     private int GetMissedDays()
     {
-        return (DateTime.Now.Date - lastStudyDate.Date).Days;
+        return (CustomTime.GetTimeNow().Date - lastStudyDate.Date).Days;
     }
 
     private List<WordState> GetCombinedList(List<WordState> newWords, List<WordState> reviewWords)
@@ -151,9 +149,9 @@ public class StudyManager : MonoBehaviour
     {
         int remaining = scheduler.newQueue.Count;
 
-        if (currentSession != null)
+        if (currentDaySession != null)
         {
-            int totalToday = currentSession.newWords.Count;
+            int totalToday = currentDaySession.newWords.Count;
 
             remaining -= totalToday;
         }
@@ -166,9 +164,9 @@ public class StudyManager : MonoBehaviour
 
     public StageProgress GetStageProgress(StageDifficulty diff)
     {
-        if (currentSession.stages[(int)diff] == null)
+        if (currentDaySession.stages[(int)diff] == null)
         {
-            currentSession.stages[(int)diff] = new StageProgress
+            currentDaySession.stages[(int)diff] = new StageProgress
             {
                 currentIndex = 0,
                 results = new List<ReviewResult>(),
@@ -176,20 +174,20 @@ public class StudyManager : MonoBehaviour
             };
         }
 
-        return currentSession.stages[(int)diff];
+        return currentDaySession.stages[(int)diff];
     }
 
     public WordState GetNextWord()
     {
         var stage = GetStageProgress(currentStageDifficulty);
 
-        if (stage.currentIndex >= currentSession.totalWords.Count)
+        if (stage.currentIndex >= currentDaySession.totalWords.Count)
         {
-            Log.LogMessage($"{stage.currentIndex}, {currentSession.totalWords.Count}");
+            Log.LogMessage($"{stage.currentIndex}, {currentDaySession.totalWords.Count}");
             return null;
         }
 
-        return currentSession.totalWords[stage.currentIndex];
+        return currentDaySession.totalWords[stage.currentIndex];
     }
 
     public void SubmitAnswer(ReviewResult result)
@@ -201,7 +199,7 @@ public class StudyManager : MonoBehaviour
 
         Save();
 
-        if (stage.currentIndex >= currentSession.totalWords.Count)
+        if (stage.currentIndex >= currentDaySession.totalWords.Count)
         {
             int reward = CompleteStage();
             Log.LogMessage(reward);
@@ -217,7 +215,7 @@ public class StudyManager : MonoBehaviour
             return 0;
 
         // 스테이지가 아직 끝나지 않았을 경우
-        if (stage.currentIndex < currentSession.totalWords.Count)
+        if (stage.currentIndex < currentDaySession.totalWords.Count)
             return 0;
 
         stage.isCompleted = true;
@@ -232,18 +230,33 @@ public class StudyManager : MonoBehaviour
     {
         // 공부한 결과가 있는 단어만 정산
         var allResults = GetSettlementResults();
+        Log.LogMessage($"정산할 데이터 개수: {allResults.Count}");
 
         foreach (var r in allResults)
         {
             AdaptiveEngine.UpdateWord(r.word, r, GetCurrentDay());
+
+            var target = words.FirstOrDefault(w => w.word == r.word.word);
+            if (target != null)
+            {
+                target.avgResponseTime = r.word.avgResponseTime;
+                target.strength = r.word.strength;
+                target.correctCount = r.word.correctCount;
+                target.difficulty = r.word.difficulty;
+                target.totalReviews = r.word.totalReviews;
+                target.lastReviewedDay = r.word.lastReviewedDay;
+                target.isLearned = r.word.isLearned;
+                target.nextReviewDay = r.word.nextReviewDay;
+            }
         }
 
         Save();
+        scheduler = new Scheduler(words);
     }
 
     private List<ReviewResult> GetSettlementResults()
     {
-        var allResults = currentSession.stages
+        var allResults = currentDaySession.stages
             .SelectMany(s => s.results)
             .GroupBy(r => r.word)
             .Select(g => g.Last())
@@ -255,7 +268,7 @@ public class StudyManager : MonoBehaviour
     public int GetCurrentDay()
     {
         DateTime start = startDate.Date;
-        DateTime today = DateTime.Now.Date;
+        DateTime today = CustomTime.GetTimeNow().Date;
 
         return (today - start).Days;
     }

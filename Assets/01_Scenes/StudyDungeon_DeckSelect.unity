@@ -533,7 +533,7 @@ MonoBehaviour:
   deckButtonPrefab: {fileID: 2884632586243174439, guid: 4837b1abd183b5d459ad4c4ba902700c, type: 3}
   content: {fileID: 1972745042}
   addDeckButton: {fileID: 2884632586586682245}
-  testCSVPath: C:\Users\itico\Downloads\eng_test.csv
+  testCSVPath: D:\Download\eng_test.csv
 --- !u!1 &314375080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,6 +1945,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b364ef3be20f8043b93e891bbe37acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MANAGER
+  useCustomTime: 1
+  year: 2026
+  month: 4
+  day: 1
 --- !u!1 &1278068787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,8 +2296,17 @@ MonoBehaviour:
     newWords: []
     reviewWords: []
     totalWords: []
-    currentIndex: 0
-    results: []
+    stages:
+    - currentIndex: 0
+      results: []
+      isCompleted: 0
+    - currentIndex: 0
+      results: []
+      isCompleted: 0
+    - currentIndex: 0
+      results: []
+      isCompleted: 0
+  currentStageDifficulty: 0
 --- !u!1 &1403395863
 GameObject:
   m_ObjectHideFlags: 0
