@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using UnityEditor.Overlays;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class StudyManager : MonoBehaviour
     public Scheduler scheduler;
 
     public DaySession currentSession;
+    public string currentStage = "Easy";
 
     DateTime startDate;
     DateTime lastStudyDate;
@@ -77,10 +79,7 @@ public class StudyManager : MonoBehaviour
         {
             int totalToday = currentSession.newWords.Count;
 
-            // 아직 안 푼 신규만 제외
-            int remainingToday = totalToday - currentSession.currentIndex;
-
-            remaining -= remainingToday;
+            remaining -= totalToday;
         }
 
         remaining = Mathf.Max(remaining, 0);
@@ -118,7 +117,17 @@ public class StudyManager : MonoBehaviour
         if (currentSession != null && currentSession.dayIndex == GetCurrentDay())
             return;
 
-        List<ReviewResult> recentResults = currentSession.results;
+        // 날짜가 지났다면 이전 데이터는 정산
+        EndDay();
+
+        List<ReviewResult> recentResults =
+            currentSession != null
+            ? currentSession.stages
+                .SelectMany(s => s.Value.results)
+                .GroupBy(r => r.word)
+                .Select(g => g.Last())
+                .ToList()
+            : new List<ReviewResult>();
         var (newWords, reviewWords) = GetTodaySchedule(recentResults);
 
         currentSession = new DaySession
@@ -127,7 +136,7 @@ public class StudyManager : MonoBehaviour
             newWords = newWords,
             reviewWords = reviewWords,
             totalWords = GetCombinedList(newWords, reviewWords),
-            currentIndex = 0
+            stages = new Dictionary<string, StageProgress>()
         };
     }
 
@@ -141,37 +150,80 @@ public class StudyManager : MonoBehaviour
         return list;
     }
 
+    StageProgress GetStage()
+    {
+        if (!currentSession.stages.ContainsKey(currentStage))
+        {
+            currentSession.stages[currentStage] = new StageProgress
+            {
+                stageName = currentStage,
+                currentIndex = 0,
+                results = new List<ReviewResult>()
+            };
+        }
+
+        return currentSession.stages[currentStage];
+    }
+
     public WordState GetNextWord()
     {
-        if (currentSession.currentIndex >= currentSession.totalWords.Count)
+        var stage = GetStage();
+
+        if (stage.currentIndex >= currentSession.totalWords.Count)
             return null;
 
-        return currentSession.totalWords[currentSession.currentIndex];
+        return currentSession.totalWords[stage.currentIndex];
     }
 
     public void SubmitAnswer(ReviewResult result)
     {
-        currentSession.results.Add(result);
+        var stage = GetStage();
 
-        currentSession.currentIndex++;
-
-        if (currentSession.currentIndex >= currentSession.totalWords.Count)
-        {
-            EndSession(currentSession.results);
-            currentSession = null;
-        }
+        stage.results.Add(result);
+        stage.currentIndex++;
 
         SaveDeck();
+
+        if (stage.currentIndex >= currentSession.totalWords.Count)
+        {
+            CompleteStage();
+        }
     }
 
-    public int EndSession(List<ReviewResult> results)
+    public int CompleteStage()
     {
-        foreach (var r in results)
+        var stage = GetStage();
+
+        // 이미 클리어한 경우
+        if (stage.isCompleted)
+            return 0;
+
+        if (stage.currentIndex < currentSession.totalWords.Count)
+            return 0;
+
+        stage.isCompleted = true;
+
+        int reward = RewardSystem.Calculate(stage.results);
+
+        SaveDeck();
+
+        return reward;
+    }
+
+    public void EndDay()
+    {
+        var allResults = currentSession.stages
+        .SelectMany(s => s.Value.results)
+        .GroupBy(r => r.word)
+        .Select(g => g.Last())
+        .ToList();
+
+        foreach (var r in allResults)
         {
             AdaptiveEngine.UpdateWord(r.word, r, GetCurrentDay());
         }
 
-        return RewardSystem.Calculate(results);
+        SaveDeck();
     }
 
     public int GetCurrentDay()

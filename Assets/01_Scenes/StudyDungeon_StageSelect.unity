@@ -653,8 +653,8 @@ MonoBehaviour:
   spaceY: 200
   minX: -200
   maxX: 200
-  currentStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
-  pastStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
+  currentStagePrefab: {fileID: 2063961903306345471, guid: 4ba8f21604ee22c48bfdc714da14b601, type: 3}
+  pastStagePrefab: {fileID: 2063961903306345471, guid: dadaa67bcc4f9274fbcc47d1efcaea8c, type: 3}
   futureStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
   lastStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
 --- !u!1 &1880790337
