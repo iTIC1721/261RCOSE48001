@@ -5,14 +5,14 @@ using UnityEngine;
 public class Scheduler
 {
     public List<WordState> totalWords;
-    public Queue<WordState> newQueue;
+    public RandomQueue<WordState> newQueue;
     public int extraPullUsed = 0;
     public int maxExtraPull = 3;
 
     public Scheduler(List<WordState> words)
     {
         totalWords = new List<WordState>(words);
-        newQueue = new Queue<WordState>(words.Where(w => !w.isLearned).ToList());
+        newQueue = new RandomQueue<WordState>(words.Where(w => !w.isLearned).ToList());
     }
 
     public (int newCount, int reviewCount) DecideDailyLoad(int dailyLimit, int reviewDue, float LSS)

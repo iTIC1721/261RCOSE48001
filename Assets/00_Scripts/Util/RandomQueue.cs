@@ -5,10 +5,37 @@ using UnityEngine;
 
 public class RandomQueue<T> : IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ICollection
 {
-    private readonly List<T> _list = new List<T>();
+    private List<T> _list = new List<T>();
     private readonly System.Random _rng = new System.Random();
 
     private readonly object _syncRoot = new object();
+
+    public RandomQueue()
+    {
+    }
+
+    public RandomQueue(IEnumerable<T> collection)
+    {
+        if (collection == null)
+            throw new ArgumentNullException(nameof(collection));
+
+        _list = new List<T>(collection);
+    }
+
+    public RandomQueue(int capacity)
+    {
+        if (capacity < 0)
+            throw new ArgumentOutOfRangeException(nameof(capacity));
+
+        _list = new List<T>(capacity);
+    }
+
+    public RandomQueue(params T[] items)
+    {
+        _list = new List<T>(items);
+    }
+
+    // ------------------------------------ 
 
     public void Enqueue(T item)
     {

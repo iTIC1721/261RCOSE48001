@@ -142,6 +142,8 @@ public class StudyManager : MonoBehaviour
         list.AddRange(reviewWords);
         list.AddRange(newWords);
 
+        ShuffleHelper.Shuffle(list);
+
         return list;
     }
 
