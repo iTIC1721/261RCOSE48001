@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DeckView : MonoBehaviour
@@ -27,13 +28,16 @@ public class DeckView : MonoBehaviour
     public GameObject CreateDeckButton(DeckInfo deckInfo)
     {
         var deckBtn = Instantiate(deckButtonPrefab, content);
+
         deckBtn.GetComponent<DeckButton>().deckNameText.text = deckInfo.deckName;
         deckBtn.GetComponent<DeckButton>().deckId = deckInfo.deckId;
+
         deckBtn.GetComponent<Button>().onClick.AddListener(() => {
             Debug.Log(SaveSystem.Load(deckInfo.deckId).ToString());
             MANAGER.StudyManager.LoadDeck(deckInfo.deckId);
 
             // TODO: 오늘 스테이지 선택으로 이동
+            SceneManager.LoadScene("StudyDungeon_StageSelect");
         });
 
         // 덱 삭제 버튼 이벤트 추가
