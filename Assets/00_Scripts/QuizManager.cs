@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
 {
+    [SerializeField] QuizResultPanel resultPanel;
     [SerializeField] TextMeshProUGUI wordText;
     [SerializeField] TextMeshProUGUI meaningText;
     [SerializeField] Button nextButton; 
@@ -61,7 +63,27 @@ public class QuizManager : MonoBehaviour
         {
             // TODO: 끝내기
             Log.LogMessage("오늘의 학습이 종료되었습니다.");
-            SceneManager.LoadScene("StudyDungeon_StageSelect");
+
+            // 정답률
+            StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
+            int correctCount = 0;
+            foreach (var item in stageProgress.results)
+            {
+                if (item.correct) correctCount++;
+            }
+            float correctRate = (float)correctCount / stageProgress.results.Count;
+            resultPanel.correctRateText.text = $"Correct Rate: {(correctRate * 100f).ToString("F0")}%";
+
+            // 복습 개수
+            int reviewCount = MANAGER.StudyManager.currentDaySession.reviewWords.Count;
+            resultPanel.reviewCountText.text = $"Review Count: {reviewCount}";
+
+            // 총 진행도
+            int totalCount = MANAGER.StudyManager.words.Count;
+            int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.totalWords.Count;
+            resultPanel.totalProgressText.text = $"Total Progress: {studiedCount}/{totalCount}";
+
+            resultPanel.resultPanel.SetActive(true);
         }
     }
 
@@ -92,5 +114,10 @@ public class QuizManager : MonoBehaviour
                 });
             }            
         }
+    }
+
+    public void Back()
+    {
+        SceneManager.LoadScene("StudyDungeon_StageSelect");
     }
 }
