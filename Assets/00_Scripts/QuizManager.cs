@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
@@ -60,6 +61,7 @@ public class QuizManager : MonoBehaviour
         {
             // TODO: 끝내기
             Log.LogMessage("오늘의 학습이 종료되었습니다.");
+            SceneManager.LoadScene("StudyDungeon_StageSelect");
         }
     }
 
