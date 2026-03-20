@@ -1948,7 +1948,7 @@ MonoBehaviour:
   useCustomTime: 1
   year: 2026
   month: 4
-  day: 1
+  day: 8
 --- !u!1 &1278068787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2291,7 +2291,7 @@ MonoBehaviour:
   deckId: 
   words: []
   dailyLimit: 30
-  currentSession:
+  currentDaySession:
     dayIndex: 0
     newWords: []
     reviewWords: []

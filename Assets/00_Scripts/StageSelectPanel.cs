@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class StageSelectPanel : MonoBehaviour
     [SerializeField] GameObject stageSelectPanel;
     [SerializeField] Button[] stageSelectButtons;
     [SerializeField] GameObject[] rewardDecoration;
+    [SerializeField] TextMeshProUGUI[] progressText;
 
     public void ShowStageSelectPanel()
     {
@@ -15,6 +17,20 @@ public class StageSelectPanel : MonoBehaviour
         for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
         {
             StageDifficulty stageDifficulty = (StageDifficulty)d;
+
+            if (MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted || 
+                MANAGER.StudyManager.GetStageProgress(stageDifficulty).currentIndex == MANAGER.StudyManager.currentDaySession.totalWords.Count - 1)
+            {
+                progressText[d].text = string.Empty;
+            }
+            else if (MANAGER.StudyManager.GetStageProgress(stageDifficulty).currentIndex > 0)
+            {
+                progressText[d].text = MANAGER.StudyManager.GetStageProgress(stageDifficulty).currentIndex + "/" + MANAGER.StudyManager.currentDaySession.totalWords.Count;
+            }
+            else
+            {
+                progressText[d].text = string.Empty;
+            }
 
             if (isCleared || MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted)
             {
