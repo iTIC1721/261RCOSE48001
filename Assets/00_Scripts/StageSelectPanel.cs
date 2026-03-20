@@ -11,19 +11,21 @@ public class StageSelectPanel : MonoBehaviour
 
     public void ShowStageSelectPanel()
     {
-        for (int d = 0; d < Enum.GetValues(typeof(StageDifficulty)).Length; d++)
+        bool isCleared = false;
+        for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
         {
             StageDifficulty stageDifficulty = (StageDifficulty)d;
 
-            if (!MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted)
+            if (isCleared || MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted)
             {
-                rewardDecoration[d].SetActive(true);
-                stageSelectButtons[d].interactable = true;
+                isCleared = true;
+                rewardDecoration[d].SetActive(false);
+                stageSelectButtons[d].interactable = false;
             }
             else
             {
-                rewardDecoration[d].SetActive(false);
-                stageSelectButtons[d].interactable = false;
+                rewardDecoration[d].SetActive(true);
+                stageSelectButtons[d].interactable = true;
             }
         }
 

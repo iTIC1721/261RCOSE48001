@@ -52,7 +52,6 @@ public class StudyManager : MonoBehaviour
             lastStudyDate = DateTime.Parse(data.lastStudyDate);
 
             currentDaySession = data.currentSession;
-            Log.LogMessage($"Load: {data}");
         }
         else
         {
@@ -204,7 +203,7 @@ public class StudyManager : MonoBehaviour
         if (stage.currentIndex >= currentDaySession.totalWords.Count)
         {
             int reward = CompleteStage();
-            Log.LogMessage(reward);
+            Log.LogMessage($"Reward: {reward}");
         }
     }
 
@@ -220,11 +219,15 @@ public class StudyManager : MonoBehaviour
         if (stage.currentIndex < currentDaySession.totalWords.Count)
             return 0;
 
-        stage.isCompleted = true;
+        int reward = 0;
+        for (int i = (int)currentStageDifficulty; i >= 0; i--)
+        {
+            var s = GetStageProgress((StageDifficulty)i);
+            s.isCompleted = true;
+            reward += RewardSystem.Calculate(stage.results);
+        }
 
         Save();
-
-        int reward = RewardSystem.Calculate(stage.results);
         return reward;
     }
 
