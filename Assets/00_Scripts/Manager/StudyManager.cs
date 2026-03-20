@@ -191,6 +191,19 @@ public class StudyManager : MonoBehaviour
         return currentDaySession.totalWords[stage.currentIndex];
     }
 
+    public string[] GetRandomMeanings(int count, string exceptMeaning)
+    {
+        string[] result = new string[count];
+        RandomQueue<WordState> rq = new RandomQueue<WordState>(words.Where(w => w.meaning != exceptMeaning));
+        for (int i = 0; i < count; i++)
+        {
+            WordState word = rq.Dequeue();
+            result[i] = word.meaning;
+        }
+
+        return result;
+    }
+
     public void SubmitAnswer(ReviewResult result)
     {
         var stage = GetStageProgress(currentStageDifficulty);
