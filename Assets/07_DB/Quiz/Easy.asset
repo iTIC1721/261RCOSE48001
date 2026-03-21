@@ -15,4 +15,4 @@ MonoBehaviour:
   timeLimit: 999
   maxHp: 999
   correctStayTime: 1
-  incorrectStayTime: 3
+  incorrectStayTime: 2

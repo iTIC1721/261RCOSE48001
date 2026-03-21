@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::QuizSetting
   timeLimit: 5
   maxHp: 5
+  correctStayTime: 1
+  incorrectStayTime: 2
