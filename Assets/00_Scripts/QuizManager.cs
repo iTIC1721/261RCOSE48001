@@ -19,6 +19,10 @@ public class QuizManager : MonoBehaviour
     [SerializeField] Button nextButton; 
     [SerializeField] Button[] choices = new Button[4];
 
+    [Header("Entity")]
+    [SerializeField] Transform damageLayer;
+    [SerializeField] Transform enemy;
+
     [Header("DB")]
     [SerializeField] QuizSetting easySetting;
     [SerializeField] QuizSetting normalSetting;
@@ -31,6 +35,8 @@ public class QuizManager : MonoBehaviour
     private float timeLimit = 5;
     private int hp = 5;
     private int combo = 0;
+
+    private float totalDamage = 0;
 
     private WordState currentWord = null;
 
@@ -173,12 +179,20 @@ public class QuizManager : MonoBehaviour
         Log.LogMessage("적 데미지 입음");
 
         // 기본 데미지를 입히고, (콤보 / 5)번의 추가 데미지를 입힘
-        // TODO: 데미지 UI 표시하기
-        Log.LogMessage(damage);
+        GiveDamage(damage);
         for (int i = 1; i <= combo / 5; i++)
         {
-            Log.LogMessage(damage * (float)i * 0.125f);
+            GiveDamage(damage * (float)i * 0.125f);
         }
+    }
+
+    private void GiveDamage(float damage)
+    {
+        totalDamage += damage;
+
+        var damageTMP = MANAGER.Pool.PoolingObj("StudyDamageTMP").Get((value) => {
+            value.GetComponent<DamageTMP>().Initialize(damageLayer, enemy, Vector3.zero, damage, Color.white);
+        });
     }
 
     private void PlayerHurt()
@@ -195,8 +209,6 @@ public class QuizManager : MonoBehaviour
     private void PlayerDie()
     {
         // TODO: 플레이어 사망 - 게임 오버
-        // 저장된 ReviewResult 제거하기
-        // 사망 UI 표시
         Log.LogMessage("플레이어 사망");
 
         MANAGER.StudyManager.ClearStageProgress();
@@ -220,16 +232,15 @@ public class QuizManager : MonoBehaviour
             if (item.correct) correctCount++;
         }
         float correctRate = (float)correctCount / stageProgress.results.Count;
-        resultPanel.correctRateText.text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
+        resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
 
-        // 복습 개수
-        int reviewCount = MANAGER.StudyManager.currentDaySession.reviewWords.Count;
-        resultPanel.reviewCountText.text = $"오늘의 복습량: {reviewCount}";
+        // 총 데미지
+        resultPanel.descTexts[1].text = $"총 데미지: {Mathf.FloorToInt(totalDamage)}";
 
         // 총 진행도
         int totalCount = MANAGER.StudyManager.words.Count;
         int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.totalWords.Count;
-        resultPanel.totalProgressText.text = $"학습 진행도: {studiedCount}/{totalCount}";
+        resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
 
         // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
 
