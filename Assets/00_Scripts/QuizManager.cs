@@ -8,24 +8,28 @@ using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] QuizResultPanel resultPanel;
     [SerializeField] GameObject diePanel;
     [SerializeField] TextMeshProUGUI wordText;
     [SerializeField] TextMeshProUGUI meaningText;
+    [SerializeField] TextMeshProUGUI leftHpText;
+    [SerializeField] TextMeshProUGUI comboText;
     [SerializeField] Image timeBarFill;
     [SerializeField] Button nextButton; 
     [SerializeField] Button[] choices = new Button[4];
 
+    [Header("DB")]
     [SerializeField] QuizSetting easySetting;
     [SerializeField] QuizSetting normalSetting;
     [SerializeField] QuizSetting hardSetting;
 
+    [Header("Setting")]
     [SerializeField] float baseDamage = 1000;
 
     private Dictionary<StageDifficulty, QuizSetting> quizSettingDict = null;
     private float timeLimit = 5;
     private int hp = 5;
-
     private int combo = 0;
 
     private List<ReviewResult> reviewResults = new List<ReviewResult>();
@@ -51,7 +55,8 @@ public class QuizManager : MonoBehaviour
     private void Start()
     {
         timeLimit = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].timeLimit;
-        hp = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].maxHp;
+        SetHp(quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].maxHp);
+        SetCombo(0);
 
         ShowNextWord();
     }
@@ -119,7 +124,7 @@ public class QuizManager : MonoBehaviour
         {
             Log.LogMessage("정답!");
             corrected = true;
-            combo++;
+            SetCombo(combo + 1);
             stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].correctStayTime;
 
             // 적 데미지 입음
@@ -130,7 +135,7 @@ public class QuizManager : MonoBehaviour
         {
             Log.LogMessage($"오답");
             corrected = false;
-            combo = 0;
+            SetCombo(0);
             stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].incorrectStayTime;
 
             // 플레이어 데미지 입음
@@ -182,7 +187,7 @@ public class QuizManager : MonoBehaviour
     private void PlayerHurt()
     {
         // TODO: 플레이어 데미지 입음
-        hp--;
+        SetHp(hp - 1);
 
         if (hp <= 0)
         {
@@ -238,6 +243,19 @@ public class QuizManager : MonoBehaviour
     {
         SceneManager.LoadScene("StudyDungeon_StageSelect");
     }
+
+    private void SetCombo(int combo)
+    {
+        this.combo = combo;
+        comboText.text = $"콤보: {combo}";
+    }
+
+    private void SetHp(int hp)
+    {
+        this.hp = hp;
+        leftHpText.text = $"남은 체력: {hp}";
+    }
+
 
     private float GetAdditionalDamage(float t)
     {
