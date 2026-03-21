@@ -220,6 +220,16 @@ public class StudyManager : MonoBehaviour
         }
     }
 
+    public void ClearStageProgress()
+    {
+        var stage = GetStageProgress(currentStageDifficulty);
+
+        stage.results.Clear();
+        stage.currentIndex = 0;
+
+        Save();
+    }
+
     public int CompleteStage()
     {
         var stage = GetStageProgress(currentStageDifficulty);

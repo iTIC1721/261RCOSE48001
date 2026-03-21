@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d2fb9d819a3b248ad0bbe451e79344, type: 3}
+  m_Name: Easy
+  m_EditorClassIdentifier: Assembly-CSharp::QuizSetting
+  timeLimit: 999
+  maxHp: 999
+  correctStayTime: 1
+  incorrectStayTime: 3

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -7,37 +9,64 @@ using UnityEngine.UI;
 public class QuizManager : MonoBehaviour
 {
     [SerializeField] QuizResultPanel resultPanel;
+    [SerializeField] GameObject diePanel;
     [SerializeField] TextMeshProUGUI wordText;
     [SerializeField] TextMeshProUGUI meaningText;
+    [SerializeField] Image timeBarFill;
     [SerializeField] Button nextButton; 
     [SerializeField] Button[] choices = new Button[4];
+
+    [SerializeField] QuizSetting easySetting;
+    [SerializeField] QuizSetting normalSetting;
+    [SerializeField] QuizSetting hardSetting;
+
+    [SerializeField] float baseDamage = 1000;
+
+    private Dictionary<StageDifficulty, QuizSetting> quizSettingDict = null;
+    private float timeLimit = 5;
+    private int hp = 5;
+
+    private int combo = 0;
+
+    private List<ReviewResult> reviewResults = new List<ReviewResult>();
 
     private WordState currentWord = null;
 
     private bool corrected = false;
     private float questionStartTime = 0;
-    private float resTime = 0;
+    private float questionResponseTime = 0;
+
+    private bool isSolvingQuiz = false;
+
+    private void Awake()
+    {
+        quizSettingDict = new()
+        {
+            {StageDifficulty.Easy, easySetting},
+            {StageDifficulty.Normal, normalSetting},
+            {StageDifficulty.Hard, hardSetting},
+        };
+    }
 
     private void Start()
     {
+        timeLimit = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].timeLimit;
+        hp = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].maxHp;
+
         ShowNextWord();
+    }
+
+    private void Update()
+    {
+        if (isSolvingQuiz)
+        {
+            float time = Time.time - questionStartTime;
+            timeBarFill.fillAmount = Mathf.Clamp01((timeLimit - time) / timeLimit);
+        }
     }
 
     public void ShowNextWord()
     {
-        if (currentWord != null)
-        {
-            // TODO: 정답 여부 및 응답시간 측정하여 넣기
-            ReviewResult result = new ReviewResult()
-            {
-                word = currentWord,
-                correct = corrected,
-                responseTime = resTime,
-            };
-
-            MANAGER.StudyManager.SubmitAnswer(result);
-        }
-
         WordState nextWord = MANAGER.StudyManager.GetNextWord();
         currentWord = nextWord;
 
@@ -58,32 +87,12 @@ public class QuizManager : MonoBehaviour
             SetChoices(meanings, answerIndex);
 
             questionStartTime = Time.time;
+            isSolvingQuiz = true;
         }
         else
         {
-            // TODO: 끝내기
-            Log.LogMessage("오늘의 학습이 종료되었습니다.");
-
-            // 정답률
-            StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
-            int correctCount = 0;
-            foreach (var item in stageProgress.results)
-            {
-                if (item.correct) correctCount++;
-            }
-            float correctRate = (float)correctCount / stageProgress.results.Count;
-            resultPanel.correctRateText.text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
-
-            // 복습 개수
-            int reviewCount = MANAGER.StudyManager.currentDaySession.reviewWords.Count;
-            resultPanel.reviewCountText.text = $"오늘의 복습량: {reviewCount}";
-
-            // 총 진행도
-            int totalCount = MANAGER.StudyManager.words.Count;
-            int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.totalWords.Count;
-            resultPanel.totalProgressText.text = $"학습 진행도: {studiedCount}/{totalCount}";
-
-            resultPanel.resultPanel.SetActive(true);
+            // 끝내기
+            CompleteStage();
         }
     }
 
@@ -92,32 +101,150 @@ public class QuizManager : MonoBehaviour
         for (int i = 0; i < choices.Length; i++)
         {
             choices[i].GetComponentInChildren<TextMeshProUGUI>().text = meanings[i];
+            choices[i].interactable = true;
+
+            int tmp = i;
             choices[i].onClick.RemoveAllListeners();
-            if (i == answerIndex)
-            {
-                choices[i].onClick.AddListener(() => {
-                    // TODO: 정답버튼 만들기
-                    Log.LogMessage("정답!");
-                    corrected = true;
-                    resTime = Time.time - questionStartTime;
-                    ShowNextWord();
-                });
-            }
-            else
-            {
-                choices[i].onClick.AddListener(() => {
-                    // TODO: 오답버튼 만들기
-                    Log.LogMessage($"오답 - 정답은 \"{meanings[answerIndex]}\"");
-                    corrected = false;
-                    resTime = Time.time - questionStartTime;
-                    ShowNextWord();
-                });
-            }            
+            choices[i].onClick.AddListener(() => SelectAnswer(tmp, answerIndex));
         }
+    }
+
+    private void SelectAnswer(int selectIndex, int answerIndex)
+    {
+        questionResponseTime = Time.time - questionStartTime;
+        isSolvingQuiz = false;
+
+        float stayTime = 0;
+        if (selectIndex == answerIndex)
+        {
+            Log.LogMessage("정답!");
+            corrected = true;
+            combo++;
+            stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].correctStayTime;
+
+            // 적 데미지 입음
+            float damage = baseDamage + GetAdditionalDamage(questionResponseTime) * baseDamage * 0.8f;
+            EnemyHurt(damage);
+        }
+        else
+        {
+            Log.LogMessage($"오답");
+            corrected = false;
+            combo = 0;
+            stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].incorrectStayTime;
+
+            // 플레이어 데미지 입음
+            PlayerHurt();
+        }
+
+        // 결과 기록
+        ReviewResult result = new ReviewResult()
+        {
+            word = currentWord,
+            correct = corrected,
+            responseTime = questionResponseTime,
+        };
+        reviewResults.Add(result);
+        MANAGER.StudyManager.SubmitAnswer(result);
+
+        // 잠시동안 정답 제외 버튼들을 비활성화하여 정답을 표시
+        for (int i = 0; i < choices.Length; i++)
+        {
+            choices[i].onClick.RemoveAllListeners();
+
+            if (i == answerIndex) continue;
+            choices[i].interactable = false;
+        }
+
+        StartCoroutine(ShowNextWordCoroutine(stayTime));
+    }
+
+    private IEnumerator ShowNextWordCoroutine(float stayTime)
+    {
+        yield return new WaitForSeconds(stayTime);
+        ShowNextWord();
+    }
+
+    private void EnemyHurt(float damage)
+    {
+        // TODO: 적 데미지 입음
+        Log.LogMessage("적 데미지 입음");
+
+        // 기본 데미지를 입히고, (콤보 / 5)번의 추가 데미지를 입힘
+        // TODO: 데미지 UI 표시하기
+        Log.LogMessage(damage);
+        for (int i = 1; i <= combo / 5; i++)
+        {
+            Log.LogMessage(damage * (float)i * 0.125f);
+        }
+    }
+
+    private void PlayerHurt()
+    {
+        // TODO: 플레이어 데미지 입음
+        hp--;
+
+        if (hp <= 0)
+        {
+            PlayerDie();
+        }
+    }
+
+    private void PlayerDie()
+    {
+        // TODO: 플레이어 사망 - 게임 오버
+        // 저장된 ReviewResult 제거하기
+        // 사망 UI 표시
+        Log.LogMessage("플레이어 사망");
+
+        MANAGER.StudyManager.ClearStageProgress();
+        diePanel.SetActive(true);
+    }
+
+    private void CompleteStage()
+    {
+        Log.LogMessage("학습이 종료되었습니다.");
+
+        DisplayResult();
+    }
+
+    private void DisplayResult()
+    {
+        // 정답률
+        StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
+        int correctCount = 0;
+        foreach (var item in stageProgress.results)
+        {
+            if (item.correct) correctCount++;
+        }
+        float correctRate = (float)correctCount / stageProgress.results.Count;
+        resultPanel.correctRateText.text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
+
+        // 복습 개수
+        int reviewCount = MANAGER.StudyManager.currentDaySession.reviewWords.Count;
+        resultPanel.reviewCountText.text = $"오늘의 복습량: {reviewCount}";
+
+        // 총 진행도
+        int totalCount = MANAGER.StudyManager.words.Count;
+        int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.totalWords.Count;
+        resultPanel.totalProgressText.text = $"학습 진행도: {studiedCount}/{totalCount}";
+
+        // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
+
+        resultPanel.resultPanel.SetActive(true);
     }
 
     public void Back()
     {
         SceneManager.LoadScene("StudyDungeon_StageSelect");
+    }
+
+    private float GetAdditionalDamage(float t)
+    {
+        if (t <= 1f)
+            return 1f;
+
+        float x = Mathf.Clamp01((t - 1f) / 4f);
+        return Mathf.Exp(-6f * x * x);
     }
 }
