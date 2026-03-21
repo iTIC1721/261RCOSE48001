@@ -5,6 +5,7 @@ public class MANAGER : MonoBehaviour
 {
     public static MANAGER Instance { get; private set; }
 
+    public static PoolManager Pool;
     public static StudyManager StudyManager;
 
     public bool useCustomTime = false;
@@ -20,6 +21,7 @@ public class MANAGER : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             StudyManager = GetComponentInChildren<StudyManager>();
+            Pool = GetComponentInChildren<PoolManager>();
         }
         else
         {
