@@ -72,16 +72,16 @@ public class QuizManager : MonoBehaviour
                 if (item.correct) correctCount++;
             }
             float correctRate = (float)correctCount / stageProgress.results.Count;
-            resultPanel.correctRateText.text = $"Correct Rate: {(correctRate * 100f).ToString("F0")}%";
+            resultPanel.correctRateText.text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
 
             // 복습 개수
             int reviewCount = MANAGER.StudyManager.currentDaySession.reviewWords.Count;
-            resultPanel.reviewCountText.text = $"Review Count: {reviewCount}";
+            resultPanel.reviewCountText.text = $"오늘의 복습량: {reviewCount}";
 
             // 총 진행도
             int totalCount = MANAGER.StudyManager.words.Count;
             int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.totalWords.Count;
-            resultPanel.totalProgressText.text = $"Total Progress: {studiedCount}/{totalCount}";
+            resultPanel.totalProgressText.text = $"학습 진행도: {studiedCount}/{totalCount}";
 
             resultPanel.resultPanel.SetActive(true);
         }

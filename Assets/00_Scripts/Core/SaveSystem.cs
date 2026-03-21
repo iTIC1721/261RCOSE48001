@@ -28,7 +28,7 @@ public static class SaveSystem
         if (!File.Exists(path))
             return null;
 
-        string json = File.ReadAllText(path);
+        string json = File.ReadAllText(path, System.Text.Encoding.UTF8);
         return JsonUtility.FromJson<SaveData>(json);
     }
 }
