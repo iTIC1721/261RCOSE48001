@@ -32,8 +32,6 @@ public class QuizManager : MonoBehaviour
     private int hp = 5;
     private int combo = 0;
 
-    private List<ReviewResult> reviewResults = new List<ReviewResult>();
-
     private WordState currentWord = null;
 
     private bool corrected = false;
@@ -149,7 +147,6 @@ public class QuizManager : MonoBehaviour
             correct = corrected,
             responseTime = questionResponseTime,
         };
-        reviewResults.Add(result);
         MANAGER.StudyManager.SubmitAnswer(result);
 
         // 잠시동안 정답 제외 버튼들을 비활성화하여 정답을 표시
