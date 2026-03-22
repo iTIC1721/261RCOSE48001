@@ -10,7 +10,7 @@ public static class CustomTime
     {
         if (useCustomTime)
         {
-            return customToday;
+            return new DateTime(MANAGER.Instance.year, MANAGER.Instance.month, MANAGER.Instance.day);
         }
         else
         {
