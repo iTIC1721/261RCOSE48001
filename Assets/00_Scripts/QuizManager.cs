@@ -48,6 +48,7 @@ public class QuizManager : MonoBehaviour
     private float questionResponseTime = 0;
 
     private bool isSolvingQuiz = false;
+    private bool isDied = false;
 
     private void Awake()
     {
@@ -200,6 +201,8 @@ public class QuizManager : MonoBehaviour
 
     private IEnumerator ShowNextWordCoroutine(float stayTime)
     {
+        if (isDied) yield break;
+
         yield return new WaitForSeconds(stayTime);
         ShowNextWord();
     }
@@ -244,6 +247,8 @@ public class QuizManager : MonoBehaviour
     {
         // TODO: 플레이어 사망 - 게임 오버
         Log.LogMessage("플레이어 사망");
+
+        isDied = true;
 
         MANAGER.StudyManager.ClearStageProgress(MANAGER.StudyManager.currentStageDifficulty);
         diePanel.SetActive(true);
