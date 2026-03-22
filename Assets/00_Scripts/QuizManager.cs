@@ -280,7 +280,7 @@ public class QuizManager : MonoBehaviour
 
         // 총 진행도
         int totalCount = MANAGER.StudyManager.words.Count;
-        int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.totalWords.Count;
+        int studiedCount = MANAGER.StudyManager.words.Where(w => w.isLearned).Count() + MANAGER.StudyManager.currentDaySession.newWords.Count;
         resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
 
         // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
