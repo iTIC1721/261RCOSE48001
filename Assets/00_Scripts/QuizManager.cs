@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class QuizManager : MonoBehaviour
 {
     [Header("UI")]
+    [SerializeField] ShakeUI shakeLayer;
+    [SerializeField] DamageEffect damageEffect;
     [SerializeField] QuizResultPanel resultPanel;
     [SerializeField] GameObject diePanel;
     [SerializeField] TextMeshProUGUI wordText;
@@ -206,6 +208,7 @@ public class QuizManager : MonoBehaviour
     {
         // TODO: 적 데미지 입음
         Log.LogMessage("적 데미지 입음");
+        shakeLayer.Shake(0.5f + combo * 0.02f, true);
 
         // 기본 데미지를 입히고, (콤보 / 5)번의 추가 데미지를 입힘
         GiveDamage(damage);
@@ -228,6 +231,8 @@ public class QuizManager : MonoBehaviour
     {
         // TODO: 플레이어 데미지 입음
         SetHp(hp - 1);
+        shakeLayer.Shake(2, true);
+        damageEffect.OnDamage();
 
         if (hp <= 0)
         {
