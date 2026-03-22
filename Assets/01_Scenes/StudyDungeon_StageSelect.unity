@@ -2152,6 +2152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageView
   scrollView: {fileID: 1760206991}
   content: {fileID: 1880790338}
+  viewport: {fileID: 1519890862}
   stageSelectPanel: {fileID: 2128029578}
   marginY: 300
   spaceY: 200
@@ -2160,7 +2161,6 @@ MonoBehaviour:
   currentStagePrefab: {fileID: 2063961903306345471, guid: 4ba8f21604ee22c48bfdc714da14b601, type: 3}
   pastStagePrefab: {fileID: 2063961903306345471, guid: dadaa67bcc4f9274fbcc47d1efcaea8c, type: 3}
   futureStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
-  lastStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
 --- !u!1 &1835486268
 GameObject:
   m_ObjectHideFlags: 0

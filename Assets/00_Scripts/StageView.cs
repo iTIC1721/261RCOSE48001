@@ -2,11 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class StageView : MonoBehaviour
 {
     [SerializeField] ScrollRect scrollView;
     [SerializeField] RectTransform content;
+    [SerializeField] RectTransform viewport;
     [SerializeField] StageSelectPanel stageSelectPanel;
 
     [SerializeField] float marginY = 300;
@@ -17,7 +19,6 @@ public class StageView : MonoBehaviour
     [SerializeField] GameObject currentStagePrefab;
     [SerializeField] GameObject pastStagePrefab;
     [SerializeField] GameObject futureStagePrefab;
-    [SerializeField] GameObject lastStagePrefab;
 
     List<GameObject> stages = new();
 
@@ -38,15 +39,14 @@ public class StageView : MonoBehaviour
             pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y * (currentDay - 1) +
             currentStagePrefab.GetComponent<RectTransform>().sizeDelta.y +
             futureStagePrefab.GetComponent<RectTransform>().sizeDelta.y * leftDays +
-            lastStagePrefab.GetComponent<RectTransform>().sizeDelta.y +
             spaceY * (totalStageCount - 1) +
             marginY * 2;
+        totalSizeY = Mathf.Max(totalSizeY, viewport.rect.height);
 
         for (int i = 0; i < totalStageCount; i++)
         {
             GameObject stagePrefab;
-            if (i == totalStageCount - 1) stagePrefab = lastStagePrefab;
-            else if (i < currentDay) stagePrefab = pastStagePrefab;
+            if (i < currentDay) stagePrefab = pastStagePrefab;
             else if (i > currentDay) stagePrefab = futureStagePrefab;
             else stagePrefab = currentStagePrefab;
 
@@ -55,8 +55,7 @@ public class StageView : MonoBehaviour
             for (int j = 0; j < i; j++)
             {
                 float tmpY = 0;
-                if (j == totalStageCount - 1) tmpY = lastStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
-                else if (j < currentDay) tmpY = pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
+                if (j < currentDay) tmpY = pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
                 else if (j > currentDay) tmpY = futureStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
                 else tmpY = currentStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
 
@@ -81,7 +80,11 @@ public class StageView : MonoBehaviour
         content.sizeDelta = new Vector2(content.sizeDelta.x, totalSizeY);
 
         // 스크롤 이동
-        scrollView.normalizedPosition = new Vector2(0, stages[currentDay].GetComponent<RectTransform>().anchoredPosition.y / totalSizeY);
+        Bounds contentBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(content);
+        Bounds targetBounds = RectTransformUtility.CalculateRelativeRectTransformBounds(content, stages[currentDay].GetComponent<RectTransform>());
+        float targetY = contentBounds.max.y - targetBounds.center.y + viewport.rect.y * 0.5f;
+        float scrollableHeight = content.rect.height - viewport.rect.height;
+        scrollView.normalizedPosition = new Vector2(0.5f, Mathf.Clamp01(1 - (targetY / scrollableHeight)));
     }
 
     private float GetRandomPosX(int index, string seed, float minX, float maxX)
