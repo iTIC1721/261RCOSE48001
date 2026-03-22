@@ -1745,9 +1745,12 @@ MonoBehaviour:
   spaceY: 200
   minX: -200
   maxX: 200
+  pathLineCount: 10
+  pathCurvature: 0.5
   currentStagePrefab: {fileID: 2063961903306345471, guid: 4ba8f21604ee22c48bfdc714da14b601, type: 3}
   pastStagePrefab: {fileID: 2063961903306345471, guid: dadaa67bcc4f9274fbcc47d1efcaea8c, type: 3}
   futureStagePrefab: {fileID: 2063961903306345471, guid: 1776034c9d7991a42aa75673ec37ca61, type: 3}
+  pathPrefab: {fileID: 8390464895800787395, guid: 927738255c7811d4a92c62fcc68c50db, type: 3}
 --- !u!1 &1835486268
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,7 +2350,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128029577
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2390,10 +2393,6 @@ MonoBehaviour:
   - {fileID: 1183888862}
   - {fileID: 857814294}
   - {fileID: 862172158}
-  progressText:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

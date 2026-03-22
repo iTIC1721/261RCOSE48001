@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,20 +7,26 @@ using static UnityEngine.GraphicsBuffer;
 
 public class StageView : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] ScrollRect scrollView;
     [SerializeField] RectTransform content;
     [SerializeField] RectTransform viewport;
     [SerializeField] StageSelectPanel stageSelectPanel;
 
+    [Header("Setting")]
     [SerializeField] float upperMarginY = 300;
     [SerializeField] float belowMarginY = 300;
     [SerializeField] float spaceY = 100;
     [SerializeField] float minX = 100;
     [SerializeField] float maxX = 100;
+    [SerializeField] int pathLineCount = 10;
+    [SerializeField] float pathCurvature = 0.5f;
 
+    [Header("Prefab")]
     [SerializeField] GameObject currentStagePrefab;
     [SerializeField] GameObject pastStagePrefab;
     [SerializeField] GameObject futureStagePrefab;
+    [SerializeField] GameObject pathPrefab;
 
     List<GameObject> stages = new();
 
@@ -77,6 +84,34 @@ public class StageView : MonoBehaviour
             }
 
             stages.Add(stage);
+        }
+
+        // 노드끼리 연결하는 곡선 path 생성
+        for (int i = 0; i < stages.Count - 1; i++)
+        {
+            RectTransform start = stages[i].transform.Find("Top").GetComponent<RectTransform>();
+            RectTransform end = stages[i + 1].transform.Find("Bottom").GetComponent<RectTransform>();
+
+            Vector2 P0 = start.position;
+            Vector2 P3 = end.position;
+
+            Vector2 P1 = new Vector2(P0.x, P0.y + spaceY * pathCurvature);
+            Vector2 P2 = new Vector2(P3.x, P3.y - spaceY * pathCurvature);
+
+            List<RectTransform> points = new List<RectTransform>();
+            points.Add(start);
+            for (int j = 0; j < pathLineCount - 1; j++)
+            {
+                RectTransform inter = (new GameObject("interpoint", typeof(RectTransform))).GetComponent<RectTransform>();
+                inter.SetParent(stages[i].transform, false);
+                inter.position = Math.Bezier(P0, P1, P2, P3, (float)(j + 1) / pathLineCount);
+                points.Add(inter);
+            }
+            points.Add(end);
+
+            var path = Instantiate(pathPrefab, stages[i].transform);
+            LineDrawer ld = path.GetComponent<LineDrawer>();
+            ld.points = points.ToArray();
         }
 
         // content 크기 조정
