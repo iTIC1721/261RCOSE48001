@@ -240,7 +240,7 @@ public class QuizManager : MonoBehaviour
         // TODO: 플레이어 사망 - 게임 오버
         Log.LogMessage("플레이어 사망");
 
-        MANAGER.StudyManager.ClearStageProgress();
+        MANAGER.StudyManager.ClearStageProgress(MANAGER.StudyManager.currentStageDifficulty);
         diePanel.SetActive(true);
     }
 

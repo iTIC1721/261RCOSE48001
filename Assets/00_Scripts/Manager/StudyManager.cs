@@ -72,6 +72,16 @@ public class StudyManager : MonoBehaviour
         // 오늘 세션이 이미 진행 중이면 그대로 사용
         if (!currentDaySession.IsNull() && currentDaySession.dayIndex == GetCurrentDay())
         {
+            // 미완료된 스테이지가 있다면 초기화
+            for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
+            {
+                StageDifficulty diff = (StageDifficulty)d;
+                if (!MANAGER.StudyManager.GetStageProgress(diff).isCompleted)
+                {
+                    ClearStageProgress(diff);
+                }
+            }
+
             return;
         }
 
@@ -220,9 +230,9 @@ public class StudyManager : MonoBehaviour
         }
     }
 
-    public void ClearStageProgress()
+    public void ClearStageProgress(StageDifficulty diff)
     {
-        var stage = GetStageProgress(currentStageDifficulty);
+        var stage = GetStageProgress(diff);
 
         stage.results.Clear();
         stage.currentIndex = 0;

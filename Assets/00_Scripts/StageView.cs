@@ -35,6 +35,7 @@ public class StageView : MonoBehaviour
         int leftDays = /*MANAGER.StudyManager.PredictLeftDays()*/ 0;
         int currentDay = MANAGER.StudyManager.GetCurrentDay();
 
+        // 스테이지 노드 생성
         int totalStageCount = leftDays + currentDay + 1;
         float totalSizeY =
             pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y * currentDay +
