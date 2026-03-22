@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/01_Scenes/Main.unity
+    guid: acdc517d891448b4d9e78c58e78fcba7
+  - enabled: 1
     path: Assets/01_Scenes/StudyDungeon_DeckSelect.unity
     guid: 2c31c57f1f55a904dbc2ddd337ed5b81
   - enabled: 1
