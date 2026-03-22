@@ -32,7 +32,7 @@ public class StageView : MonoBehaviour
     {
         MANAGER.StudyManager.StartToday();
 
-        int leftDays = /*MANAGER.StudyManager.PredictLeftDays()*/0;
+        int leftDays = /*MANAGER.StudyManager.PredictLeftDays()*/ 0;
         int currentDay = MANAGER.StudyManager.GetCurrentDay();
 
         int totalStageCount = leftDays + currentDay + 1;
@@ -67,6 +67,7 @@ public class StageView : MonoBehaviour
             GameObject stage = Instantiate(stagePrefab, content);
             RectTransform stageTr = stage.GetComponent<RectTransform>();
             stageTr.anchoredPosition = new Vector2(x, y);
+            stage.GetComponent<StageButton>().dayText.text = $"{i + 1}ÀÏÂ÷";
             if (i == currentDay)
             {
                 stage.GetComponent<Button>().onClick.AddListener(() => {
