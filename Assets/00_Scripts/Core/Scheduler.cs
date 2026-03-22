@@ -17,8 +17,8 @@ public class Scheduler
 
     public (int newCount, int reviewCount) DecideDailyLoad(int dailyLimit, int reviewDue, float LSS)
     {
-        // 하루 최소 10%는 신규 단어를 공부하도록 함
-        int reviewCount = Mathf.Min(reviewDue, (int)(dailyLimit * 0.9f));
+        // TODO: 신규 단어 개수 / 복습 최대 개수 분리하여 입력받기
+        int reviewCount = Mathf.Min(reviewDue, dailyLimit);
 
         int remaining = dailyLimit - reviewCount;
 
@@ -26,7 +26,7 @@ public class Scheduler
             (LSS > 0.8f) ? 0.6f :
             (LSS < 0.6f) ? 0.3f : 0.5f;
 
-        int newCount = Mathf.RoundToInt(remaining * ratio);
+        int newCount = 20;
 
         return (newCount, reviewCount);
     }

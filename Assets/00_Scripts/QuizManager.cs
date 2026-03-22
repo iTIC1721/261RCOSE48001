@@ -17,6 +17,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI meaningText;
     [SerializeField] TextMeshProUGUI leftHpText;
     [SerializeField] TextMeshProUGUI comboText;
+    [SerializeField] TextMeshProUGUI progressText;
     [SerializeField] Image timeBarFill;
     [SerializeField] Button nextButton; 
     [SerializeField] Button[] choices = new Button[4];
@@ -115,6 +116,7 @@ public class QuizManager : MonoBehaviour
         {
             wordText.text = currentWord.word;
             meaningText.text = currentWord.meaning;
+            progressText.text = $"진행도: {MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).currentIndex + 1} / {MANAGER.StudyManager.currentDaySession.totalWords.Count}";
 
             // 선택지
             string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, currentWord.meaning);
