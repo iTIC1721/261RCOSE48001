@@ -104,7 +104,7 @@ public class StageView : MonoBehaviour
             {
                 RectTransform inter = (new GameObject("interpoint", typeof(RectTransform))).GetComponent<RectTransform>();
                 inter.SetParent(stages[i].transform, false);
-                inter.position = Math.Bezier(P0, P1, P2, P3, (float)(j + 1) / pathLineCount);
+                inter.position = MyMath.Bezier(P0, P1, P2, P3, (float)(j + 1) / pathLineCount);
                 points.Add(inter);
             }
             points.Add(end);
