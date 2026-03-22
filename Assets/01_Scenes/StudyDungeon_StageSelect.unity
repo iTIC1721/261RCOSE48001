@@ -2154,7 +2154,8 @@ MonoBehaviour:
   content: {fileID: 1880790338}
   viewport: {fileID: 1519890862}
   stageSelectPanel: {fileID: 2128029578}
-  marginY: 300
+  upperMarginY: 960
+  belowMarginY: 300
   spaceY: 200
   minX: -200
   maxX: 200

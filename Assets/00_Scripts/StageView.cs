@@ -11,7 +11,8 @@ public class StageView : MonoBehaviour
     [SerializeField] RectTransform viewport;
     [SerializeField] StageSelectPanel stageSelectPanel;
 
-    [SerializeField] float marginY = 300;
+    [SerializeField] float upperMarginY = 300;
+    [SerializeField] float belowMarginY = 300;
     [SerializeField] float spaceY = 100;
     [SerializeField] float minX = 100;
     [SerializeField] float maxX = 100;
@@ -31,16 +32,16 @@ public class StageView : MonoBehaviour
     {
         MANAGER.StudyManager.StartToday();
 
-        int leftDays = MANAGER.StudyManager.PredictLeftDays();
+        int leftDays = /*MANAGER.StudyManager.PredictLeftDays()*/0;
         int currentDay = MANAGER.StudyManager.GetCurrentDay();
 
-        int totalStageCount = leftDays + currentDay;
+        int totalStageCount = leftDays + currentDay + 1;
         float totalSizeY =
-            pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y * (currentDay - 1) +
+            pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y * currentDay +
             currentStagePrefab.GetComponent<RectTransform>().sizeDelta.y +
             futureStagePrefab.GetComponent<RectTransform>().sizeDelta.y * leftDays +
             spaceY * (totalStageCount - 1) +
-            marginY * 2;
+            upperMarginY + belowMarginY;
         totalSizeY = Mathf.Max(totalSizeY, viewport.rect.height);
 
         for (int i = 0; i < totalStageCount; i++)
@@ -61,7 +62,7 @@ public class StageView : MonoBehaviour
 
                 y += tmpY + spaceY;
             }
-            y -= totalSizeY * 0.5f - marginY;
+            y -= totalSizeY * 0.5f - belowMarginY;
 
             GameObject stage = Instantiate(stagePrefab, content);
             RectTransform stageTr = stage.GetComponent<RectTransform>();
