@@ -21,7 +21,7 @@ public class StudyManager : MonoBehaviour
 
     public void Save()
     {
-        var data = SaveSystem.Load(deckId);
+        var data = SaveSystem.LoadDeck(deckId);
         
         data.words = words;
 
@@ -32,12 +32,12 @@ public class StudyManager : MonoBehaviour
 
         data.currentSession = currentDaySession;
 
-        SaveSystem.Save(data);
+        SaveSystem.SaveDeck(data);
     }
 
     public void Load(string deckId)
     {
-        var data = SaveSystem.Load(deckId);
+        var data = SaveSystem.LoadDeck(deckId);
 
         if (data != null)
         {
@@ -226,7 +226,9 @@ public class StudyManager : MonoBehaviour
         if (stage.currentIndex >= currentDaySession.totalWords.Count)
         {
             int reward = CompleteStage();
+            // 보상 지급
             Log.LogMessage($"Reward: {reward}");
+            MANAGER.Inventory.AddMoney(reward);
         }
     }
 
@@ -257,7 +259,7 @@ public class StudyManager : MonoBehaviour
         {
             var s = GetStageProgress((StageDifficulty)i);
             s.isCompleted = true;
-            reward += RewardSystem.Calculate(stage.results);
+            reward += RewardSystem.CalculateReward((StageDifficulty)i);
         }
 
         Save();

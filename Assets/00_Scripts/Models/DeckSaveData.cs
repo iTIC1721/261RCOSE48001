@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class SaveData
+public class DeckSaveData
 {
     public string deckId;
     public string deckName;

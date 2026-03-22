@@ -7,6 +7,7 @@ public class MANAGER : MonoBehaviour
 
     public static PoolManager Pool;
     public static StudyManager StudyManager;
+    public static InventoryManager Inventory;
 
     public bool useCustomTime = false;
     public int year = DateTime.Now.Year;
@@ -22,6 +23,7 @@ public class MANAGER : MonoBehaviour
 
             StudyManager = GetComponentInChildren<StudyManager>();
             Pool = GetComponentInChildren<PoolManager>();
+            Inventory = GetComponentInChildren<InventoryManager>();
         }
         else
         {

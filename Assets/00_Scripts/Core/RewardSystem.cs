@@ -2,20 +2,18 @@ using System.Collections.Generic;
 
 public static class RewardSystem
 {
-    public static int Calculate(List<ReviewResult> results)
+    public static int CalculateReward(StageDifficulty diff)
     {
-        int reward = 0;
-
-        foreach (var r in results)
+        switch (diff)
         {
-            int baseVal = 10;
-
-            if (r.correct) baseVal += 5;
-            if (r.responseTime < 1.5f) baseVal += 3;
-
-            reward += baseVal;
+            case StageDifficulty.Easy:
+                return 20;
+            case StageDifficulty.Normal:
+                return 50;
+            case StageDifficulty.Hard:
+                return 100;
         }
 
-        return reward;
+        return 0;
     }
 }

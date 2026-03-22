@@ -79,7 +79,7 @@ public class QuizManager : MonoBehaviour
 
             if (timeLimit - time <= 0)
             {
-                // TODO: 오답 처리
+                // 오답 처리
                 SelectAnswer(-1, currentAnswer);
             }
         }
@@ -211,7 +211,7 @@ public class QuizManager : MonoBehaviour
 
     private void EnemyHurt(float damage)
     {
-        // TODO: 적 데미지 입음
+        // 적 데미지 입음
         Log.LogMessage("적 데미지 입음");
         shakeLayer.Shake(0.5f + combo * 0.02f, true);
 
@@ -234,7 +234,7 @@ public class QuizManager : MonoBehaviour
 
     private void PlayerHurt()
     {
-        // TODO: 플레이어 데미지 입음
+        // 플레이어 데미지 입음
         SetHp(hp - 1);
         shakeLayer.Shake(2, true);
         damageEffect.OnDamage();
@@ -247,7 +247,7 @@ public class QuizManager : MonoBehaviour
 
     private void PlayerDie()
     {
-        // TODO: 플레이어 사망 - 게임 오버
+        // 플레이어 사망 - 게임 오버
         Log.LogMessage("플레이어 사망");
 
         isDied = true;

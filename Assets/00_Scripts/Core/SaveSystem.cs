@@ -1,6 +1,12 @@
 using System.IO;
 using UnityEngine;
 
+public enum SaveType
+{
+    Deck,
+    Inventory
+}
+
 public static class SaveSystem
 {
     public static string GetSavePath()
@@ -8,27 +14,63 @@ public static class SaveSystem
         return Application.persistentDataPath;
     }
 
-    static string GetPath(string deckId)
+    #region Deck
+    public static string GetDeckDirectory()
     {
-        return GetSavePath() + $"/save_{deckId}.json";
+        string folderPath = GetSavePath() + "/deck";
+        Directory.CreateDirectory(folderPath);
+
+        return folderPath;
     }
 
-    public static void Save(SaveData data)
+    static string GetDeckPath(string deckId)
+    {
+        return GetDeckDirectory() + $"/save_{deckId}.json";
+    }
+
+    public static void SaveDeck(DeckSaveData data)
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(GetPath(data.deckId), json);
+        File.WriteAllText(GetDeckPath(data.deckId), json);
 
-        Log.LogMessage($"Saved Deck: {GetPath(data.deckId)}");
+        Log.LogMessage($"Saved Deck: {GetDeckPath(data.deckId)}");
     }
 
-    public static SaveData Load(string deckId)
+    public static DeckSaveData LoadDeck(string deckId)
     {
-        string path = GetPath(deckId);
+        string path = GetDeckPath(deckId);
 
         if (!File.Exists(path))
             return null;
 
         string json = File.ReadAllText(path, System.Text.Encoding.UTF8);
-        return JsonUtility.FromJson<SaveData>(json);
+        return JsonUtility.FromJson<DeckSaveData>(json);
     }
+    #endregion
+
+    #region Inventory
+    static string GetInventoryPath()
+    {
+        return GetSavePath() + $"/save_inven.json";
+    }
+
+    public static void SaveInventory(InventorySaveData data)
+    {
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(GetInventoryPath(), json);
+
+        Log.LogMessage($"Saved Inventory: {GetInventoryPath()}");
+    }
+
+    public static InventorySaveData LoadInventory()
+    {
+        string path = GetInventoryPath();
+
+        if (!File.Exists(path))
+            return null;
+
+        string json = File.ReadAllText(path, System.Text.Encoding.UTF8);
+        return JsonUtility.FromJson<InventorySaveData>(json);
+    }
+    #endregion
 }

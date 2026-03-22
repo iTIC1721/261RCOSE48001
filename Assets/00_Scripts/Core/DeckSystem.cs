@@ -20,14 +20,13 @@ public static class DeckSystem
     {
         List<DeckInfo> decks = new();
 
-        string path = SaveSystem.GetSavePath();
-
+        string path = SaveSystem.GetDeckDirectory();
         var files = Directory.GetFiles(path, "save_*.json");
 
         foreach (var file in files)
         {
             string json = File.ReadAllText(file);
-            SaveData data = JsonUtility.FromJson<SaveData>(json);
+            DeckSaveData data = JsonUtility.FromJson<DeckSaveData>(json);
 
             DeckInfo info = GetDeckInfo(data);
 
@@ -37,7 +36,7 @@ public static class DeckSystem
         return decks.OrderBy(d => d.deckName).ToList();
     }
 
-    public static DeckInfo GetDeckInfo(SaveData data)
+    public static DeckInfo GetDeckInfo(DeckSaveData data)
     {
         DeckInfo info = new DeckInfo();
 
@@ -69,7 +68,7 @@ public static class DeckSystem
 
         var words = CSVLoader.Load(csvPath);
 
-        SaveData data = new SaveData();
+        DeckSaveData data = new DeckSaveData();
 
         data.deckId = deckId;
         data.deckName = deckName;
@@ -84,14 +83,14 @@ public static class DeckSystem
 
         data.currentSession = null;
 
-        SaveSystem.Save(data);
+        SaveSystem.SaveDeck(data);
 
         return deckId;
     }
 
     public static bool DeleteDeck(string deckId)
     {
-        string path = Application.persistentDataPath + $"/save_{deckId}.json";
+        string path = SaveSystem.GetDeckDirectory() + $"/save_{deckId}.json";
 
         if (!File.Exists(path))
             return false;
@@ -103,12 +102,12 @@ public static class DeckSystem
 
     public static void RenameDeck(string deckId, string newName)
     {
-        var data = SaveSystem.Load(deckId);
+        var data = SaveSystem.LoadDeck(deckId);
 
         if (data == null) return;
 
         data.deckName = newName;
 
-        SaveSystem.Save(data);
+        SaveSystem.SaveDeck(data);
     }
 }
