@@ -63,7 +63,7 @@ public class QuizManager : MonoBehaviour
         SetHp(quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].maxHp);
         SetCombo(0);
 
-        ShowNextWord();
+        StartQuiz();
     }
 
     private void Update()
@@ -79,6 +79,28 @@ public class QuizManager : MonoBehaviour
                 SelectAnswer(-1, currentAnswer);
             }
         }
+    }
+    
+    public void StartQuiz()
+    {
+        StartCoroutine(CountDownCoroutine());
+    }
+
+    private IEnumerator CountDownCoroutine()
+    {
+        wordText.text = "준비";
+        yield return new WaitForSeconds(1);
+
+        for (int i = 3; i >= 1; i--)
+        {
+            wordText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
+
+        wordText.text = "시작!";
+        yield return new WaitForSeconds(1);
+
+        ShowNextWord();
     }
 
     public void ShowNextWord()
