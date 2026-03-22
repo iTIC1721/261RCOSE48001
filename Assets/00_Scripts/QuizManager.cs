@@ -39,6 +39,7 @@ public class QuizManager : MonoBehaviour
     private float totalDamage = 0;
 
     private WordState currentWord = null;
+    private int currentAnswer = -1;
 
     private bool corrected = false;
     private float questionStartTime = 0;
@@ -71,6 +72,12 @@ public class QuizManager : MonoBehaviour
         {
             float time = Time.time - questionStartTime;
             timeBarFill.fillAmount = Mathf.Clamp01((timeLimit - time) / timeLimit);
+
+            if (timeLimit - time <= 0)
+            {
+                // TODO: 오답 처리
+                SelectAnswer(-1, currentAnswer);
+            }
         }
     }
 
@@ -86,14 +93,14 @@ public class QuizManager : MonoBehaviour
 
             // 선택지
             string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, currentWord.meaning);
-            int answerIndex = UnityEngine.Random.Range(0, 4);
+            currentAnswer = UnityEngine.Random.Range(0, 4);
             string[] meanings = new string[4];
             for (int i = 0, j = 0; i < 4; i++)
             {
-                if (i == answerIndex) meanings[i] = currentWord.meaning;
+                if (i == currentAnswer) meanings[i] = currentWord.meaning;
                 else meanings[i] = wrongMeanings[j++];
             }
-            SetChoices(meanings, answerIndex);
+            SetChoices(meanings, currentAnswer);
 
             questionStartTime = Time.time;
             isSolvingQuiz = true;
