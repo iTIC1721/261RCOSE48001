@@ -32,7 +32,7 @@ public class DeckView : MonoBehaviour
         deckBtn.GetComponent<DeckButton>().deckNameText.text = deckInfo.deckName;
         deckBtn.GetComponent<DeckButton>().deckId = deckInfo.deckId;
 
-        deckBtn.GetComponent<Button>().onClick.AddListener(() => {
+        deckBtn.GetComponent<DeckButton>().AddEvent(() => {
             Log.LogMessage(SaveSystem.Load(deckInfo.deckId).ToString());
             MANAGER.StudyManager.Load(deckInfo.deckId);
 
