@@ -58,10 +58,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab31f5e69faf5714180b778bc5ac3a83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageTMP
-  gravity: 500
+  gravity: 1000
   lifeTime: 1
-  randomRangeX: {x: -100, y: 100}
-  randomRangeY: {x: -50, y: -100}
+  randomRangeX: {x: -200, y: 200}
+  randomRangeY: {x: -100, y: -200}
 --- !u!114 &7881292880810355483
 MonoBehaviour:
   m_ObjectHideFlags: 0

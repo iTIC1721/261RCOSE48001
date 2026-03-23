@@ -15,4 +15,4 @@ MonoBehaviour:
   id: 0
   hp: 10
   damage: 10
-  character: {fileID: 3681194846285922753, guid: 26f84015598d3d0499c8b6fa2fa66923, type: 3}
+  monster: {fileID: 3681194846285922753, guid: 26f84015598d3d0499c8b6fa2fa66923, type: 3}
