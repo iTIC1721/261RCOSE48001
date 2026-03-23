@@ -49,28 +49,28 @@ public static class SaveSystem
     #endregion
 
     #region Inventory
-    static string GetInventoryPath()
+    static string GetPlayerDataPath()
     {
-        return GetSavePath() + $"/save_inven.json";
+        return GetSavePath() + $"/player.json";
     }
 
-    public static void SaveInventory(InventorySaveData data)
+    public static void SavePlayerData(PlayerSaveData data)
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(GetInventoryPath(), json);
+        File.WriteAllText(GetPlayerDataPath(), json);
 
-        Log.LogMessage($"Saved Inventory: {GetInventoryPath()}");
+        Log.LogMessage($"Saved Inventory: {GetPlayerDataPath()}");
     }
 
-    public static InventorySaveData LoadInventory()
+    public static PlayerSaveData LoadPlayerData()
     {
-        string path = GetInventoryPath();
+        string path = GetPlayerDataPath();
 
         if (!File.Exists(path))
             return null;
 
         string json = File.ReadAllText(path, System.Text.Encoding.UTF8);
-        return JsonUtility.FromJson<InventorySaveData>(json);
+        return JsonUtility.FromJson<PlayerSaveData>(json);
     }
     #endregion
 }

@@ -1,7 +1,8 @@
 using System;
 
 [Serializable]
-public class InventorySaveData
+public class PlayerSaveData
 {
     public int money;
+    public int characterId;
 }
