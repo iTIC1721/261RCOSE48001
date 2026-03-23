@@ -1760,6 +1760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DBManager
   characterDB: {fileID: 11400000, guid: 6acbf5de96b5ebf45a0fce09012b904e, type: 2}
+  monsterDB: {fileID: 11400000, guid: 1e0b7054335a954488d8a94de4c947aa, type: 2}
 --- !u!1 &2108824571
 GameObject:
   m_ObjectHideFlags: 0

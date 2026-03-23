@@ -24,8 +24,9 @@ public class QuizManager : MonoBehaviour
 
     [Header("Entity")]
     [SerializeField] Transform playerPos;
+    [SerializeField] Transform monsterPos;
     [SerializeField] Transform damageLayer;
-    [SerializeField] Transform enemy;
+    //[SerializeField] Transform enemy;
 
     [Header("DB")]
     [SerializeField] QuizSetting easySetting;
@@ -41,6 +42,7 @@ public class QuizManager : MonoBehaviour
     private int combo = 0;
 
     private Player player;
+    private Monster monster;
 
     private float totalDamage = 0;
 
@@ -73,14 +75,21 @@ public class QuizManager : MonoBehaviour
         // 캐릭터 생성
         PlayerSaveData data = SaveSystem.LoadPlayerData();
         if (data == null) data = new PlayerSaveData();
-        int characterId = data.characterId;
 
+        int characterId = data.characterId;
         var playerObj = Instantiate(MANAGER.DB.characterDB.GetCharacterData(characterId).character, playerPos);
         playerObj.transform.localPosition = new Vector3(0, 0, playerObj.transform.localPosition.z);
         playerObj.transform.localScale = new Vector3(-1, 1, 1);
         playerObj.GetComponent<Player>().enableMove = false;
         playerObj.GetComponent<Player>().enableAttack = false;
         player = playerObj.GetComponent<Player>();
+
+        // 몬스터 생성
+        int monsterId = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].monsterId;
+        var monsterObj = Instantiate(MANAGER.DB.monsterDB.GetMonsterData(monsterId).monster, monsterPos);
+        monsterObj.transform.localPosition = new Vector3(0, 0, monsterObj.transform.localPosition.z);
+        monsterObj.transform.localScale = new Vector3(1, 1, 1);
+        monster = monsterObj.GetComponent<Monster>();
 
         StartQuiz();
     }
@@ -193,6 +202,7 @@ public class QuizManager : MonoBehaviour
             stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].incorrectStayTime;
 
             // 플레이어 데미지 입음
+            monster.Attack();
             PlayerHurt();
         }
 
@@ -231,6 +241,8 @@ public class QuizManager : MonoBehaviour
         Log.LogMessage("적 데미지 입음");
         shakeLayer.Shake(0.5f + combo * 0.02f, true);
 
+        monster.GetDamaged();
+
         // 기본 데미지를 입히고, (콤보 / 5)번의 추가 데미지를 입힘
         GiveDamage(damage);
         for (int i = 1; i <= combo / 5; i++)
@@ -244,7 +256,7 @@ public class QuizManager : MonoBehaviour
         totalDamage += damage;
 
         var damageTMP = MANAGER.Pool.PoolingObj("StudyDamageTMP").Get((value) => {
-            value.GetComponent<DamageTMP>().Initialize(damageLayer, enemy, Vector3.zero, damage, Color.white);
+            value.GetComponent<DamageTMP>().Initialize(damageLayer, monster.transform, Vector3.zero, damage, Color.white);
         });
     }
 

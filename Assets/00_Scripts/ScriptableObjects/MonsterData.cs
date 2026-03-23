@@ -6,5 +6,5 @@ public class MonsterData : ScriptableObject
     public int id;
     public float hp;
     public float damage;
-    public GameObject character;
+    public GameObject monster;
 }
