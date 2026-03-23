@@ -4756,7 +4756,7 @@ GameObject:
   - component: {fileID: 4240448749974668464}
   - component: {fileID: 6938771745089254279}
   m_Layer: 5
-  m_Name: LanceGirl
+  m_Name: Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

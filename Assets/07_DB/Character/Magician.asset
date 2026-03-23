@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Character
   id: 2
   name: Magician
-  desc: "\uD14C\uC2A4\uD2B8\uC6A9 \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4."
+  desc: "\uB9C8\uBC95\uC0AC"
   character: {fileID: 2654978829236002237, guid: ead5a0c86964ef045815e7632976e65c, type: 3}
