@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -192,7 +193,7 @@ public class QuizManager : MonoBehaviour
             // 적 데미지 입음
             float damage = baseDamage + GetAdditionalDamage(questionResponseTime) * baseDamage * 0.8f;
             player.Attack();
-            EnemyHurt(damage);
+            StartCoroutine(EntityAttackCoroutine(() => EnemyHurt(damage)));
         }
         else
         {
@@ -203,7 +204,7 @@ public class QuizManager : MonoBehaviour
 
             // 플레이어 데미지 입음
             monster.Attack();
-            PlayerHurt();
+            StartCoroutine(EntityAttackCoroutine(() => PlayerHurt()));
         }
 
         // 결과 기록
@@ -233,6 +234,12 @@ public class QuizManager : MonoBehaviour
 
         yield return new WaitForSeconds(stayTime);
         ShowNextWord();
+    }
+
+    private IEnumerator EntityAttackCoroutine(Action action)
+    {
+        yield return new WaitForSeconds(0.25f);
+        action?.Invoke();
     }
 
     private void EnemyHurt(float damage)
