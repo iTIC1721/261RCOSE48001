@@ -223,7 +223,7 @@ public class ShopManager : MonoBehaviour
     public void NextCharacter()
     {
         if (characterMoveCoroutine != null) return;
-        if (currentCharacterIndex >= panels.Count - 1) return;
+        if (currentCharacterIndex >= characterItems.Count - 1) return;
         
         currentCharacterIndex++;
 

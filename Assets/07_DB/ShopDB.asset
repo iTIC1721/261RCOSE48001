@@ -23,3 +23,9 @@ MonoBehaviour:
     name: "\uC720\uB8CC \uCE90\uB9AD\uD130"
     desc: "\uC720\uB8CC \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4. \uC720\uB8CC \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4."
     price: 2000
+  - id: 2
+    characterId: 2
+    name: "\uB9C8\uBC95\uC0AC"
+    desc: "\uB9C8\uBC95\uC0AC \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4. \uB9C8\uBC95\uC0AC
+      \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4."
+    price: 5000
