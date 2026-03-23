@@ -163,6 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b44072aa4e188408591f0c9ed895ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopManager
+  panels:
+  - {fileID: 779850039}
+  - {fileID: 2064048805}
+  panelButtons:
+  - {fileID: 400266523}
+  - {fileID: 884276167}
+  panelButtonEnabled: {r: 0.65882355, g: 0.65882355, b: 0.65882355, a: 1}
+  panelButtonDisabled: {r: 0.4188679, g: 0.4188679, b: 0.4188679, a: 1}
 --- !u!1 &251085760
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +390,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 400266526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 246752470}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: ActivePanel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &400266526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1033,7 +1053,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 884276170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 246752470}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: ActivePanel
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &884276170
 MonoBehaviour:
   m_ObjectHideFlags: 0
