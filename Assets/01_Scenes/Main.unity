@@ -420,7 +420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAC00\uBC29"
+  m_text: "\uC0C1\uC810"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
   m_sharedMaterial: {fileID: -31177075467478427, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 614247505}
   - component: {fileID: 614247504}
   m_Layer: 5
-  m_Name: InventoryButton
+  m_Name: ShopButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -582,7 +582,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 614247505}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 553961082}
+        m_TargetAssemblyTypeName: MainManager, Assembly-CSharp
+        m_MethodName: MoveToScene
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Shop
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &614247505
 MonoBehaviour:
   m_ObjectHideFlags: 0
