@@ -67,7 +67,11 @@ public static class SaveSystem
         string path = GetPlayerDataPath();
 
         if (!File.Exists(path))
-            return null;
+        {
+            var data = new PlayerSaveData();
+            SavePlayerData(data);
+            return data;
+        }
 
         string json = File.ReadAllText(path, System.Text.Encoding.UTF8);
         return JsonUtility.FromJson<PlayerSaveData>(json);

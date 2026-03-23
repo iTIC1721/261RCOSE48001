@@ -5,6 +5,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ShopManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class ShopManager : MonoBehaviour
     private int currentCharacterIndex = 0;
 
     private GameObject currentCharacterObj;
+    private List<GameObject> characterItems = new List<GameObject>();
 
     private Coroutine characterMoveCoroutine = null;
     
@@ -81,6 +83,7 @@ public class ShopManager : MonoBehaviour
     private void CharacterPanelInitialize()
     {
         List<ShopItem> shopItems = MANAGER.DB.shopDB.items;
+        PlayerSaveData saveData = SaveSystem.LoadPlayerData();
 
         for (int i = 0; i < shopItems.Count; i++)
         {
@@ -90,13 +93,117 @@ public class ShopManager : MonoBehaviour
             itemTr.anchoredPosition = new Vector2(i * itemTr.sizeDelta.x, 0);
             itemTr.Find("Name").GetComponent<TextMeshProUGUI>().text = shopItems[i].name;
             itemTr.Find("Desc").GetComponent<TextMeshProUGUI>().text = shopItems[i].desc;
-            itemTr.Find("Purchase").GetComponentInChildren<TextMeshProUGUI>().text = $"{shopItems[i].price} C";
+            if (MANAGER.DB.shopDB.HasItem(shopItems[i].id, saveData))
+            {
+                if (saveData.characterId == shopItems[i].characterId)
+                {
+                    Transform purchaseButton = itemTr.Find("Purchase");
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택됨";
+                }
+                else
+                {
+                    ShopItem shopItem = shopItems[i];
+
+                    Transform purchaseButton = itemTr.Find("Purchase");
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택하기";
+                    purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                        SelectCharacter(shopItem.id);
+                    });
+                }
+            }
+            else
+            {
+                ShopItem shopItem = shopItems[i];
+
+                Transform purchaseButton = itemTr.Find("Purchase");
+                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{shopItems[i].price} C";
+                purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                    PurchaseCharacter(shopItem.id);
+                });
+            }
+
+            characterItems.Add(item);
         }
 
         int characterId = shopItems[currentCharacterIndex].characterId;
         GameObject characterPrefab = MANAGER.DB.characterDB.GetCharacterData(characterId).character;
         currentCharacterObj = Instantiate(characterPrefab, characterPos);
         currentCharacterObj.transform.localPosition = Vector3.zero;
+    }
+
+    public void SelectCharacter(int shopItemId)
+    {
+        List<ShopItem> shopItems = MANAGER.DB.shopDB.items;
+        PlayerSaveData saveData = SaveSystem.LoadPlayerData();
+
+        int characterId = MANAGER.DB.shopDB.items.Find(c => c.id ==  shopItemId).characterId;
+        saveData.characterId = characterId;
+
+        SaveSystem.SavePlayerData(saveData);
+
+        for (int i = 0; i < characterItems.Count; i++)
+        {
+            RectTransform itemTr = characterItems[i].GetComponent<RectTransform>();
+            if (MANAGER.DB.shopDB.HasItem(shopItems[i].id, saveData))
+            {
+                if (saveData.characterId == shopItems[i].characterId)
+                {
+                    Transform purchaseButton = itemTr.Find("Purchase");
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택됨";
+                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                }
+                else
+                {
+                    ShopItem shopItem = shopItems[i];
+
+                    Transform purchaseButton = itemTr.Find("Purchase");
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택하기";
+                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                        SelectCharacter(shopItem.id);
+                    });
+                }
+            }
+        }
+    }
+
+    public void PurchaseCharacter(int shopItemId)
+    {
+        List<ShopItem> shopItems = MANAGER.DB.shopDB.items;
+        PlayerSaveData saveData = SaveSystem.LoadPlayerData();
+
+        bool tryPurchase = MANAGER.Inventory.SpendMoney(shopItems.Find(s => s.id == shopItemId).price);
+        if (!tryPurchase) return;
+
+        Log.LogMessage($"{shopItemId}, {saveData.purchaseList}");
+        saveData.purchaseList |= 1 << shopItemId;
+
+        SaveSystem.SavePlayerData(saveData);
+
+        for (int i = 0; i < characterItems.Count; i++)
+        {
+            RectTransform itemTr = characterItems[i].GetComponent<RectTransform>();
+            if (MANAGER.DB.shopDB.HasItem(shopItems[i].id, saveData))
+            {
+                if (saveData.characterId == shopItems[i].characterId)
+                {
+                    Transform purchaseButton = itemTr.Find("Purchase");
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택됨";
+                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                }
+                else
+                {
+                    ShopItem shopItem = shopItems[i];
+
+                    Transform purchaseButton = itemTr.Find("Purchase");
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택하기";
+                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                        SelectCharacter(shopItem.id);
+                    });
+                }
+            }
+        }
     }
 
     public void NextCharacter()
