@@ -6,6 +6,5 @@ public class CharacterData : ScriptableObject
     public int id;
     public new string name;
     public string desc;
-    public int price;
     public GameObject character;
 }
