@@ -514,7 +514,7 @@ MonoBehaviour:
   deckButtonPrefab: {fileID: 2884632586243174439, guid: 4837b1abd183b5d459ad4c4ba902700c, type: 3}
   content: {fileID: 1972745042}
   addDeckButton: {fileID: 2884632586586682245}
-  testCSVPath: D:\Download\eng_test.csv
+  testCSVPath: C:\Users\itico\Downloads\eng_test.csv
 --- !u!1 &314375080
 GameObject:
   m_ObjectHideFlags: 0

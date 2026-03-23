@@ -16,4 +16,4 @@ MonoBehaviour:
   name: DefaultCharacter
   desc: "\uAE30\uBCF8 \uCE90\uB9AD\uD130\uC785\uB2C8\uB2E4."
   price: 0
-  character: {fileID: 1969806181433156253, guid: 0864d76e6fb97234094d953edd0419be, type: 3}
+  character: {fileID: 1969806181433156253, guid: 2c00f9b2b7c841e41a74b37a2a33ad00, type: 3}

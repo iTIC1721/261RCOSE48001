@@ -23,6 +23,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] Button[] choices = new Button[4];
 
     [Header("Entity")]
+    [SerializeField] Player player;
     [SerializeField] Transform damageLayer;
     [SerializeField] Transform enemy;
 
@@ -167,6 +168,7 @@ public class QuizManager : MonoBehaviour
 
             // 적 데미지 입음
             float damage = baseDamage + GetAdditionalDamage(questionResponseTime) * baseDamage * 0.8f;
+            player.Attack();
             EnemyHurt(damage);
         }
         else
@@ -243,14 +245,19 @@ public class QuizManager : MonoBehaviour
         {
             PlayerDie();
         }
+        else
+        {
+            player.GetDamaged();
+        }
     }
 
     private void PlayerDie()
     {
         // 플레이어 사망 - 게임 오버
         Log.LogMessage("플레이어 사망");
-
         isDied = true;
+
+        player.Die();
 
         MANAGER.StudyManager.ClearStageProgress(MANAGER.StudyManager.currentStageDifficulty);
         diePanel.SetActive(true);
