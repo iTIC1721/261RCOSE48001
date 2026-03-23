@@ -23,7 +23,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] Button[] choices = new Button[4];
 
     [Header("Entity")]
-    [SerializeField] Player player;
+    [SerializeField] Transform playerPos;
     [SerializeField] Transform damageLayer;
     [SerializeField] Transform enemy;
 
@@ -39,6 +39,8 @@ public class QuizManager : MonoBehaviour
     private float timeLimit = 5;
     private int hp = 5;
     private int combo = 0;
+
+    private Player player;
 
     private float totalDamage = 0;
 
@@ -67,6 +69,18 @@ public class QuizManager : MonoBehaviour
         timeLimit = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].timeLimit;
         SetHp(quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].maxHp);
         SetCombo(0);
+
+        // 캐릭터 생성
+        PlayerSaveData data = SaveSystem.LoadPlayerData();
+        if (data == null) data = new PlayerSaveData();
+        int characterId = data.characterId;
+
+        var playerObj = Instantiate(MANAGER.DB.characterDB.GetCharacterData(characterId).character, playerPos);
+        playerObj.transform.localPosition = new Vector3(0, 0, playerObj.transform.localPosition.z);
+        playerObj.transform.localScale = new Vector3(-1, 1, 1);
+        playerObj.GetComponent<Player>().enableMove = false;
+        playerObj.GetComponent<Player>().enableAttack = false;
+        player = playerObj.GetComponent<Player>();
 
         StartQuiz();
     }
