@@ -5,8 +5,7 @@ public class Player : MonoBehaviour
     public bool enableMove = false;
     public bool enableAttack = false;
 
-    private bool canMove = true;
-    private bool canAttack = true;
+    private bool canControl = true;
 
     private Animator animator;
 
@@ -19,10 +18,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (enableMove && canMove) OnMove();
-        if (enableAttack && canAttack) OnAttack();
+        CheckCanControl();
 
-        CanMove();
+        if (enableMove && canControl) OnMove();
+        if (enableAttack && canControl) OnAttack();
     }
 
     private void OnMove()
@@ -62,7 +61,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CanMove()
+    private void CheckCanControl()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK") ||
             animator.GetCurrentAnimatorStateInfo(0).IsName("DAMAGED"))
@@ -71,17 +70,17 @@ public class Player : MonoBehaviour
             if (animTime == 0)
             {
                 // 플레이 중이 아님
-                canMove = true;
+                canControl = true;
             }
             if (animTime > 0 && animTime < 1.0f)
             {
                 // 애니메이션 플레이 중
-                canMove = false;
+                canControl = false;
             }
             else if (animTime >= 1.0f)
             {
                 // 애니메이션 종료
-                canMove = true;
+                canControl = true;
             }
         }
     }
