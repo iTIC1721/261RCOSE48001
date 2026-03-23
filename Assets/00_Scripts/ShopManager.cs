@@ -12,6 +12,7 @@ public class ShopManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] List<GameObject> panels = new List<GameObject>();
     [SerializeField] List<GameObject> panelButtons = new List<GameObject>();
+    [SerializeField] TextMeshProUGUI moneyText;
 
     [SerializeField] RawImage characterImage;
     [SerializeField] RectTransform itemView;
@@ -69,6 +70,15 @@ public class ShopManager : MonoBehaviour
                 panelButtons[i].GetComponent<Image>().color = panelButtonDisabled;
             }
         }
+
+        // Money Text °»½Å
+        var data = SaveSystem.LoadPlayerData();
+        SetMoneyText(data.money);
+    }
+
+    private void SetMoneyText(int money)
+    {
+        moneyText.text = $"{money} C";
     }
 
     public void MoveToScene(string sceneName)
@@ -170,15 +180,19 @@ public class ShopManager : MonoBehaviour
     public void PurchaseCharacter(int shopItemId)
     {
         List<ShopItem> shopItems = MANAGER.DB.shopDB.items;
-        PlayerSaveData saveData = SaveSystem.LoadPlayerData();
 
         bool tryPurchase = MANAGER.Inventory.SpendMoney(shopItems.Find(s => s.id == shopItemId).price);
         if (!tryPurchase) return;
 
+        PlayerSaveData saveData = SaveSystem.LoadPlayerData();
+
         Log.LogMessage($"{shopItemId}, {saveData.purchaseList}");
         saveData.purchaseList |= 1 << shopItemId;
 
+        SetMoneyText(saveData.money);
+
         SaveSystem.SavePlayerData(saveData);
+
 
         for (int i = 0; i < characterItems.Count; i++)
         {
