@@ -146,7 +146,7 @@ public class ShopManager : MonoBehaviour
             }
 
             // Item 옆으로 넘기기
-            Vector2 offset = Vector2.Lerp(Vector2.zero, Vector2.right * sizeX, t / duration);
+            Vector2 offset = Vector2.Lerp(Vector2.zero, Vector2.right * sizeX, MyMath.EaseOut(t / duration));
             itemView.anchoredPosition = itemViewOriginalPos - offset;
         }
 
@@ -178,9 +178,10 @@ public class ShopManager : MonoBehaviour
             yield return null;
             t += Time.deltaTime;
 
-            if (t < duration * 0.5f)
+            float time = MyMath.EaseOut(t / duration);
+            if (time < 0.5f)
             {
-                float alpha = Mathf.Lerp(1, 0, t / (duration * 0.5f));
+                float alpha = Mathf.Lerp(1, 0, time / 0.5f);
                 characterImage.color = new Color(1, 1, 1, alpha);
             }
             else
@@ -198,12 +199,12 @@ public class ShopManager : MonoBehaviour
                     isChangedCharacter = true;
                 }
 
-                float alpha = Mathf.Lerp(0, 1, (t - duration * 0.5f) / (duration * 0.5f));
+                float alpha = Mathf.Lerp(0, 1, (time - 0.5f) / 0.5f);
                 characterImage.color = new Color(1, 1, 1, alpha);
             }
 
             // Item 옆으로 넘기기
-            Vector2 offset = Vector2.Lerp(Vector2.zero, Vector2.right * sizeX, t / duration);
+            Vector2 offset = Vector2.Lerp(Vector2.zero, Vector2.right * sizeX, MyMath.EaseOut(t / duration));
             itemView.anchoredPosition = itemViewOriginalPos + offset;
         }
 

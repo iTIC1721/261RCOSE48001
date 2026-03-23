@@ -13,4 +13,32 @@ public static class MyMath
 
         return Vector2.Lerp(B0, B1, t);
     }
+
+    // Ease In (점점 빨라짐)
+    public static float EaseIn(float t)
+    {
+        t = Mathf.Clamp01(t);
+        return t * t;
+    }
+
+    // Ease Out (점점 느려짐)
+    public static float EaseOut(float t)
+    {
+        t = Mathf.Clamp01(t);
+        return 1f - (1f - t) * (1f - t);
+    }
+
+    // Ease In-Out (처음/끝 느리고 중간 빠름)
+    public static float EaseInOut(float t)
+    {
+        t = Mathf.Clamp01(t);
+        if (t < 0.5f)
+        {
+            return 2f * t * t;
+        }
+        else
+        {
+            return 1f - Mathf.Pow(-2f * t + 2f, 2f) / 2f;
+        }
+    }
 }
