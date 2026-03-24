@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.Rendering.GPUSort;
 
 public class StudyManager : MonoBehaviour
 {
@@ -11,12 +10,9 @@ public class StudyManager : MonoBehaviour
     private SessionManager session;
     private Card currentCard;
 
-
-    public DaySession currentDaySession;
     public StageDifficulty currentStageDifficulty;
 
-    DateTime startDate;
-    DateTime lastStudyDate;
+    private int cardViewCount = 0;
 
     public void Save()
     {
@@ -38,7 +34,6 @@ public class StudyManager : MonoBehaviour
         // 날짜가 지났다면 이전 데이터는 정산
         if (deck.lastSessionDate.Date != CustomTime.GetTimeNow().Date)
         {
-            Log.LogMessage("이전 데이터를 정산했습니다");
             deck.EndOfDay();
             SaveSystem.SaveDeck(deck);
 
@@ -49,6 +44,7 @@ public class StudyManager : MonoBehaviour
                 deck.todayCardIds.Add(c.id);
 
             deck.lastSessionDate = CustomTime.GetTimeNow();
+            Log.LogMessage("이전 데이터를 정산했습니다");
         }
         else
         {
@@ -58,30 +54,23 @@ public class StudyManager : MonoBehaviour
         session = new SessionManager(todayCards);
     }
 
-    public StageProgress GetStageProgress(StageDifficulty diff)
-    {
-        if (currentDaySession.stages[(int)diff] == null)
-        {
-            currentDaySession.stages[(int)diff] = new StageProgress
-            {
-                currentIndex = 0,
-                results = new List<ReviewResult>(),
-                isCompleted = false
-            };
-        }
-
-        return currentDaySession.stages[(int)diff];
-    }
-
     public Card GetNextWord()
     {
         if (!session.HasNext())
         {
             // TODO: 세션 종료
+            SaveSystem.SaveDeck(deck);
             return null;
         }
 
         currentCard = session.GetNextCard();
+        
+        cardViewCount++;
+        if (cardViewCount >= 5)
+        {
+            SaveSystem.SaveDeck(deck);
+            cardViewCount = 0;
+        }
 
         return currentCard;
     }
@@ -108,23 +97,5 @@ public class StudyManager : MonoBehaviour
         {
             session.Requeue(currentCard);
         }
-    }
-
-    public void ClearStageProgress(StageDifficulty diff)
-    {
-        var stage = GetStageProgress(diff);
-
-        stage.results.Clear();
-        stage.currentIndex = 0;
-
-        //Save();
-    }
-
-    public int GetCurrentDay()
-    {
-        DateTime start = startDate.Date;
-        DateTime today = CustomTime.GetTimeNow().Date;
-
-        return (today - start).Days;
     }
 }

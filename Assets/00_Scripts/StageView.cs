@@ -40,7 +40,7 @@ public class StageView : MonoBehaviour
         MANAGER.StudyManager.StartToday();
 
         int leftDays = 0;
-        int currentDay = MANAGER.StudyManager.GetCurrentDay();
+        int currentDay = MANAGER.StudyManager.deck.GetCurrentDay();
 
         // 스테이지 노드 생성
         int totalStageCount = leftDays + currentDay + 1;

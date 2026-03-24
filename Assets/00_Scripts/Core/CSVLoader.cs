@@ -19,6 +19,8 @@ public static class CSVLoader
                 front = parts[0],
                 back = parts[1]
             });
+
+            id++;
         }
 
         return list;

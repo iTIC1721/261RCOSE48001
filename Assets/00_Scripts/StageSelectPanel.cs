@@ -17,7 +17,7 @@ public class StageSelectPanel : MonoBehaviour
         {
             StageDifficulty stageDifficulty = (StageDifficulty)d;
 
-            if (isCleared || MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted)
+            if (isCleared/* || MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted*/)
             {
                 isCleared = true;
                 rewardDecoration[d].SetActive(false);

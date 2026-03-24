@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum CardState
 {
@@ -16,7 +17,12 @@ public class Deck
 
     public List<Card> cards = new List<Card>();
 
-    public DateTime lastSessionDate;
+    [SerializeField] private long lastSessionDateTicks = 0;
+    public DateTime lastSessionDate
+    {
+        get => new DateTime(lastSessionDateTicks);
+        set => lastSessionDateTicks = value.Ticks;
+    }
 
     public List<int> todayCardIds = new List<int>();
 
@@ -66,6 +72,14 @@ public class Deck
 
         Log.LogMessage("End of day training complete.");
     }
+
+    public int GetCurrentDay()
+    {
+        DateTime start = lastSessionDate.Date;
+        DateTime today = CustomTime.GetTimeNow().Date;
+
+        return (today - start).Days;
+    }
 }
 
 [Serializable]
@@ -79,12 +93,22 @@ public class Card
     public CardState state = CardState.New;
 
     public float difficulty = 5f;
-    public float stability = 0f;
+    public float stability = 1f;
 
     public int stepIndex = 0;
-    public DateTime due;
+    [SerializeField] private long dueTicks;
+    public DateTime due
+    {
+        get => new DateTime(dueTicks);
+        set => dueTicks = value.Ticks;
+    }
 
-    public DateTime lastReview;
+    [SerializeField] private long lastReviewTicks;
+    public DateTime lastReview
+    {
+        get => new DateTime(lastReviewTicks);
+        set => lastReviewTicks = value.Ticks;
+    }
 
     public List<ReviewLog> logs = new List<ReviewLog>();
 }
@@ -92,7 +116,12 @@ public class Card
 [Serializable]
 public class ReviewLog
 {
-    public DateTime reviewTime;
+    [SerializeField] private long reviewTimeTicks;
+    public DateTime reviewTime
+    {
+        get => new DateTime(reviewTimeTicks);
+        set => reviewTimeTicks = value.Ticks;
+    }
 
     public float elapsedDays;
 

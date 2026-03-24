@@ -44,8 +44,10 @@ public static class FSRSScheduler
 
     public static void Review(Card card, Deck deck, int rating)
     {
-        float t = (float)(DateTime.Now - card.lastReview).TotalDays;
+        float t = (float)(CustomTime.GetTimeNow() - card.lastReview).TotalDays;
+        Debug.Log($"[BEFORE] s={card.stability}, t={t}");
         float r = GetRetrievability(card.stability, t);
+        Debug.Log($"[R] r={r}");
 
         // 로그 저장용 값
         float oldD = card.difficulty;
@@ -54,16 +56,19 @@ public static class FSRSScheduler
         // Difficulty 업데이트
         card.difficulty = UpdateDifficulty(card.difficulty, rating, deck.w);
 
+        Debug.Log($"[D] d={card.difficulty}");
+
         // Stability 업데이트
         if (rating == 1)
             card.stability = StabilityForget(card.difficulty, card.stability, deck.w);
         else
             card.stability = StabilityRecall(card.difficulty, card.stability, r, rating, deck.w);
+        Debug.Log($"[AFTER] newS={card.stability}");
 
         // 로그 저장
         card.logs.Add(new ReviewLog
         {
-            reviewTime = DateTime.Now,
+            reviewTime = CustomTime.GetTimeNow(),
             elapsedDays = t,
             lastDifficulty = oldD,
             lastStability = oldS,
@@ -71,6 +76,6 @@ public static class FSRSScheduler
             recall = (rating == 1) ? 0 : 1
         });
 
-        card.lastReview = DateTime.Now;
+        card.lastReview = CustomTime.GetTimeNow();
     }
 }

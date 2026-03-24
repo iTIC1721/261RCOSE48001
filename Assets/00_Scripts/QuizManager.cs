@@ -47,7 +47,7 @@ public class QuizManager : MonoBehaviour
 
     private float totalDamage = 0;
 
-    private Card currentWord = null;
+    //private Card currentWord = null;
     private int currentAnswer = -1;
 
     private bool corrected = false;
@@ -137,21 +137,21 @@ public class QuizManager : MonoBehaviour
         if (isDied) return;
 
         Card nextWord = MANAGER.StudyManager.GetNextWord();
-        currentWord = nextWord;
+        //currentWord = nextWord;
 
-        if (currentWord != null)
+        if (nextWord != null)
         {
-            wordText.text = currentWord.front;
-            meaningText.text = currentWord.back;
-            progressText.text = $"진행도: {MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).currentIndex + 1} / {MANAGER.StudyManager.currentDaySession.totalWords.Count}";
+            wordText.text = nextWord.front;
+            meaningText.text = nextWord.back;
+            //progressText.text = $"진행도: {MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).currentIndex + 1} / {MANAGER.StudyManager.currentDaySession.totalWords.Count}";
 
             // 선택지
-            string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, currentWord.back);
+            string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, nextWord.back);
             currentAnswer = UnityEngine.Random.Range(0, 4);
             string[] meanings = new string[4];
             for (int i = 0, j = 0; i < 4; i++)
             {
-                if (i == currentAnswer) meanings[i] = currentWord.back;
+                if (i == currentAnswer) meanings[i] = nextWord.back;
                 else meanings[i] = wrongMeanings[j++];
             }
             SetChoices(meanings, currentAnswer);
@@ -288,7 +288,7 @@ public class QuizManager : MonoBehaviour
 
         player.Die();
 
-        MANAGER.StudyManager.ClearStageProgress(MANAGER.StudyManager.currentStageDifficulty);
+        //MANAGER.StudyManager.ClearStageProgress(MANAGER.StudyManager.currentStageDifficulty);
         diePanel.SetActive(true);
     }
 
@@ -302,22 +302,22 @@ public class QuizManager : MonoBehaviour
     private void DisplayResult()
     {
         // 정답률
-        StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
-        int correctCount = 0;
-        foreach (var item in stageProgress.results)
-        {
-            if (item.correct) correctCount++;
-        }
-        float correctRate = (float)correctCount / stageProgress.results.Count;
-        resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
+        //StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
+        //int correctCount = 0;
+        //foreach (var item in stageProgress.results)
+        //{
+        //    if (item.correct) correctCount++;
+        //}
+        //float correctRate = (float)correctCount / stageProgress.results.Count;
+        //resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
 
         // 총 데미지
         resultPanel.descTexts[1].text = $"총 데미지: {Mathf.FloorToInt(totalDamage)}";
 
         // 총 진행도
-        int totalCount = MANAGER.StudyManager.deck.cards.Count;
-        int studiedCount = MANAGER.StudyManager.deck.cards.Where(w => w.state == CardState.Review).Count() + MANAGER.StudyManager.currentDaySession.newWords.Count;
-        resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
+        //int totalCount = MANAGER.StudyManager.deck.cards.Count;
+        //int studiedCount = MANAGER.StudyManager.deck.cards.Where(w => w.state == CardState.Review).Count() + MANAGER.StudyManager.currentDaySession.newWords.Count;
+        //resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
 
         // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
 
