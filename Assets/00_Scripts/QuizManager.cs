@@ -134,6 +134,8 @@ public class QuizManager : MonoBehaviour
 
     public void ShowNextWord()
     {
+        if (isDied) return;
+
         WordState nextWord = MANAGER.StudyManager.GetNextWord();
         currentWord = nextWord;
 
@@ -230,9 +232,8 @@ public class QuizManager : MonoBehaviour
 
     private IEnumerator ShowNextWordCoroutine(float stayTime)
     {
-        if (isDied) yield break;
-
         yield return new WaitForSeconds(stayTime);
+
         ShowNextWord();
     }
 
