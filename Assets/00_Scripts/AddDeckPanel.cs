@@ -42,9 +42,8 @@ public class AddDeckPanel : MonoBehaviour
         {
             deckId = DeckSystem.CreateDeckFromCSV(deckView.testCSVPath, name);
         }
-        DeckInfo info = DeckSystem.GetDeckInfo(SaveSystem.LoadDeck(deckId));
 
-        deckView.CreateDeckButton(info);
+        deckView.CreateDeckButton(SaveSystem.LoadDeck(deckId));
 
         HidePanel();
     }

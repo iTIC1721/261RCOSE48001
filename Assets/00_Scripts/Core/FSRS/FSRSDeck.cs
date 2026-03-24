@@ -11,12 +11,22 @@ public enum CardState
 [Serializable]
 public class Deck
 {
+    public string id;
     public string name;
 
     public List<Card> cards = new List<Card>();
 
+    public DateTime lastSessionDate;
+
+    public List<int> todayCardIds = new List<int>();
+
     // FSRS weight (덱마다 존재)
-    public float[] w = new float[17];
+    public float[] w = new float[17] {
+        0.4f, 0.6f, 2.4f, 5.8f,
+        4.93f, 0.94f, 0.86f, 0.01f,
+        1.49f, 0.14f, 0.94f, 2.18f,
+        0.05f, 0.34f, 1.26f, 0.29f, 2.61f
+    };
 
     public int GetLogCount()
     {
@@ -51,8 +61,8 @@ public class Deck
         // 덱 학습 - 파라미터 조정
         Train();
 
-        // TODO: 덱 저장
-        //DeckStorage.Save(deck);
+        // 덱 저장
+        SaveSystem.SaveDeck(this);
 
         Log.LogMessage("End of day training complete.");
     }

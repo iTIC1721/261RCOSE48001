@@ -28,15 +28,15 @@ public static class SaveSystem
         return GetDeckDirectory() + $"/save_{deckId}.json";
     }
 
-    public static void SaveDeck(DeckSaveData data)
+    public static void SaveDeck(Deck deck)
     {
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(GetDeckPath(data.deckId), json);
+        string json = JsonUtility.ToJson(deck, true);
+        File.WriteAllText(GetDeckPath(deck.id), json, System.Text.Encoding.UTF8);
 
-        Log.LogMessage($"Saved Deck: {GetDeckPath(data.deckId)}");
+        Log.LogMessage($"Saved Deck: {GetDeckPath(deck.id)}");
     }
 
-    public static DeckSaveData LoadDeck(string deckId)
+    public static Deck LoadDeck(string deckId)
     {
         string path = GetDeckPath(deckId);
 
@@ -44,7 +44,7 @@ public static class SaveSystem
             return null;
 
         string json = File.ReadAllText(path, System.Text.Encoding.UTF8);
-        return JsonUtility.FromJson<DeckSaveData>(json);
+        return JsonUtility.FromJson<Deck>(json);
     }
     #endregion
 

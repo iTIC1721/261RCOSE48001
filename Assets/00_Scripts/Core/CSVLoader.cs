@@ -3,19 +3,21 @@ using System.IO;
 
 public static class CSVLoader
 {
-    public static List<WordState> Load(string path)
+    public static List<Card> Load(string path)
     {
-        var list = new List<WordState>();
+        var list = new List<Card>();
         var lines = File.ReadAllLines(path);
 
+        int id = 0;
         foreach (var line in lines)
         {
             var parts = line.Split(',');
 
-            list.Add(new WordState
+            list.Add(new Card
             {
-                word = parts[0],
-                meaning = parts[1]
+                id = id,
+                front = parts[0],
+                back = parts[1]
             });
         }
 

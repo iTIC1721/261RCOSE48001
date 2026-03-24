@@ -16,9 +16,9 @@ public class DeckInfo
 
 public static class DeckSystem
 {
-    public static List<DeckInfo> GetAllDecks()
+    public static List<Deck> GetAllDecks()
     {
-        List<DeckInfo> decks = new();
+        List<Deck> decks = new();
 
         string path = SaveSystem.GetDeckDirectory();
         var files = Directory.GetFiles(path, "save_*.json");
@@ -26,29 +26,12 @@ public static class DeckSystem
         foreach (var file in files)
         {
             string json = File.ReadAllText(file);
-            DeckSaveData data = JsonUtility.FromJson<DeckSaveData>(json);
+            Deck deck = JsonUtility.FromJson<Deck>(json);
 
-            DeckInfo info = GetDeckInfo(data);
-
-            decks.Add(info);
+            decks.Add(deck);
         }
 
-        return decks.OrderBy(d => d.deckName).ToList();
-    }
-
-    public static DeckInfo GetDeckInfo(DeckSaveData data)
-    {
-        DeckInfo info = new DeckInfo();
-
-        info.deckId = data.deckId;
-        info.deckName = data.deckName;
-
-        info.totalWords = data.words.Count;
-        info.learnedWords = data.words.Count(w => w.isLearned);
-
-        info.progress = CalculateProgress(data.words);
-
-        return info;
+        return decks.OrderBy(d => d.name).ToList();
     }
 
     static float CalculateProgress(List<WordState> words)
@@ -66,24 +49,16 @@ public static class DeckSystem
     {
         string deckId = Guid.NewGuid().ToString();
 
-        var words = CSVLoader.Load(csvPath);
+        var cards = CSVLoader.Load(csvPath);
 
-        DeckSaveData data = new DeckSaveData();
+        Deck deck = new Deck();
 
-        data.deckId = deckId;
-        data.deckName = deckName;
+        deck.id = deckId;
+        deck.name = deckName;
 
-        data.words = words;
+        deck.cards = cards;
 
-        data.dailyLimit = dailyLimit;
-        data.extraPullUsed = 0;
-
-        data.startDate = CustomTime.GetTimeNow().Date.ToString();
-        data.lastStudyDate = CustomTime.GetTimeNow().ToString();
-
-        data.currentSession = null;
-
-        SaveSystem.SaveDeck(data);
+        SaveSystem.SaveDeck(deck);
 
         return deckId;
     }
@@ -106,7 +81,7 @@ public static class DeckSystem
 
         if (data == null) return;
 
-        data.deckName = newName;
+        data.name = newName;
 
         SaveSystem.SaveDeck(data);
     }

@@ -17,7 +17,7 @@ public class DeckView : MonoBehaviour
 
     private void Start()
     {
-        List<DeckInfo> decks = DeckSystem.GetAllDecks();
+        List<Deck> decks = DeckSystem.GetAllDecks();
 
         for (int i = 0; i < decks.Count; i++)
         {
@@ -25,16 +25,16 @@ public class DeckView : MonoBehaviour
         }
     }
 
-    public GameObject CreateDeckButton(DeckInfo deckInfo)
+    public GameObject CreateDeckButton(Deck deck)
     {
         var deckBtn = Instantiate(deckButtonPrefab, content);
 
-        deckBtn.GetComponent<DeckButton>().deckNameText.text = deckInfo.deckName;
-        deckBtn.GetComponent<DeckButton>().deckId = deckInfo.deckId;
+        deckBtn.GetComponent<DeckButton>().deckNameText.text = deck.name;
+        deckBtn.GetComponent<DeckButton>().deckId = deck.id;
 
         deckBtn.GetComponent<DeckButton>().AddEvent(() => {
-            Log.LogMessage(SaveSystem.LoadDeck(deckInfo.deckId).ToString());
-            MANAGER.StudyManager.Load(deckInfo.deckId);
+            Log.LogMessage(SaveSystem.LoadDeck(deck.id).ToString());
+            MANAGER.StudyManager.Load(deck.id);
 
             // 오늘 스테이지 선택으로 이동
             SceneManager.LoadScene("StudyDungeon_StageSelect");

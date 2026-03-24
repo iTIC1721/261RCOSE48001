@@ -39,7 +39,7 @@ public class StageView : MonoBehaviour
     {
         MANAGER.StudyManager.StartToday();
 
-        int leftDays = /*MANAGER.StudyManager.PredictLeftDays()*/ 0;
+        int leftDays = 0;
         int currentDay = MANAGER.StudyManager.GetCurrentDay();
 
         // 스테이지 노드 생성
@@ -59,7 +59,7 @@ public class StageView : MonoBehaviour
             else if (i > currentDay) stagePrefab = futureStagePrefab;
             else stagePrefab = currentStagePrefab;
 
-            float x = GetRandomPosX(i, MANAGER.StudyManager.deckId, minX, maxX);
+            float x = GetRandomPosX(i, MANAGER.StudyManager.deck.id, minX, maxX);
             float y = stagePrefab.GetComponent<RectTransform>().sizeDelta.y * 0.5f;
             for (int j = 0; j < i; j++)
             {
