@@ -6,7 +6,6 @@ using UnityEngine;
 public enum StageDifficulty
 {
     Easy,
-    Normal,
     Hard
 }
 

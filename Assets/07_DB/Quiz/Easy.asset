@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54d2fb9d819a3b248ad0bbe451e79344, type: 3}
   m_Name: Easy
   m_EditorClassIdentifier: Assembly-CSharp::QuizSetting
-  timeLimit: 999
-  maxHp: 999
+  timeLimit: 15
+  maxHp: 10
   correctStayTime: 1
   incorrectStayTime: 2

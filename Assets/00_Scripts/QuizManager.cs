@@ -31,7 +31,6 @@ public class QuizManager : MonoBehaviour
 
     [Header("DB")]
     [SerializeField] QuizSetting easySetting;
-    [SerializeField] QuizSetting normalSetting;
     [SerializeField] QuizSetting hardSetting;
 
     [Header("Setting")]
@@ -62,7 +61,6 @@ public class QuizManager : MonoBehaviour
         quizSettingDict = new()
         {
             {StageDifficulty.Easy, easySetting},
-            {StageDifficulty.Normal, normalSetting},
             {StageDifficulty.Hard, hardSetting},
         };
     }

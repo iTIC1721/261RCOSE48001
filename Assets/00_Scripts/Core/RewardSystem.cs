@@ -7,8 +7,6 @@ public static class RewardSystem
         switch (diff)
         {
             case StageDifficulty.Easy:
-                return 20;
-            case StageDifficulty.Normal:
                 return 50;
             case StageDifficulty.Hard:
                 return 100;

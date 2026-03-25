@@ -3711,8 +3711,7 @@ MonoBehaviour:
   playerPos: {fileID: 1176715395}
   monsterPos: {fileID: 780013508}
   damageLayer: {fileID: 1003670724}
-  easySetting: {fileID: 11400000, guid: 6c7e271142eb7d84987b7d10afd481f7, type: 2}
-  normalSetting: {fileID: 11400000, guid: d12e90a515145db4ebe0de92ff81f0bc, type: 2}
+  easySetting: {fileID: 11400000, guid: d12e90a515145db4ebe0de92ff81f0bc, type: 2}
   hardSetting: {fileID: 11400000, guid: 78778daf29b70b448b924bc782368c81, type: 2}
   baseDamage: 1000
 --- !u!1 &1823718936

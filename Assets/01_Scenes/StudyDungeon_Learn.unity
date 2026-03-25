@@ -821,8 +821,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: QuizManager, Assembly-CSharp
+      - m_Target: {fileID: 1691989656}
+        m_TargetAssemblyTypeName: LearnManager, Assembly-CSharp
         m_MethodName: Back
         m_Mode: 1
         m_Arguments:
