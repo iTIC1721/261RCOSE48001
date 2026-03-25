@@ -107,10 +107,13 @@ public class FSRSOptimizer
         // -------------------
         // update
         // -------------------
+        //string tmp = "Grad:\n";
         for (int i = 0; i < w.Length; i++)
         {
+            //tmp += $"Learning[{i}]: " + (lr * grad[i]).ToString() + "\n";
             w[i] -= lr * grad[i];
         }
+        //Log.LogMessage(tmp);
     }
 
     float dNextStability_dw(int i, float s, float d, float r, int rating, float[] w)

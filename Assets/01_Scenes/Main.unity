@@ -169,6 +169,8 @@ MonoBehaviour:
     cards: []
     startDateTicks: 0
     lastSessionDateTicks: 0
+    lastLearnDateTicks: 0
+    quizCompleted: 0000
     todayCardIds: 
     w:
     - 0.40255
@@ -1980,11 +1982,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b364ef3be20f8043b93e891bbe37acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MANAGER
-  dataPath: C:\Users\itico\Downloads\eng_test.csv
+  dataPath: D:\Download\eng_test.csv
   useCustomTime: 1
   year: 2026
   month: 3
-  day: 22
+  day: 25
 --- !u!4 &2141807199
 Transform:
   m_ObjectHideFlags: 0
