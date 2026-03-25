@@ -34,17 +34,6 @@ public static class DeckSystem
         return decks.OrderBy(d => d.name).ToList();
     }
 
-    static float CalculateProgress(List<WordState> words)
-    {
-        if (words == null || words.Count == 0)
-            return 0f;
-
-        int learned = words.Count(w => w.isLearned);
-
-        return learned / (float)words.Count;
-    }
-
-
     public static string CreateDeckFromCSV(string csvPath, string deckName, int dailyLimit = 30)
     {
         string deckId = Guid.NewGuid().ToString();
