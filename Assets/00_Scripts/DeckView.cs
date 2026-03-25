@@ -13,8 +13,6 @@ public class DeckView : MonoBehaviour
 
     private List<GameObject> deckButtonList = new();
 
-    public string testCSVPath = "D:/Download/eng_test.csv";
-
     private void Start()
     {
         List<Deck> decks = DeckSystem.GetAllDecks();

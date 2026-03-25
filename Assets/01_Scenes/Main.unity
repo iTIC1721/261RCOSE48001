@@ -163,24 +163,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ef98970e6cf4404581c1608e5379c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StudyManager
-  deckId: 
-  words: []
-  dailyLimit: 30
-  currentDaySession:
-    dayIndex: 0
-    newWords: []
-    reviewWords: []
-    totalWords: []
-    stages:
-    - currentIndex: 0
-      results: []
-      isCompleted: 0
-    - currentIndex: 0
-      results: []
-      isCompleted: 0
-    - currentIndex: 0
-      results: []
-      isCompleted: 0
+  deck:
+    id: 
+    name: 
+    cards: []
+    startDateTicks: 0
+    lastSessionDateTicks: 0
+    todayCardIds: 
+    w:
+    - 0.40255
+    - 1.18385
+    - 3.173
+    - 5.69105
+    - 7.1949
+    - 0.5345
+    - 1.4604
+    - 0.0046
+    - 1.54575
+    - 0.1192
+    - 1.01925
+    - 1.9395
+    - 0.11
+    - 0.29605
+    - 2.2698
+    - 0.2315
+    - 2.9898
+    - 0.51655
+    - 0.6621
+    - 0.5
+    - 0.1
   currentStageDifficulty: 0
 --- !u!1 &553961080
 GameObject:
@@ -1969,6 +1980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b364ef3be20f8043b93e891bbe37acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MANAGER
+  dataPath: C:\Users\itico\Downloads\eng_test.csv
   useCustomTime: 1
   year: 2026
   month: 3

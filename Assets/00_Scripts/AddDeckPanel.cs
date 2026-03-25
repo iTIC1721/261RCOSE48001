@@ -36,11 +36,11 @@ public class AddDeckPanel : MonoBehaviour
         // TODO: path ¼öÁ¤
         if (int.TryParse(dailyCountInput.text, out int dailyCount))
         {
-            deckId = DeckSystem.CreateDeckFromCSV(deckView.testCSVPath, name, dailyCount);
+            deckId = DeckSystem.CreateDeckFromCSV(MANAGER.Instance.dataPath, name, dailyCount);
         }
         else
         {
-            deckId = DeckSystem.CreateDeckFromCSV(deckView.testCSVPath, name);
+            deckId = DeckSystem.CreateDeckFromCSV(MANAGER.Instance.dataPath, name);
         }
 
         deckView.CreateDeckButton(SaveSystem.LoadDeck(deckId));

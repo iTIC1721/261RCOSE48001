@@ -11,6 +11,7 @@ public class MANAGER : MonoBehaviour
     public static InventoryManager Inventory;
     public static DBManager DB;
 
+    public string dataPath;
     public bool useCustomTime = false;
     public int year = DateTime.Now.Year;
     public int month = DateTime.Now.Month;

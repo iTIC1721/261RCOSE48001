@@ -45,6 +45,10 @@ public class QuizManager : MonoBehaviour
     private Monster monster;
 
     private float totalDamage = 0;
+    private int correctCount = 0;
+    private int todayCount = 0;
+
+    private RandomQueue<Card> todayCards;
 
     //private Card currentWord = null;
     private int currentAnswer = -1;
@@ -110,6 +114,12 @@ public class QuizManager : MonoBehaviour
     
     public void StartQuiz()
     {
+        Deck currentDeck = MANAGER.StudyManager.deck;
+        var cards = MainScheduler.GetCardsById(currentDeck, currentDeck.todayCardIds);
+
+        todayCount = cards.Count;
+        todayCards = new RandomQueue<Card>(cards);
+
         StartCoroutine(CountDownCoroutine());
     }
 
@@ -134,8 +144,9 @@ public class QuizManager : MonoBehaviour
     {
         if (isDied) return;
 
-        Card nextWord = MANAGER.StudyManager.GetNextWord();
-        //currentWord = nextWord;
+        Card nextWord = null;
+        if (todayCards.Count > 0) 
+            nextWord = todayCards.Dequeue();
 
         if (nextWord != null)
         {
@@ -187,6 +198,7 @@ public class QuizManager : MonoBehaviour
         {
             Log.LogMessage("정답!");
             corrected = true;
+            correctCount++;
             SetCombo(combo + 1);
             stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].correctStayTime;
 
@@ -206,10 +218,6 @@ public class QuizManager : MonoBehaviour
             monster.Attack();
             StartCoroutine(EntityAttackCoroutine(() => PlayerHurt()));
         }
-
-        // 결과 기록
-        int rating = 2;
-        MANAGER.StudyManager.SubmitAnswer(rating);
 
         // 잠시동안 정답 제외 버튼들을 비활성화하여 정답을 표시
         for (int i = 0; i < choices.Length; i++)
@@ -300,24 +308,17 @@ public class QuizManager : MonoBehaviour
     private void DisplayResult()
     {
         // 정답률
-        //StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
-        //int correctCount = 0;
-        //foreach (var item in stageProgress.results)
-        //{
-        //    if (item.correct) correctCount++;
-        //}
-        //float correctRate = (float)correctCount / stageProgress.results.Count;
-        //resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
+        float correctRate = (float)correctCount / todayCount;
+        resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
 
         // 총 데미지
         resultPanel.descTexts[1].text = $"총 데미지: {Mathf.FloorToInt(totalDamage)}";
 
         // 총 진행도
-        //int totalCount = MANAGER.StudyManager.deck.cards.Count;
-        //int studiedCount = MANAGER.StudyManager.deck.cards.Where(w => w.state == CardState.Review).Count() + MANAGER.StudyManager.currentDaySession.newWords.Count;
-        //resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
-
-        // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
+        int totalCount = MANAGER.StudyManager.deck.cards.Count;
+        int newCount = MANAGER.StudyManager.deck.cards.Where(w => w.state == CardState.New).Count();
+        int studiedCount = totalCount - newCount;
+        resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
 
         resultPanel.resultPanel.SetActive(true);
     }
