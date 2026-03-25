@@ -2,16 +2,21 @@ using System.Collections.Generic;
 
 public static class RewardSystem
 {
-    public static int CalculateReward(StageDifficulty diff)
+    public static int CalculateQuizReward(StageDifficulty diff)
     {
         switch (diff)
         {
             case StageDifficulty.Easy:
-                return 50;
+                return 30;
             case StageDifficulty.Hard:
-                return 100;
+                return 50;
         }
 
         return 0;
+    }
+
+    public static int CalculateLearnReward()
+    {
+        return 20;
     }
 }

@@ -302,6 +302,8 @@ public class QuizManager : MonoBehaviour
     {
         Log.LogMessage("학습이 종료되었습니다.");
 
+        GetReward();
+
         MANAGER.StudyManager.deck.quizCompleted[(int)MANAGER.StudyManager.currentStageDifficulty] = true;
         SaveSystem.SaveDeck(MANAGER.StudyManager.deck);
 
@@ -324,6 +326,21 @@ public class QuizManager : MonoBehaviour
         resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
 
         resultPanel.resultPanel.SetActive(true);
+    }
+
+    private void GetReward()
+    {
+        int reward = 0;
+
+        int diff = (int)MANAGER.StudyManager.currentStageDifficulty;
+        for (int i = diff; i >= 0; i--)
+        {
+            if (MANAGER.StudyManager.deck.quizCompleted[i]) continue;
+
+            reward += RewardSystem.CalculateQuizReward((StageDifficulty)i);
+        }
+
+        MANAGER.Inventory.AddMoney(reward);
     }
 
     public void Back()

@@ -88,6 +88,8 @@ public class LearnManager : MonoBehaviour
     {
         Log.LogMessage("학습이 종료되었습니다.");
 
+        GetReward();
+
         MANAGER.StudyManager.deck.lastLearnDate = CustomTime.GetTimeNow();
         SaveSystem.SaveDeck(MANAGER.StudyManager.deck);
 
@@ -117,6 +119,13 @@ public class LearnManager : MonoBehaviour
         // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
 
         resultPanel.resultPanel.SetActive(true);
+    }
+
+    private void GetReward()
+    {
+        int reward = RewardSystem.CalculateLearnReward();
+
+        MANAGER.Inventory.AddMoney(reward);
     }
 
     public void Back()
