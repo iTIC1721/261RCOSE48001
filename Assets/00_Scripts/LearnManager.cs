@@ -76,7 +76,7 @@ public class LearnManager : MonoBehaviour
 
     private void RefreshProgressText()
     {
-        progressText.text = $"{newCount}, {reviewCount}, {studiedCount}";
+        progressText.text = $"<color=#0000FF>{newCount}</color>  <color=#FF0000>{reviewCount}</color>  <color=#00FF00>{studiedCount}</color>";
     }
 
     public void NextCard()
