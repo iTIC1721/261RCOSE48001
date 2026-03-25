@@ -45,6 +45,7 @@ public class QuizManager : MonoBehaviour
     private Monster monster;
 
     private float totalDamage = 0;
+    private int progressCount = 0;
     private int correctCount = 0;
     private int todayCount = 0;
 
@@ -53,7 +54,6 @@ public class QuizManager : MonoBehaviour
     //private Card currentWord = null;
     private int currentAnswer = -1;
 
-    private bool corrected = false;
     private float questionStartTime = 0;
     private float questionResponseTime = 0;
 
@@ -150,9 +150,11 @@ public class QuizManager : MonoBehaviour
 
         if (nextWord != null)
         {
+            progressCount++;
+
             wordText.text = nextWord.front;
             meaningText.text = nextWord.back;
-            //progressText.text = $"진행도: {MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).currentIndex + 1} / {MANAGER.StudyManager.currentDaySession.totalWords.Count}";
+            progressText.text = $"진행도: {progressCount} / {todayCount}";
 
             // 선택지
             string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, nextWord.back);
@@ -197,7 +199,6 @@ public class QuizManager : MonoBehaviour
         if (selectIndex == answerIndex)
         {
             Log.LogMessage("정답!");
-            corrected = true;
             correctCount++;
             SetCombo(combo + 1);
             stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].correctStayTime;
@@ -210,7 +211,6 @@ public class QuizManager : MonoBehaviour
         else
         {
             Log.LogMessage($"오답");
-            corrected = false;
             SetCombo(0);
             stayTime = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].incorrectStayTime;
 
@@ -301,6 +301,9 @@ public class QuizManager : MonoBehaviour
     private void CompleteStage()
     {
         Log.LogMessage("학습이 종료되었습니다.");
+
+        MANAGER.StudyManager.deck.quizCompleted[(int)MANAGER.StudyManager.currentStageDifficulty] = true;
+        SaveSystem.SaveDeck(MANAGER.StudyManager.deck);
 
         DisplayResult();
     }

@@ -31,6 +31,15 @@ public class Deck
         set => lastSessionDateTicks = value.Ticks;
     }
 
+    [SerializeField] private long lastLearnDateTicks = 0;
+    public DateTime lastLearnDate
+    {
+        get => new DateTime(lastLearnDateTicks);
+        set => lastLearnDateTicks = value.Ticks;
+    }
+
+    public bool[] quizCompleted = new bool[Enum.GetValues(typeof(StageDifficulty)).Length];
+
     public List<int> todayCardIds = new List<int>();
 
     // FSRS weight (덱마다 존재)
@@ -78,6 +87,10 @@ public class Deck
 
         // 덱 저장
         SaveSystem.SaveDeck(this);
+
+        // 초기화
+        for (int i = 0; i < quizCompleted.Length; i++)
+            quizCompleted[i] = false;
 
         Log.LogMessage("End of day training complete.");
     }

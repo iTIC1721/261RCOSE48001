@@ -919,7 +919,7 @@ GameObject:
   - component: {fileID: 857814297}
   - component: {fileID: 857814296}
   m_Layer: 5
-  m_Name: Reward
+  m_Name: EasyReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -994,7 +994,7 @@ GameObject:
   - component: {fileID: 862172161}
   - component: {fileID: 862172160}
   m_Layer: 5
-  m_Name: Reward
+  m_Name: HardReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1479,7 +1479,7 @@ GameObject:
   - component: {fileID: 1183888865}
   - component: {fileID: 1183888864}
   m_Layer: 5
-  m_Name: Reward
+  m_Name: LearnReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2862,8 +2862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageSelectPanel
   stageSelectPanel: {fileID: 2128029576}
+  learnStageButton: {fileID: 1731797154}
   stageSelectButtons:
-  - {fileID: 1731797154}
   - {fileID: 1680293430}
   - {fileID: 1021725981}
   rewardDecoration:

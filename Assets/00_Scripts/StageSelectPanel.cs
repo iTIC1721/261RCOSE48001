@@ -7,26 +7,42 @@ using UnityEngine.UI;
 public class StageSelectPanel : MonoBehaviour
 {
     [SerializeField] GameObject stageSelectPanel;
-    [SerializeField] Button[] stageSelectButtons;
+    [SerializeField] Button learnStageButton;
+    [SerializeField] Button[] stageSelectButtons;   // 0: Easy, 1: Hard
     [SerializeField] GameObject[] rewardDecoration;
 
     public void ShowStageSelectPanel()
     {
-        bool isCleared = false;
-        for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
+        if (MANAGER.StudyManager.deck.lastLearnDate.Date != CustomTime.GetTimeNow().Date)   // ¿À´Ã °øºÎ ¾È³¡³ÂÀ¸¸é
         {
-            StageDifficulty stageDifficulty = (StageDifficulty)d;
+            rewardDecoration[0].SetActive(true);
+            learnStageButton.interactable = true;
 
-            if (isCleared/* || MANAGER.StudyManager.GetStageProgress(stageDifficulty).isCompleted*/)
+            for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
             {
-                isCleared = true;
-                rewardDecoration[d].SetActive(false);
+                rewardDecoration[d + 1].SetActive(true);
                 stageSelectButtons[d].interactable = false;
             }
-            else
+        }
+        else
+        {
+            rewardDecoration[0].SetActive(false);
+            learnStageButton.interactable = false;
+
+            bool isCleared = false;
+            for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
             {
-                rewardDecoration[d].SetActive(true);
-                stageSelectButtons[d].interactable = true;
+                if (isCleared || MANAGER.StudyManager.deck.quizCompleted[d])
+                {
+                    isCleared = true;
+                    rewardDecoration[d + 1].SetActive(false);
+                    stageSelectButtons[d].interactable = false;
+                }
+                else
+                {
+                    rewardDecoration[d + 1].SetActive(true);
+                    stageSelectButtons[d].interactable = true;
+                }
             }
         }
 

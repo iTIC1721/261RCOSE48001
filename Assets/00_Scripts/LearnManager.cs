@@ -11,23 +11,34 @@ public class LearnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI progressText;
     [SerializeField] Button nextButton;
 
+    int newCount = 0;
+    int reviewCount = 0;
+    int studiedCount = 0;
+
+    Card currentCard;
+
     private void Start()
     {
+        newCount = MANAGER.StudyManager.session.newCount;
+        reviewCount = MANAGER.StudyManager.session.reviewCount;
+        studiedCount = MANAGER.StudyManager.session.studiedCount;
+
+        RefreshProgressText();
+
         ShowNextWord();
     }
 
     public void ShowNextWord()
     {
-        Card nextWord = MANAGER.StudyManager.GetNextWord();
+        currentCard = MANAGER.StudyManager.GetNextWord();
 
-        if (nextWord != null)
+        if (currentCard != null)
         {
             meaningText.gameObject.SetActive(false);
             nextButton.gameObject.SetActive(false);
 
-            wordText.text = nextWord.front;
-            meaningText.text = nextWord.back;
-            //progressText.text = $"진행도: {MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty).currentIndex + 1} / {MANAGER.StudyManager.currentDaySession.totalWords.Count}";
+            wordText.text = currentCard.front;
+            meaningText.text = currentCard.back;
         }
         else
         {
@@ -38,11 +49,34 @@ public class LearnManager : MonoBehaviour
 
     public void RateCard(int rating)
     {
+        if (rating == 1)
+        {
+            if (currentCard.state == CardState.New)
+            {
+                newCount--;
+                reviewCount++;
+            }
+        }
+        else
+        {
+            if (currentCard.state == CardState.New)
+                newCount--;
+            else
+                reviewCount--;
+            studiedCount++;
+        }
+        RefreshProgressText();
+
         // 결과 기록
         MANAGER.StudyManager.SubmitAnswer(rating);
 
         meaningText.gameObject.SetActive(true);
         nextButton.gameObject.SetActive(true);
+    }
+
+    private void RefreshProgressText()
+    {
+        progressText.text = $"{newCount}, {reviewCount}, {studiedCount}";
     }
 
     public void NextCard()
@@ -53,6 +87,9 @@ public class LearnManager : MonoBehaviour
     private void CompleteStage()
     {
         Log.LogMessage("학습이 종료되었습니다.");
+
+        MANAGER.StudyManager.deck.lastLearnDate = CustomTime.GetTimeNow();
+        SaveSystem.SaveDeck(MANAGER.StudyManager.deck);
 
         DisplayResult();
     }

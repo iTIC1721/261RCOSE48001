@@ -4,20 +4,54 @@ using UnityEngine;
 public class SessionManager
 {
     private Queue<Card> queue = new Queue<Card>();
-    private int progress = 0;
+
+    public int newCount { get; private set; } = 0;
+    public int reviewCount { get; private set; } = 0;
+    public int studiedCount { get; private set; } = 0;
 
     public SessionManager(List<Card> cards)
     {
+        Queue<Card> tmp = new Queue<Card>();
+
         foreach (var c in cards)
         {
             if (c.lastReview.Date == CustomTime.GetTimeNow())
             {
-                progress++;
+                if (c.state != CardState.Learning)
+                {
+                    studiedCount++;
+                }
+                else
+                {
+                    tmp.Enqueue(c);
+                }                
             }
             else
             {
+                if (c.state == CardState.New)
+                {
+                    newCount++;
+                }
+                else
+                {
+                    reviewCount++;
+                }
                 queue.Enqueue(c);
             }
+        }
+
+        // "다시" Card는 맨 뒤로 삽입되게
+        foreach (var c in tmp)
+        {
+            if (c.state == CardState.New)
+            {
+                newCount++;
+            }
+            else
+            {
+                reviewCount++;
+            }
+            queue.Enqueue(c);
         }
     }
 
@@ -31,7 +65,6 @@ public class SessionManager
         if (queue.Count == 0)
             return null;
 
-        progress++;
         return queue.Dequeue();
     }
 

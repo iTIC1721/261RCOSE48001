@@ -13,7 +13,7 @@ public class StudyManager : MonoBehaviour
 {
     public Deck deck;
 
-    private SessionManager session;
+    public SessionManager session;
     private Card currentCard;
 
     public StageDifficulty currentStageDifficulty;
@@ -44,7 +44,7 @@ public class StudyManager : MonoBehaviour
             SaveSystem.SaveDeck(deck);
 
             todayCards = MainScheduler.GetTodayCards(deck);
-            // TODO: ·£´ý ¹èÄ¡
+            ShuffleHelper.Shuffle(todayCards);
 
             deck.todayCardIds.Clear();
             foreach (var c in todayCards)
