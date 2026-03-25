@@ -55,6 +55,7 @@ public static class DeckSystem
 
         deck.id = deckId;
         deck.name = deckName;
+        deck.startDate = CustomTime.GetTimeNow();
 
         deck.cards = cards;
 

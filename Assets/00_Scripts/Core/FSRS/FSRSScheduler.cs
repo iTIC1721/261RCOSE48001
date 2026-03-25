@@ -25,21 +25,24 @@ public static class FSRSScheduler
         float hardPenalty = (rating == 2) ? w[15] : 1f;
         float easyBonus = (rating == 4) ? w[16] : 1f;
 
-        return s * (1 +
-            Mathf.Exp(w[4]) *
-            (11 - d) *
-            Mathf.Pow(s, -w[5]) *
-            (Mathf.Exp((1 - r) * w[6]) - 1) *
-            hardPenalty *
-            easyBonus
-        );
+        float growth =
+            Mathf.Exp(w[8]) *
+            (11f - d) *
+            Mathf.Pow(s, -w[9]) *
+            (Mathf.Exp((1f - r) * w[10]) - 1f);
+
+        Debug.Log($"exp(w[8])={Mathf.Exp(w[8])}");
+        Debug.Log($"growth={growth}");
+
+        return s * (1f + growth * hardPenalty * easyBonus);
     }
 
-    public static float StabilityForget(float d, float s, float[] w)
+    public static float StabilityForget(float d, float s, float r, float[] w)
     {
         return w[11] *
             Mathf.Pow(d, -w[12]) *
-            (Mathf.Pow(s + 1, w[13]) - 1);
+            (Mathf.Pow(s + 1f, w[13]) - 1f) *
+            Mathf.Exp(w[14] * (1f - r));
     }
 
     public static void Review(Card card, Deck deck, int rating)
@@ -60,7 +63,7 @@ public static class FSRSScheduler
 
         // Stability 업데이트
         if (rating == 1)
-            card.stability = StabilityForget(card.difficulty, card.stability, deck.w);
+            card.stability = StabilityForget(card.difficulty, card.stability, r, deck.w);
         else
             card.stability = StabilityRecall(card.difficulty, card.stability, r, rating, deck.w);
         Debug.Log($"[AFTER] newS={card.stability}");

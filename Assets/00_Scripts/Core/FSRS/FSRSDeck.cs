@@ -17,6 +17,13 @@ public class Deck
 
     public List<Card> cards = new List<Card>();
 
+    [SerializeField] private long startDateTicks = 0;
+    public DateTime startDate
+    {
+        get => new DateTime(startDateTicks);
+        set => startDateTicks = value.Ticks;
+    }
+
     [SerializeField] private long lastSessionDateTicks = 0;
     public DateTime lastSessionDate
     {
@@ -27,11 +34,13 @@ public class Deck
     public List<int> todayCardIds = new List<int>();
 
     // FSRS weight (덱마다 존재)
-    public float[] w = new float[17] {
-        0.4f, 0.6f, 2.4f, 5.8f,
-        4.93f, 0.94f, 0.86f, 0.01f,
-        1.49f, 0.14f, 0.94f, 2.18f,
-        0.05f, 0.34f, 1.26f, 0.29f, 2.61f
+    public float[] w = new float[21] {
+        0.40255f, 1.18385f, 3.173f, 5.69105f,
+        7.1949f, 0.5345f, 1.4604f, 0.0046f,
+        1.54575f, 0.1192f, 1.01925f, 1.9395f,
+        0.11f, 0.29605f, 2.2698f, 0.2315f,
+        2.9898f, 0.51655f, 0.6621f, 0.5f,
+        0.1f
     };
 
     public int GetLogCount()
@@ -49,8 +58,8 @@ public class Deck
     {
         int logCount = GetLogCount();
 
-        // 기준: 500개 이상
-        if (logCount < 500)
+        // 기준: 100개 이상
+        if (logCount < 100)
         {
             Log.LogMessage("Not enough logs to train.");
             return;
@@ -75,7 +84,7 @@ public class Deck
 
     public int GetCurrentDay()
     {
-        DateTime start = lastSessionDate.Date;
+        DateTime start = startDate.Date;
         DateTime today = CustomTime.GetTimeNow().Date;
 
         return (today - start).Days;

@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-public enum StageDifficulty
-{
-    Easy,
-    Normal,
-    Hard
-}
-
 [Serializable]
 public class StageProgress
 {

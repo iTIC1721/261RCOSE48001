@@ -66,13 +66,13 @@ public static class MainScheduler
             switch (rating)
             {
                 case 2:
-                    card.stability = 1; break;
+                    card.stability = deck.w[1]; break;
                 case 3:
-                    card.stability = 3; break;
+                    card.stability = deck.w[2]; break;
                 case 4:
-                    card.stability = 5; break;
+                    card.stability = deck.w[3]; break;
                 default:
-                    card.stability = 1; break;
+                    card.stability = deck.w[0]; break;
             }
         }
 

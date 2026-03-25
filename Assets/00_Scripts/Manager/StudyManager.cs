@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum StageDifficulty
+{
+    Easy,
+    Normal,
+    Hard
+}
+
 public class StudyManager : MonoBehaviour
 {
     public Deck deck;
