@@ -8,32 +8,39 @@ public static class MainScheduler
 
     public static List<Card> GetTodayCards(Deck deck)
     {
-        List<Card> result = new List<Card>();
         DateTime now = CustomTime.GetTimeNow();
 
         // Review 카드 (due 지난 것)
+        List<Card> reviewResult = new List<Card>();
         foreach (var card in deck.cards)
         {
             if (card.state == CardState.Review && card.due <= now)
             {
-                result.Add(card);
+                reviewResult.Add(card);
             }
         }
 
         // New 카드 (limit 적용)
         int newCount = 0;
 
-        foreach (var card in deck.cards)
+        List<Card> newResult = new List<Card>();
+        List<Card> newCardPool = new List<Card>(deck.cards);
+        ShuffleHelper.Shuffle(newCardPool);
+        foreach (var card in newCardPool)
         {
             if (card.state == CardState.New)
             {
-                result.Add(card);
+                newResult.Add(card);
                 newCount++;
 
                 if (newCount >= newLimit)
                     break;
             }
         }
+
+        List<Card> result = new List<Card>();
+        result.AddRange(newResult);
+        result.AddRange(reviewResult);
 
         return result;
     }
