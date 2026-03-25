@@ -11,11 +11,6 @@ public class FSRSOptimizer
         return Math.Pow(1.0 + t / (9.0 * S), -1.0);
     }
 
-    double Loss(double r, double y)
-    {
-        return -(y * Math.Log(r + 1e-12) + (1 - y) * Math.Log(1 - r + 1e-12));
-    }
-
     double dL_dR(double r, double y)
     {
         return (r - y) / (r * (1 - r) + 1e-12);
@@ -47,61 +42,6 @@ public class FSRSOptimizer
                 (Math.Exp((1.0 - r) * w[10]) - 1.0);
 
             return s * (1.0 + growth * hardPenalty * easyBonus);
-        }
-    }
-
-    public void Train(Deck deck, int epochs = 5)
-    {
-        var sequences = BuildSequences(deck);
-
-        double[] w = ConvertToDouble(deck.w);
-
-        for (int e = 0; e < epochs; e++)
-        {
-            foreach (var seq in sequences)
-            {
-                TrainSequence(w, seq);
-            }
-        }
-
-        deck.w = ConvertToFloat(w);
-
-        Debug.Log("FSRS Full Optimizer Done");
-    }
-
-    void TrainSequence(double[] w, List<FSRSData> seq)
-    {
-        double[] grad = new double[w.Length];
-
-        foreach (var data in seq)
-        {
-            double d = data.d;
-            double s = data.s;
-            double t = data.t;
-
-            double r_prev = R(s, t);
-
-            double s_next = NextStability(s, d, r_prev, data.rating, w);
-
-            double r = R(s_next, data.t_next);
-
-            double y = data.y;
-
-            double dl_dr = dL_dR(r, y);
-            double dr_ds = dR_dS(s_next, data.t_next);
-
-            double dL_dS = dl_dr * dr_ds;
-
-            for (int i = 0; i < w.Length; i++)
-            {
-                double dS_dw = dNextStability_dw(i, s, d, r_prev, data.rating, w);
-                grad[i] += dL_dS * dS_dw;
-            }
-        }
-
-        for (int i = 0; i < w.Length; i++)
-        {
-            w[i] -= lr * grad[i];
         }
     }
 
@@ -138,6 +78,8 @@ public class FSRSOptimizer
         return 0.0;
     }
 
+    // --------------------
+    
     List<List<FSRSData>> BuildSequences(Deck deck)
     {
         List<List<FSRSData>> sequences = new List<List<FSRSData>>();
@@ -157,6 +99,66 @@ public class FSRSOptimizer
         }
 
         return sequences;
+    }
+
+    public void Train(Deck deck, int epochs = 5)
+    {
+        var sequences = BuildSequences(deck);
+
+        double[] w = ConvertToDouble(deck.w);
+
+        for (int e = 0; e < epochs; e++)
+        {
+            foreach (var seq in sequences)
+            {
+                TrainSequence(w, seq);
+            }
+        }
+
+        deck.w = ConvertToFloat(w);
+
+        Debug.Log("FSRS Full Optimizer Done");
+    }
+
+    /// <summary>
+    /// 경사하강법으로 w 파라미터  갱신
+    /// </summary>
+    /// <param name="w"></param>
+    /// <param name="seq"></param>
+    void TrainSequence(double[] w, List<FSRSData> seq)
+    {
+        double[] grad = new double[w.Length];
+
+        foreach (var data in seq)
+        {
+            double d = data.d;  // 카드 difficulty
+            double s = data.s;  // 카드 stability
+            double t = data.t;  // 이전 리뷰까지 경과 시간
+
+            double r_prev = R(s, t);    // 이전 시점에서 기억을 떠올릴 확률
+
+            double s_next = NextStability(s, d, r_prev, data.rating, w);    // 다음 복습 이후의 stability
+
+            double r = R(s_next, data.t_next);  // 다음 시점에서 기억을 떠올릴 확률
+
+            double y = data.y;  // 기억했는지 못했는지
+
+            double dl_dr = dL_dR(r, y); // loss 미분: 예측값 r과 정답 y의 차이에 따른 loss gradient
+            double dr_ds = dR_dS(s_next, data.t_next);  // r 미분: stability 변화가 recall probability에 미치는 영향
+
+            double dL_dS = dl_dr * dr_ds;   // ∂L / ∂s
+
+            for (int i = 0; i < w.Length; i++)
+            {
+                double dS_dw = dNextStability_dw(i, s, d, r_prev, data.rating, w);  // ∂s_next / ∂wi : 파라미터별 gradient
+                grad[i] += dL_dS * dS_dw;
+            }
+        }
+
+        for (int i = 0; i < w.Length; i++)
+        {
+            w[i] -= lr * grad[i];   // learning rate만큼 파라미터 업데이트
+        }
     }
 
     double[] ConvertToDouble(float[] arr)
