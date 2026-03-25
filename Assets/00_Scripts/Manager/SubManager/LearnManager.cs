@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -98,25 +99,11 @@ public class LearnManager : MonoBehaviour
 
     private void DisplayResult()
     {
-        // 정답률
-        //StageProgress stageProgress = MANAGER.StudyManager.GetStageProgress(MANAGER.StudyManager.currentStageDifficulty);
-        //int correctCount = 0;
-        //foreach (var item in stageProgress.results)
-        //{
-        //    if (item.correct) correctCount++;
-        //}
-        //float correctRate = (float)correctCount / stageProgress.results.Count;
-        //resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f).ToString("F0")}%";
-
-        // 총 데미지
-        //resultPanel.descTexts[1].text = $"총 데미지: {Mathf.FloorToInt(totalDamage)}";
-
         // 총 진행도
-        //int totalCount = MANAGER.StudyManager.deck.cards.Count;
-        //int studiedCount = MANAGER.StudyManager.deck.cards.Where(w => w.state == CardState.Review).Count() + MANAGER.StudyManager.currentDaySession.newWords.Count;
-        //resultPanel.descTexts[2].text = $"학습 진행도: {studiedCount}/{totalCount}";
-
-        // TODO: 입힌 데미지나 최대 콤보도 표시해도 좋을듯?
+        int totalCount = MANAGER.StudyManager.deck.cards.Count;
+        int newCount = MANAGER.StudyManager.deck.cards.Where(w => w.state == CardState.New).Count();
+        int studiedCount = totalCount - newCount;
+        resultPanel.descTexts[0].text = $"학습 진행도: {studiedCount}/{totalCount}";
 
         resultPanel.resultPanel.SetActive(true);
     }
