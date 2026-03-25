@@ -43,6 +43,11 @@ public class StageSelectPanel : MonoBehaviour
         MANAGER.StudyManager.currentStageDifficulty = (StageDifficulty)diff;
     }
 
+    public void MoveToLearn()
+    {
+        SceneManager.LoadScene("StudyDungeon_Learn");
+    }
+
     public void MoveToQuiz()
     {
         SceneManager.LoadScene("StudyDungeon_Quiz");

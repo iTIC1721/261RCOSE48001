@@ -86,17 +86,9 @@ public static class MainScheduler
         else
         {
             // FSRS ±â¹Ý interval
-            double interval = ComputeInterval(card.stability);
-            Log.LogMessage($"stability: {card.stability}, interval: {interval}");
-            card.due = CustomTime.GetTimeNow().AddDays(interval);
+            Log.LogMessage($"stability: {card.stability}");
+            card.due = CustomTime.GetTimeNow().AddDays(card.stability);
             card.state = CardState.Review;
         }
-    }
-
-    private static double ComputeInterval(float stability)
-    {
-        float retention = 0.9f;
-
-        return stability * Mathf.Log(retention) / Mathf.Log(0.9f);
     }
 }

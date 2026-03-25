@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/01_Scenes/StudyDungeon_StageSelect.unity
     guid: 56221deead97ae34b93b56d4560a97eb
   - enabled: 1
+    path: Assets/01_Scenes/StudyDungeon_Learn.unity
+    guid: a18047f84db05bb4e8bf882feb809d62
+  - enabled: 1
     path: Assets/01_Scenes/StudyDungeon_Quiz.unity
     guid: 69cd7c8cc03d3884189e1e4f53934623
   - enabled: 1

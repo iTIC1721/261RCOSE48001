@@ -38,6 +38,7 @@ public class StudyManager : MonoBehaviour
             SaveSystem.SaveDeck(deck);
 
             todayCards = MainScheduler.GetTodayCards(deck);
+            // TODO: 랜덤 배치
 
             deck.todayCardIds.Clear();
             foreach (var c in todayCards)
@@ -58,7 +59,7 @@ public class StudyManager : MonoBehaviour
     {
         if (!session.HasNext())
         {
-            // TODO: 세션 종료
+            // 세션 종료
             SaveSystem.SaveDeck(deck);
             return null;
         }

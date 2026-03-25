@@ -4,11 +4,21 @@ using UnityEngine;
 public class SessionManager
 {
     private Queue<Card> queue = new Queue<Card>();
+    private int progress = 0;
 
     public SessionManager(List<Card> cards)
     {
         foreach (var c in cards)
-            queue.Enqueue(c);
+        {
+            if (c.lastReview.Date == CustomTime.GetTimeNow())
+            {
+                progress++;
+            }
+            else
+            {
+                queue.Enqueue(c);
+            }
+        }
     }
 
     public bool HasNext()
@@ -21,6 +31,7 @@ public class SessionManager
         if (queue.Count == 0)
             return null;
 
+        progress++;
         return queue.Dequeue();
     }
 
