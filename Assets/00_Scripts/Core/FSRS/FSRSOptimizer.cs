@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FSRSOptimizer
 {
-    public double lr = 0.0003;
+    public const double lr = 0.0003;
+    public const double cutoffThreshold = 0.01;
 
     double R(double S, double t)
     {
@@ -134,6 +135,12 @@ public class FSRSOptimizer
             double d = data.d;  // 카드 difficulty
             double s = data.s;  // 카드 stability
             double t = data.t;  // 이전 리뷰까지 경과 시간
+
+            // 시간 간격이 너무 짧은 데이터는 제거
+            if (data.t_next < cutoffThreshold * s)
+            {
+                continue;
+            }
 
             double r_prev = R(s, t);    // 이전 시점에서 기억을 떠올릴 확률
 

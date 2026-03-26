@@ -12,6 +12,8 @@ public class FSRSData
     public float t_next; // 현재 리뷰 → 다음 리뷰까지 시간
     public int y; // 다음 리뷰에서 recall 성공 여부 (0 or 1)
 
+    public bool isQuiz;
+
     public FSRSData(ReviewLog prev, ReviewLog next)
     {
         // 이전 상태

@@ -42,7 +42,7 @@ public static class FSRSScheduler
             Mathf.Exp(w[14] * (1f - r));
     }
 
-    public static void Review(Card card, Deck deck, int rating)
+    public static void Review(Card card, Deck deck, int rating, bool isQuiz = false)
     {
         float t = (float)(CustomTime.GetTimeNow() - card.lastReview).TotalDays;
         float r = GetRetrievability(card.stability, t);
@@ -68,7 +68,7 @@ public static class FSRSScheduler
             lastDifficulty = oldD,
             lastStability = oldS,
             rating = rating,
-            recall = (rating == 1) ? 0 : 1
+            recall = (rating == 1) ? 0 : 1,
         });
 
         card.lastReview = CustomTime.GetTimeNow();

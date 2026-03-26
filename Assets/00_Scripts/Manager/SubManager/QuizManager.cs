@@ -51,8 +51,9 @@ public class QuizManager : MonoBehaviour
 
     private RandomQueue<Card> todayCards;
 
-    //private Card currentWord = null;
+    private Card currentCard = null;
     private int currentAnswer = -1;
+    private List<(Card card, bool isCorrect)> quizLogs = new();
 
     private float questionStartTime = 0;
     private float questionResponseTime = 0;
@@ -144,25 +145,25 @@ public class QuizManager : MonoBehaviour
     {
         if (isDied) return;
 
-        Card nextWord = null;
+        currentCard = null;
         if (todayCards.Count > 0) 
-            nextWord = todayCards.Dequeue();
+            currentCard = todayCards.Dequeue();
 
-        if (nextWord != null)
+        if (currentCard != null)
         {
             progressCount++;
 
-            wordText.text = nextWord.front;
-            meaningText.text = nextWord.back;
+            wordText.text = currentCard.front;
+            meaningText.text = currentCard.back;
             progressText.text = $"진행도: {progressCount} / {todayCount}";
 
             // 선택지
-            string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, nextWord.back);
+            string[] wrongMeanings = MANAGER.StudyManager.GetRandomMeanings(3, currentCard.back);
             currentAnswer = UnityEngine.Random.Range(0, 4);
             string[] meanings = new string[4];
             for (int i = 0, j = 0; i < 4; i++)
             {
-                if (i == currentAnswer) meanings[i] = nextWord.back;
+                if (i == currentAnswer) meanings[i] = currentCard.back;
                 else meanings[i] = wrongMeanings[j++];
             }
             SetChoices(meanings, currentAnswer);
@@ -218,6 +219,9 @@ public class QuizManager : MonoBehaviour
             monster.Attack();
             StartCoroutine(EntityAttackCoroutine(() => PlayerHurt()));
         }
+
+        // 퀴즈 기록을 로그로 남김
+        quizLogs.Add((currentCard, selectIndex == answerIndex));
 
         // 잠시동안 정답 제외 버튼들을 비활성화하여 정답을 표시
         for (int i = 0; i < choices.Length; i++)
@@ -294,7 +298,6 @@ public class QuizManager : MonoBehaviour
 
         player.Die();
 
-        //MANAGER.StudyManager.ClearStageProgress(MANAGER.StudyManager.currentStageDifficulty);
         diePanel.SetActive(true);
     }
 
@@ -302,12 +305,48 @@ public class QuizManager : MonoBehaviour
     {
         Log.LogMessage("학습이 종료되었습니다.");
 
+        ReviewCards();
+
         GetReward();
 
         MANAGER.StudyManager.deck.quizCompleted[(int)MANAGER.StudyManager.currentStageDifficulty] = true;
         SaveSystem.SaveDeck(MANAGER.StudyManager.deck);
 
         DisplayResult();
+    }
+
+    private void ReviewCards()
+    {
+        foreach (var item in quizLogs)
+        {
+            // Rating 결정 후 Review하기
+            int rating = GetRating(item.card, item.isCorrect);
+            FSRSScheduler.Review(item.card, MANAGER.StudyManager.deck, rating);
+
+            // 다음 학습일 갱신
+            Log.LogMessage($"stability: {item.card.stability}");
+            item.card.due = CustomTime.GetTimeNow().AddDays(item.card.stability);
+            item.card.state = CardState.Review;
+        }
+    }
+
+    private int GetRating(Card card, bool isCorrect)
+    {
+        if (!isCorrect) return 1;
+
+        // 맞춘 경우 Card Difficulty에 따라 rating 정하기
+        float a = 10;
+        float b = 0.5f;
+
+        float Sa = isCorrect ? 1 : 0;
+        float diff = card.difficulty / 10f;
+        float Sa_diff = Sa - diff;
+        float ma = 1f / (1f + Mathf.Exp(-a * (Mathf.Abs(Sa_diff) - b)));
+
+        float value = ma * Sa_diff;
+        int rating = Mathf.Clamp(Mathf.RoundToInt(value), -1, 1) + 3;
+
+        return rating;
     }
 
     private void DisplayResult()
