@@ -340,10 +340,9 @@ public class QuizManager : MonoBehaviour
 
         float Sa = isCorrect ? 1 : 0;
         float diff = card.difficulty / 10f;
-        float Sa_diff = Sa - diff;
-        float ma = 1f / (1f + Mathf.Exp(-a * (Mathf.Abs(Sa_diff) - b)));
+        float ma = 1f / (1f + Mathf.Exp(-a * (Mathf.Abs(Sa - diff) - b)));
 
-        float value = ma * Sa_diff;
+        float value = ma * (Sa - diff);
         int rating = Mathf.Clamp(Mathf.RoundToInt(value), -1, 1) + 3;
 
         return rating;
