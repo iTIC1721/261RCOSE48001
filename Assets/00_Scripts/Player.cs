@@ -27,6 +27,11 @@ public class Player : MonoBehaviour, IEntity
         if (enableAttack && canControl) OnAttack();
     }
 
+    public void Intialize()
+    {
+        animator.SetBool("isDeath", false);
+    }
+
     private void OnMove()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -100,6 +105,10 @@ public class Player : MonoBehaviour, IEntity
 
     public void Die()
     {
-        animator.SetTrigger("4_Death");
+        if (!animator.GetBool("isDeath"))
+        {
+            animator.SetBool("isDeath", true);
+            animator.SetTrigger("4_Death");
+        }
     }
 }

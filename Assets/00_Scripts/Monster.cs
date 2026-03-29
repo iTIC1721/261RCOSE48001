@@ -15,6 +15,11 @@ public class Monster : MonoBehaviour, IEntity
         animator = GetComponentInChildren<Animator>();
     }
 
+    public void Intialize()
+    {
+        animator.SetBool("isDeath", false);
+    }
+
     public void Attack(float damage)
     {
         animator.SetTrigger("2_Attack");
@@ -38,6 +43,10 @@ public class Monster : MonoBehaviour, IEntity
 
     public void Die()
     {
-        animator.SetTrigger("4_Death");
+        if (!animator.GetBool("isDeath"))
+        {
+            animator.SetBool("isDeath", true);
+            animator.SetTrigger("4_Death");
+        }
     }
 }
