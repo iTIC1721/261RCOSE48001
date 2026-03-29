@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IEntity
 {
     public bool enableMove = false;
     public bool enableAttack = false;
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Attack();
+            Attack(0);
         }
     }
 
@@ -85,12 +85,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void Attack(float damage)
     {
         animator.SetTrigger("2_Attack");
     }
 
-    public void GetDamaged()
+    public void GetDamaged(float damage)
     {
         animator.SetTrigger("3_Damaged");
     }

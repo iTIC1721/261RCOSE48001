@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IEntity
 {
     private Animator animator;
 
@@ -9,12 +9,12 @@ public class Monster : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    public void Attack()
+    public void Attack(float damage)
     {
         animator.SetTrigger("2_Attack");
     }
 
-    public void GetDamaged()
+    public void GetDamaged(float damage)
     {
         animator.SetTrigger("3_Damaged");
     }
