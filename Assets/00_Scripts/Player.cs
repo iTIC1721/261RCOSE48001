@@ -93,7 +93,7 @@ public class Player : MonoBehaviour, IEntity
         animator.SetTrigger("2_Attack");
     }
 
-    public void GetDamaged(float damage)
+    public void GetDamaged(params float[] damage)
     {
         animator.SetTrigger("3_Damaged");
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ObjectPool : IPool
 {
@@ -76,6 +77,12 @@ public class PoolManager : MonoBehaviour
 
     public IPool PoolingObj(string path)
     {
+        if (!HasPoolObject(path))
+        {
+            Log.LogError($"이름이 {path}인 오브젝트가 \"Resources/Pool/\"에 존재하지 않습니다.");
+            return null;
+        }
+
         if (!m_poolDictionary.ContainsKey(path))
         {
             AddPool(path);
@@ -87,6 +94,16 @@ public class PoolManager : MonoBehaviour
         }
 
         return m_poolDictionary[path];
+    }
+
+    private bool HasPoolObject(string path)
+    {
+        if (Resources.Load<GameObject>($"Pool/{path}") == null)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private GameObject AddPool(string key)

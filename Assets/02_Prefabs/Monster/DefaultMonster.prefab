@@ -1572,6 +1572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be094c798ac38df4ea909374e11f506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
+  damageTMPName: StudyDamageTMP
 --- !u!114 &1953716209619576097
 MonoBehaviour:
   m_ObjectHideFlags: 0

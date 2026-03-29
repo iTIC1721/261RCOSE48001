@@ -254,23 +254,18 @@ public class QuizManager : MonoBehaviour
         Log.LogMessage("적 데미지 입음");
         shakeLayer.Shake(0.5f + combo * 0.02f, true);
 
-        monster.GetDamaged(damage);
-
-        // 기본 데미지를 입히고, (콤보 / 5)번의 추가 데미지를 입힘
-        GiveDamage(damage);
+        // 기본 데미지 + (콤보 / 5)번의 추가 데미지
+        List<float> damageList = new List<float>();
+        damageList.Add(damage);
         for (int i = 1; i <= combo / 5; i++)
         {
-            GiveDamage(damage * (float)i * 0.125f);
+            damageList.Add(damage * (float)i * 0.125f);
         }
-    }
 
-    private void GiveDamage(float damage)
-    {
-        totalDamage += damage;
-
-        var damageTMP = MANAGER.Pool.PoolingObj("StudyDamageTMP").Get((value) => {
-            value.GetComponent<DamageTMP>().Initialize(damageLayer, monster.Transform, Vector3.zero, damage, Color.white);
-        });
+        // 데미지 입힘
+        monster.GetDamaged(damageList.ToArray());
+        for (int i = 0; i < damageList.Count; i++) 
+            totalDamage += damageList[i];
     }
 
     private void PlayerHurt()

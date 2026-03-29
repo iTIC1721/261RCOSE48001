@@ -7,7 +7,7 @@ public interface IEntity
 
     public void Attack(float damage);
 
-    public void GetDamaged(float damage);
+    public void GetDamaged(params float[] damage);
 
     public void Die();
 }
