@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IEntity
 {
+    public Transform Transform => this.transform;
+    public GameObject GameObject => this.gameObject;
+
     public bool enableMove = false;
     public bool enableAttack = false;
 

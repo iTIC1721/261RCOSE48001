@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour, IEntity
 {
+    public Transform Transform => this.transform;
+    public GameObject GameObject => this.gameObject;
+
     private Animator animator;
 
     private void Awake()
