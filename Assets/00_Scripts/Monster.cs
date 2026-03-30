@@ -20,22 +20,22 @@ public class Monster : MonoBehaviour, IEntity
         animator.SetBool("isDeath", false);
     }
 
-    public void Attack(float damage)
+    public void Attack()
     {
         animator.SetTrigger("2_Attack");
     }
 
-    public void GetDamaged(params float[] damage)
+    public void GetDamaged(params DamageInfo[] damageInfos)
     {
         animator.SetTrigger("3_Damaged");
 
         // damageTMP Ãâ·Â
         if (BaseCanvas.Instance != null && BaseCanvas.Instance.damageLayer != null)
         {
-            for (int i = 0; i < damage.Length; i++)
+            for (int i = 0; i < damageInfos.Length; i++)
             {
                 var damageTMP = MANAGER.Pool.PoolingObj(damageTMPName).Get((value) => {
-                    value.GetComponent<DamageTMP>().Initialize(BaseCanvas.Instance.damageLayer, Transform, Vector3.zero, damage[i], Color.white);
+                    value.GetComponent<DamageTMP>().Initialize(BaseCanvas.Instance.damageLayer, Transform, Vector3.zero, damageInfos[i].damage, Color.white);
                 });
             }
         }

@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, IEntity
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Attack(0);
+            Attack();
         }
     }
 
@@ -93,12 +93,12 @@ public class Player : MonoBehaviour, IEntity
         }
     }
 
-    public void Attack(float damage)
+    public void Attack()
     {
         animator.SetTrigger("2_Attack");
     }
 
-    public void GetDamaged(params float[] damage)
+    public void GetDamaged(params DamageInfo[] damageInfos)
     {
         animator.SetTrigger("3_Damaged");
     }

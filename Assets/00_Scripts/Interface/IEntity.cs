@@ -7,9 +7,9 @@ public interface IEntity
 
     public void Intialize();
 
-    public void Attack(float damage);
+    public void Attack();
 
-    public void GetDamaged(params float[] damage);
+    public void GetDamaged(params DamageInfo[] damageInfos);
 
     public void Die();
 }
