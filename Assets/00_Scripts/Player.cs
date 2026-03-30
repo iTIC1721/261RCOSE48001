@@ -91,6 +91,10 @@ public class Player : MonoBehaviour, IEntity
                 canControl = true;
             }
         }
+        else
+        {
+            canControl = true;
+        }
     }
 
     public void Attack()
