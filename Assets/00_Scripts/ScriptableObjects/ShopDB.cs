@@ -19,12 +19,12 @@ public class ShopDB : ScriptableObject
 
     public bool HasItem(int id, PlayerSaveData saveData)
     {
-        int purchaseList = saveData.purchaseList;
-        int target = 0b1 << id;
+        uint purchaseList = saveData.purchaseList;
+        uint target = (uint)(0b1 << id);
         
-        int result = target & purchaseList;
+        uint result = target & purchaseList;
 
-        if (result == 0) return false;
+        if (result == 0b0) return false;
         else return true;
     }
 }

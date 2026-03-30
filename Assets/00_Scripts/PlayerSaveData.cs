@@ -6,5 +6,5 @@ public class PlayerSaveData
 {
     public int money;
     public int characterId;
-    public int purchaseList = 0b11;
+    public uint purchaseList = 0b11;
 }

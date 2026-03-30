@@ -187,7 +187,7 @@ public class ShopManager : MonoBehaviour
         PlayerSaveData saveData = SaveSystem.LoadPlayerData();
 
         Log.LogMessage($"{shopItemId}, {saveData.purchaseList}");
-        saveData.purchaseList |= 1 << shopItemId;
+        saveData.purchaseList |= (uint)(1 << shopItemId);
 
         SetMoneyText(saveData.money);
 
