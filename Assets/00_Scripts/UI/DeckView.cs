@@ -31,7 +31,7 @@ public class DeckView : MonoBehaviour
         deckBtn.GetComponent<DeckButton>().deckId = deck.id;
 
         deckBtn.GetComponent<DeckButton>().AddEvent(() => {
-            Log.LogMessage(SaveSystem.LoadDeck(deck.id).ToString());
+            //Log.LogMessage(SaveSystem.LoadDeck(deck.id).ToString());
             MANAGER.StudyManager.Load(deck.id);
 
             // 오늘 스테이지 선택으로 이동

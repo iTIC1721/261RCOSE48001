@@ -85,12 +85,12 @@ public class Deck
         // 덱 학습 - 파라미터 조정
         Train();
 
-        // 덱 저장
-        SaveSystem.SaveDeck(this);
-
         // 초기화
         for (int i = 0; i < quizCompleted.Length; i++)
             quizCompleted[i] = false;
+
+        // 덱 저장
+        SaveSystem.SaveDeck(this);
 
         Log.LogMessage("End of day training complete.");
     }

@@ -20,11 +20,6 @@ public class StudyManager : MonoBehaviour
 
     private int cardViewCount = 0;
 
-    public void Save()
-    {
-        SaveSystem.SaveDeck(deck);
-    }
-
     public void Load(string deckId)
     {
         deck = SaveSystem.LoadDeck(deckId);
@@ -41,7 +36,6 @@ public class StudyManager : MonoBehaviour
         if (deck.lastSessionDate.Date != CustomTime.GetTimeNow().Date)
         {
             deck.EndOfDay();
-            SaveSystem.SaveDeck(deck);
 
             todayCards = MainScheduler.GetTodayCards(deck);
             ShuffleHelper.Shuffle(todayCards);
@@ -73,7 +67,7 @@ public class StudyManager : MonoBehaviour
         currentCard = session.GetNextCard();
         
         cardViewCount++;
-        if (cardViewCount >= 5)
+        if (cardViewCount >= 20)
         {
             SaveSystem.SaveDeck(deck);
             cardViewCount = 0;
