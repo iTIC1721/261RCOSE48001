@@ -59,9 +59,11 @@ public static class SaveSystem
 
     public static void SavePlayerData(PlayerSaveData data)
     {
-        string json = JsonUtility.ToJson(data, true);
-        string encryptedJson = AESHelper.Encrypt(json, AESHelper.commonKey);
-        File.WriteAllText(GetPlayerDataPath(), encryptedJson);
+        string json = JsonUtility.ToJson(data, false);
+        byte[] plainBytes = Encoding.UTF8.GetBytes(json);
+
+        byte[] encryptedBytes = AESHelper.Encrypt(plainBytes);
+        File.WriteAllBytes(GetPlayerDataPath(), encryptedBytes);
 
         Log.LogMessage($"Saved Inventory: {GetPlayerDataPath()}");
     }
@@ -77,8 +79,10 @@ public static class SaveSystem
             return data;
         }
 
-        string encryptedJson = File.ReadAllText(path, System.Text.Encoding.UTF8);
-        string json = AESHelper.Decrypt(encryptedJson, AESHelper.commonKey);
+        byte[] encryptedBytes = File.ReadAllBytes(path);
+        byte[] decryptedBytes = AESHelper.Decrypt(encryptedBytes);
+
+        string json = Encoding.UTF8.GetString(decryptedBytes);
         return JsonUtility.FromJson<PlayerSaveData>(json);
     }
     #endregion
@@ -86,33 +90,47 @@ public static class SaveSystem
 
 public static class AESHelper
 {
-    public const string commonKey = "MemorixMemorix00";
+    private const string commonKey = "MemorixMemorix00";
 
-    public static string Encrypt(string text, string key)
+    private static readonly byte[] keyBytes;
+    private static readonly byte[] iv = new byte[16]; // 현재는 고정 (추후 개선 가능)
+
+    static AESHelper()
+    {
+        keyBytes = Encoding.UTF8.GetBytes(commonKey);
+    }
+
+    public static byte[] Encrypt(byte[] data)
     {
         using (Aes aes = Aes.Create())
         {
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = new byte[16]; // IV는 0으로 초기화하여 사용
-            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-            byte[] textBytes = Encoding.UTF8.GetBytes(text);
+            aes.Key = keyBytes;
+            aes.IV = iv;
 
-            byte[] encryptedBytes = encryptor.TransformFinalBlock(textBytes, 0, textBytes.Length);
-            return Convert.ToBase64String(encryptedBytes);
+            using (var ms = new MemoryStream())
+            using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+            {
+                cs.Write(data, 0, data.Length);
+                cs.FlushFinalBlock();
+                return ms.ToArray();
+            }
         }
     }
 
-    public static string Decrypt(string encryptedText, string key)
+    public static byte[] Decrypt(byte[] encryptedData)
     {
         using (Aes aes = Aes.Create())
         {
-            aes.Key = Encoding.UTF8.GetBytes(key);
-            aes.IV = new byte[16]; // IV는 암호화할 때와 동일하게 설정
-            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-            byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
+            aes.Key = keyBytes;
+            aes.IV = iv;
 
-            byte[] decryptedBytes = decryptor.TransformFinalBlock(encryptedBytes, 0, encryptedBytes.Length);
-            return Encoding.UTF8.GetString(decryptedBytes);
+            using (var ms = new MemoryStream(encryptedData))
+            using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
+            using (var result = new MemoryStream())
+            {
+                cs.CopyTo(result);
+                return result.ToArray();
+            }
         }
     }
 }
