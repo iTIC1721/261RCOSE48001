@@ -62,7 +62,7 @@ public class DamageTMP : PoolObject
             yield return null;
         }
 
-        Destroy();
+        Return();
     }
 
     private void MovePosition()

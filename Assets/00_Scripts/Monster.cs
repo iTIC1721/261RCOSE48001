@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public class Monster : MonoBehaviour, IEntity
+public class Monster : PoolObject, IEntity
 {
     public Transform Transform => this.transform;
 

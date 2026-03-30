@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class PoolObject : MonoBehaviour
 {
-    private Coroutine destroyCoroutine = null;
+    private Coroutine returnCoroutine = null;
 
-    protected void Destroy()
+    protected void Return()
     {
-        if (destroyCoroutine != null) StopCoroutine(destroyCoroutine);
+        if (returnCoroutine != null) StopCoroutine(returnCoroutine);
 
         if (MANAGER.Pool.m_poolDictionary.ContainsKey(gameObject.name))
         {
@@ -19,14 +19,14 @@ public class PoolObject : MonoBehaviour
         }
     }
 
-    protected void Destroy(float lifeTime)
+    protected void Return(float lifeTime)
     {
-        destroyCoroutine = StartCoroutine(DestroyCoroutine(lifeTime));
+        returnCoroutine = StartCoroutine(ReturnCoroutine(lifeTime));
     }
 
-    private IEnumerator DestroyCoroutine(float lifeTime)
+    private IEnumerator ReturnCoroutine(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
-        Destroy();
+        Return();
     }
 }
