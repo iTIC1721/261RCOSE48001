@@ -110,7 +110,7 @@ public class HitBox2D : MonoBehaviour
             if (lastHitCollidersList.Contains(colls[i]))
                 continue;
 
-            colls[i].GetComponent<IEntity>().GetDamaged(damageInfo);
+            colls[i].GetComponent<IDamageable>().GetDamaged(damageInfo);
             Log.LogMessage($"Got Damage: {colls[i].name}");
 
             lastHitCollidersList.Add(colls[i]);
