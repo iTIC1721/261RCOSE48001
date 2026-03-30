@@ -1,13 +1,8 @@
 using UnityEngine;
 
-public interface IEntity : IDamageable
+public interface IEntity : IAttackable, IDamageable
 {
-    Transform Transform { get; }
-    GameObject GameObject { get; }
-
     public void Intialize();
-
-    public void Attack();
 
     public void Die();
 }

@@ -22,7 +22,7 @@ public class HitBox2D : MonoBehaviour
     [ShowIf("type", HitBoxType.Square)] public Vector2 hitboxSize = Vector2.one;
     [ShowIf("type", HitBoxType.Circle)] public float radius = 1;
     public Vector3 offset = Vector3.zero;
-    public InterfaceReference<IEntity> parent;
+    public InterfaceReference<IAttackable> parent;
     public float damage = 5;
 
     [Header("Colors")]
@@ -47,7 +47,7 @@ public class HitBox2D : MonoBehaviour
         lastHitCollidersList = new List<Collider2D>();
     }
 
-    public void Initialize(IEntity parent)
+    public void Initialize(IAttackable parent)
     {
         if (parent == null) return;
 
