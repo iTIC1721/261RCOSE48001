@@ -54,7 +54,7 @@ public static class SaveSystem
     #region Inventory
     static string GetPlayerDataPath()
     {
-        return GetSavePath() + $"/player.json";
+        return GetSavePath() + $"/player";
     }
 
     public static void SavePlayerData(PlayerSaveData data)
