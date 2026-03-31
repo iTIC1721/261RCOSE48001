@@ -13,10 +13,8 @@ public class Player : MonoBehaviour, IEntity
 
     private Animator animator;
 
-    private PlayerInput playerInput;
-    private InputActionMap playerActionMap;
-    private InputAction moveAction;
-    private InputAction attackAction;
+    [SerializeField] private InputActionReference moveActionReference;
+    [SerializeField] private InputActionReference attackActionReference;
 
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
@@ -24,23 +22,14 @@ public class Player : MonoBehaviour, IEntity
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
-        playerInput = GetComponent<PlayerInput>();
-
-        playerActionMap = playerInput.actions.FindActionMap("PlayerActions");
-        moveAction = playerActionMap.FindAction("Move");
-        attackAction = playerActionMap.FindAction("Attack");
-
-        moveAction.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
-        moveAction.canceled += ctx => OnMove(ctx.ReadValue<Vector2>());
-
-        attackAction.performed += ctx => OnAttack();
     }
 
     private void Update()
     {
         CheckCanControl();
 
-        if (enableMove && canControl) Move();
+        OnMove();
+        // TODO: OnAttack 구현하기
     }
 
     public void Intialize()
@@ -48,9 +37,12 @@ public class Player : MonoBehaviour, IEntity
         animator.SetBool("isDeath", false);
     }
 
-    private void OnMove(Vector2 input)
+    private void OnMove()
     {
-        moveInput = input;
+        moveInput = moveActionReference.action.ReadValue<Vector2>();
+
+        if (enableMove && canControl) 
+            Move();
     }
 
     private void Move()
