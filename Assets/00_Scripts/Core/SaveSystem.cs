@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum SaveType
 {
@@ -12,6 +13,8 @@ public enum SaveType
 
 public static class SaveSystem
 {
+    public static bool encrypt = false;
+
     public static string GetSavePath()
     {
         return Application.persistentDataPath;
@@ -59,11 +62,19 @@ public static class SaveSystem
 
     public static void SavePlayerData(PlayerSaveData data)
     {
-        string json = JsonUtility.ToJson(data, false);
-        byte[] plainBytes = Encoding.UTF8.GetBytes(json);
+        if (encrypt == true)
+        {
+            string json = JsonUtility.ToJson(data, false);
+            byte[] plainBytes = Encoding.UTF8.GetBytes(json);
 
-        byte[] encryptedBytes = AESHelper.Encrypt(plainBytes);
-        File.WriteAllBytes(GetPlayerDataPath(), encryptedBytes);
+            byte[] encryptedBytes = AESHelper.Encrypt(plainBytes);
+            File.WriteAllBytes(GetPlayerDataPath(), encryptedBytes);
+        }
+        else
+        {
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(GetPlayerDataPath(), json, System.Text.Encoding.UTF8);
+        }
 
         Log.LogMessage($"Saved Inventory: {GetPlayerDataPath()}");
     }
@@ -79,11 +90,19 @@ public static class SaveSystem
             return data;
         }
 
-        byte[] encryptedBytes = File.ReadAllBytes(path);
-        byte[] decryptedBytes = AESHelper.Decrypt(encryptedBytes);
+        if (encrypt == true)
+        {
+            byte[] encryptedBytes = File.ReadAllBytes(path);
+            byte[] decryptedBytes = AESHelper.Decrypt(encryptedBytes);
 
-        string json = Encoding.UTF8.GetString(decryptedBytes);
-        return JsonUtility.FromJson<PlayerSaveData>(json);
+            string json = Encoding.UTF8.GetString(decryptedBytes);
+            return JsonUtility.FromJson<PlayerSaveData>(json);
+        }
+        else
+        {
+            string json = File.ReadAllText(path);
+            return JsonUtility.FromJson<PlayerSaveData>(json);
+        }
     }
     #endregion
 }
