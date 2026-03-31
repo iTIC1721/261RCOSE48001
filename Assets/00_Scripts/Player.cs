@@ -13,8 +13,8 @@ public class Player : MonoBehaviour, IEntity
 
     private Animator animator;
 
+    [SerializeField] private Joystick joystick;
     [SerializeField] private InputActionReference moveActionReference;
-    [SerializeField] private InputActionReference attackActionReference;
 
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
@@ -39,7 +39,8 @@ public class Player : MonoBehaviour, IEntity
 
     private void OnMove()
     {
-        moveInput = moveActionReference.action.ReadValue<Vector2>();
+        Vector2 joystickDir = joystick.Direction;
+        moveInput = (joystickDir.sqrMagnitude > 0.01f) ? joystickDir : moveActionReference.action.ReadValue<Vector2>();
 
         if (enableMove && canControl) 
             Move();
@@ -68,13 +69,6 @@ public class Player : MonoBehaviour, IEntity
             isMoving = false;
             animator.SetBool("1_Move", false);
         }
-    }
-
-    private void OnAttack()
-    {
-        if (!enableAttack || !canControl) return;
-        
-        Attack();
     }
 
     private void CheckCanControl()
