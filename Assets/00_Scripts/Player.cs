@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class Player : MonoBehaviour, IEntity
 {
@@ -11,19 +13,34 @@ public class Player : MonoBehaviour, IEntity
 
     private Animator animator;
 
+    private PlayerInput playerInput;
+    private InputActionMap playerActionMap;
+    private InputAction moveAction;
+    private InputAction attackAction;
+
+    private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        playerInput = GetComponent<PlayerInput>();
+
+        playerActionMap = playerInput.actions.FindActionMap("PlayerActions");
+        moveAction = playerActionMap.FindAction("Move");
+        attackAction = playerActionMap.FindAction("Attack");
+
+        moveAction.performed += ctx => OnMove(ctx.ReadValue<Vector2>());
+        moveAction.canceled += ctx => OnMove(ctx.ReadValue<Vector2>());
+
+        attackAction.performed += ctx => OnAttack();
     }
 
     private void Update()
     {
         CheckCanControl();
 
-        if (enableMove && canControl) OnMove();
-        if (enableAttack && canControl) OnAttack();
+        if (enableMove && canControl) Move();
     }
 
     public void Intialize()
@@ -31,20 +48,21 @@ public class Player : MonoBehaviour, IEntity
         animator.SetBool("isDeath", false);
     }
 
-    private void OnMove()
+    private void OnMove(Vector2 input)
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        Vector3 moveVector = new Vector3(moveX, moveY, 0);
+        moveInput = input;
+    }
 
-        transform.Translate(moveVector.normalized * Time.deltaTime * 5f);
+    private void Move()
+    {
+        transform.Translate(moveInput.normalized * Time.deltaTime * 5f);
 
-        if (Mathf.Abs(moveX) > 0.01f || Mathf.Abs(moveY) > 0.01f)
+        if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
         {
             isMoving = true;
             animator.SetBool("1_Move", true);
 
-            if (moveX > 0)
+            if (moveInput.x > 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
             }
@@ -62,10 +80,9 @@ public class Player : MonoBehaviour, IEntity
 
     private void OnAttack()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Attack();
-        }
+        if (!enableAttack || !canControl) return;
+        
+        Attack();
     }
 
     private void CheckCanControl()
