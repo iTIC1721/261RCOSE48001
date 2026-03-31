@@ -46,7 +46,48 @@ public class FSRSOptimizer
         }
     }
 
-    double dNextStability_dw(int i, double s, double d, double r, int rating, double[] w)
+    double dD_dw(int i, double d, int rating, double[] w)
+    {
+        double scale = (10.0 - d) / 9.0;
+
+        if (rating == 1 && i == 6) return scale;
+        if (rating == 2 && i == 7) return scale;
+        if (rating == 3 && i == 8) return -scale;
+        if (rating == 4 && i == 9) return -scale;
+
+        return 0.0;
+    }
+
+    double dS_dD(double s, double d, double r, int rating, double[] w)
+    {
+        if (rating == 1)
+        {
+            double baseVal =
+                Math.Pow(d, -w[12]) *
+                (Math.Pow(s + 1.0, w[13]) - 1.0) *
+                Math.Exp(w[14] * (1.0 - r));
+
+            // d^{-w12} 미분
+            return -w[11] * baseVal * w[12] / d;
+        }
+        else
+        {
+            double expTerm = Math.Exp(w[8]);
+
+            double growth =
+                expTerm *
+                (11.0 - d) *
+                Math.Pow(s, -w[9]) *
+                (Math.Exp((1.0 - r) * w[10]) - 1.0);
+
+            // (11 - d) 미분
+            return -s * expTerm *
+                   Math.Pow(s, -w[9]) *
+                   (Math.Exp((1.0 - r) * w[10]) - 1.0);
+        }
+    }
+
+    double dS_dw(int i, double s, double d, double r, int rating, double[] w)
     {
         if (rating == 1)
         {
@@ -79,8 +120,19 @@ public class FSRSOptimizer
         return 0.0;
     }
 
+    double dNextStability_dw(int i, double s, double d, double r, int rating, double[] w)
+    {
+        double direct = dS_dw(i, s, d, r, rating, w);
+
+        // difficulty 경로
+        double ds_dd = dS_dD(s, d, r, rating, w);
+        double dd_dw = this.dD_dw(i, d, rating, w);
+
+        return direct + ds_dd * dd_dw;
+    }
+
     // --------------------
-    
+
     List<List<FSRSData>> BuildSequences(Deck deck)
     {
         List<List<FSRSData>> sequences = new List<List<FSRSData>>();
