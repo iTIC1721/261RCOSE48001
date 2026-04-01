@@ -233,7 +233,12 @@ public class Player : MonoBehaviour, IEntity
         }
 
         MANAGER.Pool.PoolingObj("PlayerProjectile").Get(value => {
-            value.GetComponent<PlayerProjectile>().Initialize(direction, 10, 10, this);
+            PlayerProjectile p = value.GetComponent<PlayerProjectile>();
+            p.Initialize(10, this);
+
+            value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
+            p.direction = direction;
+            p.speed = 10;
         });
     }
 }

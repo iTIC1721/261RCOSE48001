@@ -1,28 +1,11 @@
 using UnityEngine;
 
-public class PlayerProjectile : PoolObject
+public class PlayerProjectile : PlayerAttackObject
 {
-    [Min(0)] public float lifeTime = 10;
+    public SpriteRenderer sprite;
 
-    [SerializeField] HitBox2D hitBox;
-    [SerializeField] SpriteRenderer sprite;
-
-    private Vector2 direction;
-    private float speed = 10;
-
-    public void Initialize(Vector2 direction, float speed, float damage, IAttackable parent)
-    {
-        transform.position = parent.Transform.position;
-        transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
-        this.direction = direction;
-        this.speed = speed;
-
-        hitBox.damage = damage;
-        hitBox.parent.Value = parent;
-        hitBox.StartCheckingCollision(KillCallBack);
-
-        Return(lifeTime, CallBack);
-    }
+    [HideInInspector] public Vector2 direction;
+    [HideInInspector] public float speed = 10;
 
     private void Update()
     {
@@ -31,19 +14,21 @@ public class PlayerProjectile : PoolObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!isInitialized) return;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             Return(CallBack);
         }
     }
 
-    private void KillCallBack(Collider2D _)
+    public override void StartHitBox()
     {
-        Return(CallBack);
+        hitBox.StartCheckingCollision(KillCallBack);
     }
 
-    private void CallBack(GameObject _)
+    public virtual void KillCallBack(Collider2D _)
     {
-        hitBox.StopCheckingCollision();
+        Return(CallBack);
     }
 }
