@@ -133,13 +133,17 @@ public class Player : MonoBehaviour, IEntity
         float nearestDist = float.MaxValue;
         for (int i = 0; i < cols.Length; i++)
         {
-            if (!cols[i].TryGetComponent<Monster>(out var m)) continue;
+            if (!cols[i].TryGetComponent<Monster>(out var monster)) continue;
 
-            float d = Vector2.Distance(transform.position, cols[i].transform.position);
-            if (d < nearestDist)
+            float dist = Vector2.Distance(transform.position, cols[i].transform.position);
+            if (dist < nearestDist)
             {
-                nearestDist = d;
-                nearest = m;
+                // 벽에 가려지지 않았는지 체크
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, cols[i].transform.position - transform.position, float.PositiveInfinity, LayerMask.GetMask("Wall", "Monster"));
+                if (hit.collider == null || !hit.collider.TryGetComponent<Monster>(out _)) continue;
+
+                nearestDist = dist;
+                nearest = monster;
             }
         }
 
