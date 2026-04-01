@@ -27,6 +27,8 @@ public class Player : MonoBehaviour, IEntity
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
 
+    private int playerDir = 1;
+
     private float lastAttackTime = 0;
 
     private Monster target = null;
@@ -89,8 +91,6 @@ public class Player : MonoBehaviour, IEntity
 
     private void Rotate()
     {
-        int playerDir = 1;
-
         // 타겟 존재 시 플레이어 방향 타겟에게 고정
         if (target != null)
         {
@@ -162,7 +162,10 @@ public class Player : MonoBehaviour, IEntity
     private void OnAttack()
     {
         if (!canControl | !enableAttack) return;
+
         if (isMoving) return;
+
+        if (target == null) return;
 
         if (Time.time - lastAttackTime >= attackDelay)
             Attack();
@@ -170,8 +173,7 @@ public class Player : MonoBehaviour, IEntity
 
     private void CheckCanControl()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK") ||
-            animator.GetCurrentAnimatorStateInfo(0).IsName("DAMAGED"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DAMAGED"))
         {
             float animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime == 0)
@@ -200,8 +202,6 @@ public class Player : MonoBehaviour, IEntity
     {
         animator.SetTrigger("2_Attack");
         lastAttackTime = Time.time;
-
-        //SpawnAttackObject();
     }
 
     public void GetDamaged(params DamageInfo[] damageInfos)
