@@ -197,6 +197,8 @@ public class Player : MonoBehaviour, IEntity
     {
         animator.SetTrigger("2_Attack");
         lastAttackTime = Time.time;
+
+        //FireProjectile();
     }
 
     public void GetDamaged(params DamageInfo[] damageInfos)
@@ -211,5 +213,27 @@ public class Player : MonoBehaviour, IEntity
             animator.SetBool("isDeath", true);
             animator.SetTrigger("4_Death");
         }
+    }
+
+    public void FireProjectile()
+    {
+        Vector2 direction = Vector2.right;
+        if (target != null)
+        {
+            direction = target.transform.position - transform.position;
+        }
+        else if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
+        {
+            direction = moveInput;
+        }
+        else
+        {
+            if (transform.localScale.x < 0) direction = -Vector2.right;
+            else direction = Vector2.right;
+        }
+
+        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(value => {
+            value.GetComponent<PlayerProjectile>().Initialize(direction, 10, 10, this);
+        });
     }
 }

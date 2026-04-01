@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,6 +41,8 @@ public class HitBox2D : MonoBehaviour
 
     private List<Collider2D> lastHitCollidersList;
 
+    private Action<Collider2D> hitCallBack;
+
     private void Awake()
     {
         Initialize(parent.Value);
@@ -72,14 +75,18 @@ public class HitBox2D : MonoBehaviour
         }
     }
 
-    public void StartCheckingCollision()
+    public void StartCheckingCollision(Action<Collider2D> callBack = null)
     {
         lastHitCollidersList.Clear();
+        if (callBack != null) hitCallBack += callBack;
+
         _state = ColliderState.Open;
     }
 
     public void StopCheckingCollision()
     {
+        hitCallBack = null;
+
         _state = ColliderState.Closed;
     }
 
@@ -110,6 +117,7 @@ public class HitBox2D : MonoBehaviour
             if (lastHitCollidersList.Contains(colls[i]))
                 continue;
 
+            hitCallBack?.Invoke(colls[i]);
             colls[i].GetComponent<IDamageable>().GetDamaged(damageInfo);
             Log.LogMessage($"Got Damage: {colls[i].name}");
 
