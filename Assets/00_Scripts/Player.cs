@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IEntity
 
     private bool canControl = true;
 
+    private Rigidbody2D rb;
     private Animator animator;
 
     private Vector2 moveInput = Vector2.zero;
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour, IEntity
 
     private void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
     }
 
@@ -74,7 +76,8 @@ public class Player : MonoBehaviour, IEntity
 
     private void Move()
     {
-        transform.Translate(moveInput.normalized * Time.deltaTime * 5f);
+        //transform.Translate(moveInput.normalized * Time.deltaTime * 5f);
+        rb.MovePosition(rb.position + moveInput.normalized * Time.deltaTime * 5f);
 
         if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
         {
