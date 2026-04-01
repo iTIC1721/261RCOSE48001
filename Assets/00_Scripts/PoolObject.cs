@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,13 +6,13 @@ public class PoolObject : MonoBehaviour
 {
     private Coroutine returnCoroutine = null;
 
-    protected void Return()
+    protected void Return(Action<GameObject> callback = null)
     {
         if (returnCoroutine != null) StopCoroutine(returnCoroutine);
 
         if (MANAGER.Pool.m_poolDictionary.ContainsKey(gameObject.name))
         {
-            MANAGER.Pool.m_poolDictionary[gameObject.name].Return(this.gameObject);
+            MANAGER.Pool.m_poolDictionary[gameObject.name].Return(this.gameObject, callback);
         }
         else
         {
@@ -19,14 +20,14 @@ public class PoolObject : MonoBehaviour
         }
     }
 
-    protected void Return(float lifeTime)
+    protected void Return(float lifeTime, Action<GameObject> callback = null)
     {
         returnCoroutine = StartCoroutine(ReturnCoroutine(lifeTime));
     }
 
-    private IEnumerator ReturnCoroutine(float lifeTime)
+    private IEnumerator ReturnCoroutine(float lifeTime, Action<GameObject> callback = null)
     {
         yield return new WaitForSeconds(lifeTime);
-        Return();
+        Return(callback);
     }
 }
