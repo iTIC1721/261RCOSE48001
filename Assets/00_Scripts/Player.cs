@@ -201,7 +201,7 @@ public class Player : MonoBehaviour, IEntity
         animator.SetTrigger("2_Attack");
         lastAttackTime = Time.time;
 
-        FireProjectile();
+        //SpawnAttackObject();
     }
 
     public void GetDamaged(params DamageInfo[] damageInfos)
@@ -218,7 +218,7 @@ public class Player : MonoBehaviour, IEntity
         }
     }
 
-    public void FireProjectile()
+    public void SpawnAttackObject()
     {
         if (target == null) return;
 
