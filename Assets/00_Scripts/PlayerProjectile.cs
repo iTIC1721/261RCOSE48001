@@ -19,7 +19,7 @@ public class PlayerProjectile : PoolObject
 
         hitBox.damage = damage;
         hitBox.parent.Value = parent;
-        hitBox.StartCheckingCollision();
+        hitBox.StartCheckingCollision(KillCallBack);
 
         Return(lifeTime, CallBack);
     }
@@ -27,6 +27,14 @@ public class PlayerProjectile : PoolObject
     private void Update()
     {
         transform.position += (Vector3)direction.normalized * speed * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            Return(CallBack);
+        }
     }
 
     private void KillCallBack(Collider2D _)

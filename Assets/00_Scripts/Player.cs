@@ -198,7 +198,7 @@ public class Player : MonoBehaviour, IEntity
         animator.SetTrigger("2_Attack");
         lastAttackTime = Time.time;
 
-        //FireProjectile();
+        FireProjectile();
     }
 
     public void GetDamaged(params DamageInfo[] damageInfos)
