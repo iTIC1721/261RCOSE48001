@@ -15,6 +15,9 @@ public class Player : MonoBehaviour, IEntity
     public float detectRange = 5;
 
     [Space]
+    public float attackDelay = 1;
+
+    [Header("Ref")]
     [SerializeField] private FloatingJoystick joystick;
     [SerializeField] private InputActionReference moveActionReference;
 
@@ -24,6 +27,8 @@ public class Player : MonoBehaviour, IEntity
 
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
+
+    private float lastAttackTime = 0;
 
     private Monster target = null;
 
@@ -37,9 +42,9 @@ public class Player : MonoBehaviour, IEntity
         CheckCanControl();
 
         SetTarget();
-        OnMove();
         Rotate();
-        // TODO: OnAttack 구현하기
+        OnMove();
+        OnAttack();
     }
 
     public void Intialize()
@@ -141,6 +146,15 @@ public class Player : MonoBehaviour, IEntity
         return nearest;
     }
 
+    private void OnAttack()
+    {
+        if (!canControl | !enableAttack) return;
+        if (isMoving) return;
+
+        if (Time.time - lastAttackTime >= attackDelay)
+            Attack();
+    }
+
     private void CheckCanControl()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("ATTACK") ||
@@ -172,6 +186,7 @@ public class Player : MonoBehaviour, IEntity
     public void Attack()
     {
         animator.SetTrigger("2_Attack");
+        lastAttackTime = Time.time;
     }
 
     public void GetDamaged(params DamageInfo[] damageInfos)
