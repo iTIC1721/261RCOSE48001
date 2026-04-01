@@ -13,7 +13,7 @@ public class Player : MonoBehaviour, IEntity
 
     private Animator animator;
 
-    [SerializeField] private Joystick joystick;
+    [SerializeField] private FloatingJoystick joystick;
     [SerializeField] private InputActionReference moveActionReference;
 
     private Vector2 moveInput = Vector2.zero;
@@ -39,6 +39,13 @@ public class Player : MonoBehaviour, IEntity
 
     private void OnMove()
     {
+        if (!joystick.IsMoving)
+        {
+            if (isMoving) MoveStop();
+            
+            return;
+        }
+
         Vector2 joystickDir = joystick.Direction;
         moveInput = (joystickDir.sqrMagnitude > 0.01f) ? joystickDir : moveActionReference.action.ReadValue<Vector2>();
 
@@ -64,11 +71,12 @@ public class Player : MonoBehaviour, IEntity
                 transform.localScale = new Vector3(1, 1, 1);
             }
         }
-        else
-        {
-            isMoving = false;
-            animator.SetBool("1_Move", false);
-        }
+    }
+
+    private void MoveStop()
+    {
+        isMoving = false;
+        animator.SetBool("1_Move", false);
     }
 
     private void CheckCanControl()

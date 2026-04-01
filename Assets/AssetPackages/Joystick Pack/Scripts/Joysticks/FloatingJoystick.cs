@@ -5,6 +5,11 @@ using UnityEngine.EventSystems;
 
 public class FloatingJoystick : Joystick
 {
+    private bool isMoving = false;
+    public bool IsMoving {
+        get => isMoving;
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -15,12 +20,14 @@ public class FloatingJoystick : Joystick
     {
         background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
         background.gameObject.SetActive(true);
+        isMoving = true;
         base.OnPointerDown(eventData);
     }
 
     public override void OnPointerUp(PointerEventData eventData)
     {
         background.gameObject.SetActive(false);
+        isMoving = false;
         base.OnPointerUp(eventData);
     }
 }
