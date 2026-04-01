@@ -6,18 +6,26 @@ public class Player : MonoBehaviour, IEntity
 {
     public Transform Transform => this.transform;
 
+    [Header("Control")]
     public bool enableMove = false;
     public bool enableAttack = false;
+
+    [Header("Setting")]
+    public LayerMask detectMask;
+    public float detectRange = 5;
+
+    [Space]
+    [SerializeField] private FloatingJoystick joystick;
+    [SerializeField] private InputActionReference moveActionReference;
 
     private bool canControl = true;
 
     private Animator animator;
 
-    [SerializeField] private FloatingJoystick joystick;
-    [SerializeField] private InputActionReference moveActionReference;
-
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
+
+    private Monster target = null;
 
     private void Awake()
     {
@@ -28,7 +36,9 @@ public class Player : MonoBehaviour, IEntity
     {
         CheckCanControl();
 
+        SetTarget();
         OnMove();
+        Rotate();
         // TODO: OnAttack 구현하기
     }
 
@@ -61,15 +71,6 @@ public class Player : MonoBehaviour, IEntity
         {
             isMoving = true;
             animator.SetBool("1_Move", true);
-
-            if (moveInput.x > 0)
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
-            else
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
         }
     }
 
@@ -77,6 +78,67 @@ public class Player : MonoBehaviour, IEntity
     {
         isMoving = false;
         animator.SetBool("1_Move", false);
+    }
+
+    private void Rotate()
+    {
+        int playerDir = 1;
+
+        // 타겟 존재 시 플레이어 방향 타겟에게 고정
+        if (target != null)
+        {
+            if (target.transform.position.x >= transform.position.x)
+            {
+                playerDir = -1;
+            }
+            else
+            {
+                playerDir = 1;
+            }
+        }
+        else if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
+        {
+            if (moveInput.x > 0)
+            {
+                playerDir = -1;
+            }
+            else
+            {
+                playerDir = 1;
+            }
+        }
+
+        transform.localScale = new Vector3(playerDir, 1, 1);
+    }
+
+    private void SetTarget()
+    {
+        if (!enableMove || !canControl) return;
+
+        target = FindNearestMonster();
+    }
+
+    private Monster FindNearestMonster()
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, detectRange, detectMask);
+
+        if (cols.Length == 0) return null;
+
+        Monster nearest = null;
+        float nearestDist = float.MaxValue;
+        for (int i = 0; i < cols.Length; i++)
+        {
+            if (!cols[i].TryGetComponent<Monster>(out var m)) continue;
+
+            float d = Vector2.Distance(transform.position, cols[i].transform.position);
+            if (d < nearestDist)
+            {
+                nearestDist = d;
+                nearest = m;
+            }
+        }
+
+        return nearest;
     }
 
     private void CheckCanControl()
