@@ -40,10 +40,13 @@ public class Player : MonoBehaviour, IEntity
     {
         CheckCanControl();
 
-        SetTarget();
-        Rotate();
-        OnMove();
-        OnAttack();
+        if (joystick != null)
+        {
+            SetTarget();
+            OnMove();
+            Rotate();
+            OnAttack();
+        }
     }
 
     public void Initialize()
@@ -126,7 +129,7 @@ public class Player : MonoBehaviour, IEntity
         {
             beforeTarget?.DisableTargetEffect();
             target?.EnableTargetEffect();
-        }        
+        }
     }
 
     private Monster FindNearestMonster()
@@ -217,20 +220,9 @@ public class Player : MonoBehaviour, IEntity
 
     public void FireProjectile()
     {
-        Vector2 direction = Vector2.right;
-        if (target != null)
-        {
-            direction = target.transform.position - transform.position;
-        }
-        else if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
-        {
-            direction = moveInput;
-        }
-        else
-        {
-            if (transform.localScale.x < 0) direction = -Vector2.right;
-            else direction = Vector2.right;
-        }
+        if (target == null) return;
+
+        Vector2 direction = target.transform.position - transform.position;
 
         MANAGER.Pool.PoolingObj("PlayerProjectile").Get(value => {
             PlayerProjectile p = value.GetComponent<PlayerProjectile>();
