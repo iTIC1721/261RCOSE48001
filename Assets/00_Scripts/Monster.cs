@@ -6,17 +6,31 @@ public class Monster : PoolObject, IEntity
     public Transform Transform => this.transform;
 
     public string damageTMPName;
+    public GameObject targetEffect;
 
     private Animator animator;
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+
+        Initialize();
     }
 
-    public void Intialize()
+    public void Initialize()
     {
         animator.SetBool("isDeath", false);
+        if (targetEffect != null) targetEffect.SetActive(false);
+    }
+
+    public void EnableTargetEffect()
+    {
+        if (targetEffect != null) targetEffect.SetActive(true);
+    }
+
+    public void DisableTargetEffect()
+    {
+        if (targetEffect != null) targetEffect.SetActive(false);
     }
 
     public void Attack()

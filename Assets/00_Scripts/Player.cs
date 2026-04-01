@@ -47,7 +47,7 @@ public class Player : MonoBehaviour, IEntity
         OnAttack();
     }
 
-    public void Intialize()
+    public void Initialize()
     {
         animator.SetBool("isDeath", false);
     }
@@ -120,7 +120,14 @@ public class Player : MonoBehaviour, IEntity
     {
         if (!enableMove || !canControl) return;
 
+        Monster beforeTarget = target;
         target = FindNearestMonster();
+
+        if (beforeTarget != target)
+        {
+            beforeTarget?.DisableTargetEffect();
+            target?.EnableTargetEffect();
+        }        
     }
 
     private Monster FindNearestMonster()
