@@ -9,7 +9,7 @@ public abstract class PlayerAttackObject : PoolObject
 
     public virtual void Initialize(float damage, IAttackable parent)
     {
-        transform.position = parent.Transform.position + Vector3.up * 0.2f;
+        //transform.position = parent.Transform.position + Vector3.up * 0.2f;
 
         hitBox.Initialize(damage, parent);
         StartHitBox();

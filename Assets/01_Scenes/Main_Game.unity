@@ -929,11 +929,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   enableMove: 1
   enableAttack: 1
+  moveSpeed: 5
   detectMask:
     serializedVersion: 2
     m_Bits: 128
   detectRange: 5
   attackDelay: 0.7
+  attackPositionOffset: 0.2
   joystick: {fileID: 8170153792862027087}
   moveActionReference: {fileID: 871695840}
 --- !u!114 &1805651257

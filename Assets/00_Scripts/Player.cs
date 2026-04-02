@@ -10,11 +10,15 @@ public class Player : MonoBehaviour, IEntity
     public bool enableAttack = false;
 
     [Header("Setting")]
+    public float moveSpeed = 10f;
+
+    [Space]
     public LayerMask detectMask;
     public float detectRange = 5;
 
     [Space]
     public float attackDelay = 1;
+    public float attackPositionOffset = 0.2f;
 
     [Header("Ref")]
     [SerializeField] private FloatingJoystick joystick;
@@ -77,7 +81,8 @@ public class Player : MonoBehaviour, IEntity
     private void Move()
     {
         //transform.Translate(moveInput.normalized * Time.deltaTime * 5f);
-        rb.MovePosition(rb.position + moveInput.normalized * Time.deltaTime * 5f);
+        //rb.MovePosition(rb.position + moveInput.normalized * Time.deltaTime * moveSpeed);
+        rb.linearVelocity = moveInput.normalized * moveSpeed;
 
         if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
         {
@@ -89,7 +94,8 @@ public class Player : MonoBehaviour, IEntity
     private void MoveStop()
     {
         isMoving = false;
-        animator.SetBool("1_Move", false);
+        animator.SetBool("1_Move", false); 
+        rb.linearVelocity = Vector2.zero;
     }
 
     private void Rotate()
@@ -151,7 +157,7 @@ public class Player : MonoBehaviour, IEntity
             if (dist < nearestDist)
             {
                 // 벽에 가려지지 않았는지 체크
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, cols[i].transform.position - transform.position, float.PositiveInfinity, LayerMask.GetMask("Wall", "Monster"));
+                RaycastHit2D hit = Physics2D.Raycast(GetAttackPosition(), cols[i].transform.position - transform.position, float.PositiveInfinity, LayerMask.GetMask("Wall", "Monster"));
                 if (hit.collider == null || !hit.collider.TryGetComponent<Monster>(out _)) continue;
 
                 nearestDist = dist;
@@ -227,7 +233,7 @@ public class Player : MonoBehaviour, IEntity
 
         Vector2 direction = target.transform.position - transform.position;
 
-        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(value => {
+        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(GetAttackPosition(), value => {
             PlayerProjectile p = value.GetComponent<PlayerProjectile>();
             p.Initialize(10, this);
 
@@ -235,5 +241,10 @@ public class Player : MonoBehaviour, IEntity
             p.direction = direction;
             p.speed = 10;
         });
+    }
+
+    private Vector3 GetAttackPosition()
+    {
+        return transform.position + Vector3.up * attackPositionOffset;
     }
 }
