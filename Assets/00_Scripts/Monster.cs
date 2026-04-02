@@ -51,6 +51,10 @@ public class Monster : PoolObject, IEntity
                 });
             }
         }
+        else
+        {
+            Log.LogWarning("BaseCanvas 또는 damageLayer가 없습니다.");
+        }
     }
 
     public void Die()
