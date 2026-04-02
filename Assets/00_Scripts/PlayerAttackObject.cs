@@ -11,8 +11,7 @@ public abstract class PlayerAttackObject : PoolObject
     {
         transform.position = parent.Transform.position + Vector3.up * 0.2f;
 
-        hitBox.damage = damage;
-        hitBox.parent.Value = parent;
+        hitBox.Initialize(damage, parent);
         StartHitBox();
 
         Return(lifeTime, CallBack);

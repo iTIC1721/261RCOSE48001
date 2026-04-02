@@ -23,8 +23,6 @@ public class HitBox2D : MonoBehaviour
     [ShowIf("type", HitBoxType.Square)] public Vector2 hitboxSize = Vector2.one;
     [ShowIf("type", HitBoxType.Circle)] public float radius = 1;
     public Vector3 offset = Vector3.zero;
-    public InterfaceReference<IAttackable> parent;
-    public float damage = 5;
 
     [Header("Colors")]
     public Color inactiveColor = Color.grey;
@@ -45,18 +43,17 @@ public class HitBox2D : MonoBehaviour
 
     private void Awake()
     {
-        Initialize(parent.Value);
+        //Initialize(parent.Value);
 
         lastHitCollidersList = new List<Collider2D>();
     }
 
-    public void Initialize(IAttackable parent)
+    public void Initialize(float damage, IAttackable parent)
     {
         if (parent == null) return;
 
-        this.parent.Value = parent;
         damageInfo.damage = damage;
-        damageInfo.damageSource = this.parent.Value.Transform;
+        damageInfo.damageSource = parent.Transform;
     }
 
     private void CheckGizmoColor()
@@ -119,7 +116,7 @@ public class HitBox2D : MonoBehaviour
 
             hitCallBack?.Invoke(colls[i]);
             colls[i].GetComponent<IDamageable>().GetDamaged(damageInfo);
-            Log.LogMessage($"Got Damage: {colls[i].name}");
+            Log.LogMessage($"Got Damage: {colls[i].name} - {damageInfo.damage}, source = {damageInfo.damageSource.gameObject.name}");
 
             lastHitCollidersList.Add(colls[i]);
         }
