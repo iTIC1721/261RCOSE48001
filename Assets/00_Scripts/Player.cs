@@ -147,7 +147,7 @@ public class Player : MonoBehaviour, IEntity
         {
             if (!cols[i].TryGetComponent<Monster>(out var monster)) continue;
 
-            float dist = Vector2.Distance(transform.position, cols[i].transform.position);
+            float dist = (transform.position - cols[i].transform.position).sqrMagnitude;
             if (dist < nearestDist)
             {
                 // 벽에 가려지지 않았는지 체크
