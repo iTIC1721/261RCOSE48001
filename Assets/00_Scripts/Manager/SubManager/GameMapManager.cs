@@ -14,23 +14,39 @@ public class GameMapManager : MonoBehaviour
 
     private RandomQueue<GameObject> combatMapRandomQueue;
 
-    private int currentStage = 0;
-    private GameObject currentMap;
+    private int currentStage = -1;
+    private GameObject currentMap = null;
     private List<Monster> currentMapMonsters;
+    private Gate currentMapGate;
+    private bool isClearStage = false;
 
-    private void Awake()
+    private void Start()
     {
         Initialize();
+    }
+
+    private void Update()
+    {
+        // TODO: 임시 - 맵 클리어 여부 체크
+        if (currentMap != null && !isClearStage && CheckClearMap())
+        {
+            OpenNextStage();
+            isClearStage = true;
+        }
     }
 
     public void Initialize()
     {
         combatMapRandomQueue = new RandomQueue<GameObject>(combatMaps);
+
+        NextStage();
     }
 
     public void NextStage()
     {
         currentStage++;
+        isClearStage = false;
+        Log.LogMessage($"Stage {currentStage}");
 
         if (currentStage > lastStageIndex)
             return;
@@ -55,6 +71,7 @@ public class GameMapManager : MonoBehaviour
             currentMap = combatMapRandomQueue.Dequeue();            
         }
         currentMapMonsters = currentMap.GetComponentsInChildren<Monster>().ToList();
+        currentMapGate = currentMap.GetComponentInChildren<Gate>();
 
         Transform startPosObj = currentMap.transform.Find("StartPos");
         Vector3 startPos = Vector2.zero;
@@ -67,8 +84,12 @@ public class GameMapManager : MonoBehaviour
             Log.LogWarning("현재 맵에 \"StartPos\" 이름을 가진 오브젝트가 없습니다.");
             startPos = currentMap.transform.position;
         }
-        // TODO: 플레이어 startPos로 텔레포트
-        // TODO: 카메라 다음 맵 위치로 이동
+
+        // 플레이어 startPos로 텔레포트
+        Player.Instance.transform.position = startPos;
+
+        // 카메라 다음 맵 위치로 이동
+        Camera.main.transform.position = new Vector3(currentMap.transform.position.x, currentMap.transform.position.y, Camera.main.transform.position.z);
     }
 
     public bool CheckClearMap()
@@ -86,6 +107,10 @@ public class GameMapManager : MonoBehaviour
 
     public void OpenNextStage()
     {
-        // TODO: 다음 맵 포탈로 가는 길 열기
+        // 다음 맵 포탈로 가는 길 열기
+        if (currentMapGate != null)
+        {
+            currentMapGate.OpenGate();
+        }
     }
 }

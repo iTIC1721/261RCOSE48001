@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IEntity
 {
+    public static Player Instance { get; private set; }
+
     public Transform Transform => this.transform;
 
     [Header("Control")]
@@ -40,6 +42,11 @@ public class Player : MonoBehaviour, IEntity
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
     }
