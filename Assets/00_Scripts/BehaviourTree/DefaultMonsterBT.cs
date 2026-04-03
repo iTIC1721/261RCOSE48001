@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class DefaultMonsterBT : MonsterBT
 {
-    public Player player;
-
     protected override BTNode SetupBehaviorTree()
     {
         BTNode root = new BTSelectorNode(new List<BTNode>
         {
-            new BTMoveToPlayer(player.transform, monster)
+            new BTSequenceNode(new List<BTNode>
+            {
+                new BTCheckPlayerIsInRange(monster, 10),
+                new BTMoveToPlayer(Player.Instance.transform, monster)
+            }),
+            new BTIdle(monster)
         });
 
         return root;

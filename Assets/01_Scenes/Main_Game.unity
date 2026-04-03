@@ -23921,7 +23921,7 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 42e1ddb41da980448922fe4693b6f076, type: 2}
 --- !u!1 &1272563388
 GameObject:
   m_ObjectHideFlags: 0
@@ -33126,6 +33126,38 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 1
+--- !u!1 &1529937752
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529937753}
+  m_Layer: 0
+  m_Name: Monsters
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1529937753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529937752}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6880400272452311065}
+  m_Father: {fileID: 2001343112}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1534916133
 GameObject:
   m_ObjectHideFlags: 0
@@ -44767,6 +44799,7 @@ Transform:
   - {fileID: 1540030856}
   - {fileID: 1045848789}
   - {fileID: 16229930}
+  - {fileID: 1529937753}
   m_Father: {fileID: 1133148840}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2003699457
@@ -59354,7 +59387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &3717194958866770250
 GameObject:
   m_ObjectHideFlags: 0
@@ -62883,7 +62916,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5578479504543712547}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1529937753}
   m_LocalEulerAnglesHint: {x: 0, y: 1, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -63747,6 +63780,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be094c798ac38df4ea909374e11f506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
+  maxHp: 20
+  invulnerable: 0
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 1986459919}
 --- !u!61 &7719334232213555980
@@ -63817,12 +63852,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 3681194845986879694}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.3
+  m_Radius: 0.27
   m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -63842,7 +63877,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37d56539e42ce5429fdf119fd8e2060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultMonsterBT
-  player: {fileID: 1805651256}
 --- !u!4 &7728672464009603993
 Transform:
   m_ObjectHideFlags: 0
@@ -65572,7 +65606,6 @@ SceneRoots:
   - {fileID: 1177217250}
   - {fileID: 1133148840}
   - {fileID: 1805651255}
-  - {fileID: 6880400272452311065}
   - {fileID: 1594993661}
   - {fileID: 914040434}
   - {fileID: 1940702203}
