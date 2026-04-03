@@ -18,7 +18,7 @@ public class BTDoAttack : BTNode
 
     public override BTNodeState Evaluate()
     {
-        animator.SetFloat("Speed", 0);
+        animator.SetBool("1_Move", false);
         animator.SetTrigger(attackTriggerName);
         navMeshAgent.isStopped = true;
         navMeshAgent.ResetPath();

@@ -4,26 +4,33 @@ using UnityEngine.AI;
 public class BTMoveToPlayer : BTNode
 {
     private Transform player;
-    private Monster monster;
+    private Transform monster;
     private Animator animator;
-    private Rigidbody rb;
     private NavMeshAgent navMeshAgent;
 
     public BTMoveToPlayer(Transform player, Monster monster)
     {
         this.player = player;
-        this.monster = monster;
+        this.monster = monster.transform;
         animator = monster.GetComponentInChildren<Animator>();
-        rb = monster.GetComponent<Rigidbody>();
         navMeshAgent = monster.GetComponent<NavMeshAgent>();
     }
 
     public override BTNodeState Evaluate()
     {
-        animator.SetFloat("Speed", 1);
+        animator.SetBool("1_Move", true);
         navMeshAgent.isStopped = false;
 
         navMeshAgent.SetDestination(player.position);
+
+        if (navMeshAgent.velocity.x > 0)
+        {
+            monster.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            monster.localScale = new Vector3(1, 1, 1);
+        }
 
         return state = BTNodeState.Running;
     }
