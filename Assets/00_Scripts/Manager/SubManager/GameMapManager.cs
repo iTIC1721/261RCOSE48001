@@ -1,20 +1,40 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class GameMapManager : MonoBehaviour
 {
-    [Header("Setting")]
-    public int lastStageIndex = 5;
+    [Serializable]
+    public class StageData
+    {
+        public int stageCount;
+        public List<GameObject> mapPool;
+
+        private RandomQueue<GameObject> randomQueue;
+        
+        public void Initialize()
+        {
+            if (mapPool.Count < stageCount)
+            {
+                throw new Exception("배정된 맵이 부족합니다");
+            }
+
+            randomQueue = new RandomQueue<GameObject>(mapPool);
+        }
+
+        public GameObject GetMap()
+        {
+            return randomQueue.Dequeue();
+        }
+    }
 
     [Header("Map")]
-    public GameObject startMap;
-    public List<GameObject> combatMaps;
-    public GameObject bossMap;
+    public List<StageData> stageDatas;
 
-    private RandomQueue<GameObject> combatMapRandomQueue;
+    private int lastStageIndex = 0;
 
-    private int currentStage = -1;
+    [SerializeField] private int currentStage = -1;
     private GameObject currentMap = null;
     private List<Monster> currentMapMonsters;
     private Gate currentMapGate;
@@ -37,7 +57,12 @@ public class GameMapManager : MonoBehaviour
 
     public void Initialize()
     {
-        combatMapRandomQueue = new RandomQueue<GameObject>(combatMaps);
+        foreach (StageData data in stageDatas)
+        {
+            lastStageIndex += data.stageCount;
+
+            data.Initialize();
+        }
 
         NextStage();
     }
@@ -51,24 +76,17 @@ public class GameMapManager : MonoBehaviour
         if (currentStage > lastStageIndex)
             return;
 
-        if (combatMapRandomQueue.Count <= 0)
+        // 맵 결정
+        int currentStageTmp = currentStage;
+        for (int i = 0; i < stageDatas.Count; i++)
         {
-            Log.LogError("배정된 맵이 더 이상 없습니다!");
-            return;
-        }
+            if (currentStageTmp < stageDatas[i].stageCount)
+            {
+                currentMap = stageDatas[i].GetMap();
+                break;
+            }
 
-        if (currentStage == 0)      // 시작 맵
-        {
-            currentMap = startMap;
-        }
-        else if (currentStage == lastStageIndex)     // 보스 맵
-        {
-            currentMap = bossMap;
-        }
-        else
-        {
-            // 일반 맵 중에서 중복 없이 뽑음
-            currentMap = combatMapRandomQueue.Dequeue();            
+            currentStageTmp -= stageDatas[i].stageCount;
         }
         currentMapMonsters = currentMap.GetComponentsInChildren<Monster>().ToList();
         currentMapGate = currentMap.GetComponentInChildren<Gate>();

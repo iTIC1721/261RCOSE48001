@@ -21266,15 +21266,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef7a96568dcbaf64ebee167a84fa1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameMapManager
-  lastStageIndex: 5
-  startMap: {fileID: 1126091819}
-  combatMaps:
-  - {fileID: 2001343111}
-  - {fileID: 1717166783}
-  - {fileID: 896826411}
-  - {fileID: 1132384632}
-  - {fileID: 822181542}
-  bossMap: {fileID: 845652050}
+  stageDatas:
+  - stageCount: 1
+    mapPool:
+    - {fileID: 1126091819}
+  - stageCount: 5
+    mapPool:
+    - {fileID: 2001343111}
+    - {fileID: 1717166783}
+    - {fileID: 896826411}
+    - {fileID: 1132384632}
+    - {fileID: 822181542}
+  - stageCount: 1
+    mapPool:
+    - {fileID: 845652050}
 --- !u!1 &1140497909
 GameObject:
   m_ObjectHideFlags: 0
