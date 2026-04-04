@@ -17,8 +17,7 @@ public class Monster : PoolObject, IEntity
 
     private Animator animator;
 
-    private bool isDied = false;
-    public bool IsDied { get { return isDied; } }
+    public bool IsDied { get; private set; }
 
     private void Awake()
     {
@@ -29,7 +28,7 @@ public class Monster : PoolObject, IEntity
 
     public void Initialize()
     {
-        isDied = false;
+        IsDied = false;
         hp = maxHp;
 
         animator.SetBool("isDeath", false);
@@ -103,7 +102,7 @@ public class Monster : PoolObject, IEntity
 
         SetColliderEnabled(false);
 
-        isDied = true;
+        IsDied = true;
         StartCoroutine(DieCoroutine());
     }
 
