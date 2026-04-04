@@ -33,6 +33,7 @@ public class Monster : PoolObject, IEntity
         hp = maxHp;
 
         animator.SetBool("isDeath", false);
+        SetColliderEnabled(true);
         if (targetEffect != null) targetEffect.SetActive(false);
     }
 
@@ -44,6 +45,15 @@ public class Monster : PoolObject, IEntity
     public void DisableTargetEffect()
     {
         if (targetEffect != null) targetEffect.SetActive(false);
+    }
+
+    private void SetColliderEnabled(bool enabled)
+    {
+        Collider2D[] cols = GetComponentsInChildren<Collider2D>();
+        foreach (Collider2D col in cols)
+        {
+            col.enabled = enabled;
+        }
     }
 
     public void Attack()
@@ -95,6 +105,8 @@ public class Monster : PoolObject, IEntity
             animator.SetBool("isDeath", true);
             animator.SetTrigger("4_Death");
         }
+
+        SetColliderEnabled(false);
 
         isDied = true;
         StartCoroutine(DieCoroutine());
