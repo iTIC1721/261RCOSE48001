@@ -63780,7 +63780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be094c798ac38df4ea909374e11f506f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
-  maxHp: 20
+  maxHp: 50
   invulnerable: 0
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 1986459919}
