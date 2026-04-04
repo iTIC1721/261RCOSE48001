@@ -37,14 +37,9 @@ public class Monster : PoolObject, IEntity
         if (targetEffect != null) targetEffect.SetActive(false);
     }
 
-    public void EnableTargetEffect()
+    public void SetTargetEffectEnabled(bool enabled)
     {
-        if (targetEffect != null) targetEffect.SetActive(true);
-    }
-
-    public void DisableTargetEffect()
-    {
-        if (targetEffect != null) targetEffect.SetActive(false);
+        if (targetEffect != null) targetEffect.SetActive(enabled);
     }
 
     private void SetColliderEnabled(bool enabled)

@@ -143,8 +143,8 @@ public class Player : MonoBehaviour, IEntity
 
         if (beforeTarget != target)
         {
-            beforeTarget?.DisableTargetEffect();
-            target?.EnableTargetEffect();
+            beforeTarget?.SetTargetEffectEnabled(false);
+            target?.SetTargetEffectEnabled(true);
         }
     }
 
