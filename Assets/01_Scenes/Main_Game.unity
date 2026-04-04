@@ -21270,7 +21270,7 @@ MonoBehaviour:
   - stageCount: 1
     mapPool:
     - {fileID: 1126091819}
-  - stageCount: 5
+  - stageCount: 3
     mapPool:
     - {fileID: 2001343111}
     - {fileID: 1717166783}

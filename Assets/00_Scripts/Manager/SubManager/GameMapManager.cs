@@ -34,7 +34,7 @@ public class GameMapManager : MonoBehaviour
 
     private int lastStageIndex = 0;
 
-    [SerializeField] private int currentStage = -1;
+    private int currentStage = -1;
     private GameObject currentMap = null;
     private List<Monster> currentMapMonsters;
     private Gate currentMapGate;
