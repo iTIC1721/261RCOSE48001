@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Monster : PoolObject, IEntity
@@ -96,6 +97,13 @@ public class Monster : PoolObject, IEntity
         }
 
         isDied = true;
+        StartCoroutine(DieCoroutine());
+    }
+
+    private IEnumerator DieCoroutine()
+    {
+        yield return new WaitForSeconds(1);
+
         Return();
     }
 }

@@ -96,7 +96,8 @@ public class GameMapManager : MonoBehaviour
     {
         for (int i = 0; i < currentMapMonsters.Count; i++)
         {
-            if (currentMapMonsters[i] != null && currentMapMonsters[i].gameObject.activeSelf == true)
+            if (currentMapMonsters[i] != null && 
+                !(currentMapMonsters[i].IsDied || currentMapMonsters[i].gameObject.activeSelf == false))    // 살아있으면
             {
                 return false;
             }

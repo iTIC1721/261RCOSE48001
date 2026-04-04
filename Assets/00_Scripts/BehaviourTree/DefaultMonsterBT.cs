@@ -7,12 +7,12 @@ public class DefaultMonsterBT : MonsterBT
     {
         BTNode root = new BTSelectorNode(new List<BTNode>
         {
-            new BTSequenceNode(new List<BTNode>
+            new BTConditionDecorator(new BTSequenceNode(new List<BTNode>
             {
                 new BTCheckAnimationEnd(monster, "DAMAGED"),
                 new BTCheckPlayerIsInRange(monster, 10),
                 new BTMoveToPlayer(Player.Instance.transform, monster)
-            }),
+            }), () => !monster.IsDied),
             new BTIdle(monster)
         });
 

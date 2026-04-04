@@ -160,6 +160,8 @@ public class Player : MonoBehaviour, IEntity
         {
             if (!cols[i].TryGetComponent<Monster>(out var monster)) continue;
 
+            if (monster.IsDied) continue;   // 죽은 몬스터면 패스
+
             float dist = (transform.position - cols[i].transform.position).sqrMagnitude;
             if (dist < nearestDist)
             {
