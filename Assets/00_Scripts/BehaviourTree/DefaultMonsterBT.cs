@@ -25,7 +25,7 @@ public class DefaultMonsterBT : MonsterBT
                         // 쿨타임마다 스킬 시전 시도
                         new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
                         {
-                            new BTCheckPlayerIsInRange(monster, 5, true),
+                            new BTCheckPlayerIsInRange(monster, 7.5f, true),
                             new BTInvoke(monster, PrepareSkill)
                         }), 6),
                         // 스킬 쿨타임이 안 찼을 땐 플레이어에게로 이동
