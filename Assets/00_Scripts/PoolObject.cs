@@ -6,7 +6,7 @@ public class PoolObject : MonoBehaviour
 {
     private Coroutine returnCoroutine = null;
 
-    protected void Return(Action<GameObject> callback = null)
+    public void Return(Action<GameObject> callback = null)
     {
         if (returnCoroutine != null) StopCoroutine(returnCoroutine);
 
@@ -20,7 +20,7 @@ public class PoolObject : MonoBehaviour
         }
     }
 
-    protected void Return(float lifeTime, Action<GameObject> callback = null)
+    public void Return(float lifeTime, Action<GameObject> callback = null)
     {
         returnCoroutine = StartCoroutine(ReturnCoroutine(lifeTime));
     }

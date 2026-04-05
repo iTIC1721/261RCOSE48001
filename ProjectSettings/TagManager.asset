@@ -44,6 +44,9 @@ TagManager:
   - name: Shadow
     uniqueID: 2441720937
     locked: 0
+  - name: Danger
+    uniqueID: 485152825
+    locked: 0
   - name: ForwardWall
     uniqueID: 2134248211
     locked: 0
