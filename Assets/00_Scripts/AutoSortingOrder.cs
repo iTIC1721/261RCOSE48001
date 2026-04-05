@@ -6,14 +6,26 @@ public class AutoSortingOrder : MonoBehaviour
 {
     [SerializeField] bool isStatic = false;
 
+    [SerializeField] bool useSortingGroup = false;
+    [SerializeField] int sortingLayerID = -1;
+
     SortingGroup sortingGroup;
+    SpriteRenderer[] spriteRenderers;
 
     private void Awake()
     {
-        sortingGroup = GetComponentInChildren<SortingGroup>();
-        if (sortingGroup == null)
+        if (useSortingGroup)
         {
-            sortingGroup = transform.AddComponent<SortingGroup>();
+            sortingGroup = GetComponentInChildren<SortingGroup>();
+            if (sortingGroup == null)
+            {
+                sortingGroup = transform.AddComponent<SortingGroup>();
+            }
+            if (UsingSortingLayerID()) sortingGroup.sortingLayerID = sortingLayerID;
+        }
+        else
+        {
+            spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         }
     }
 
@@ -32,6 +44,26 @@ public class AutoSortingOrder : MonoBehaviour
 
     public void SetSortingOrder()
     {
-        sortingGroup.sortingOrder = Mathf.RoundToInt(-transform.position.y * 100);
+        int order = Mathf.RoundToInt(-transform.position.y * 100);
+
+        if (useSortingGroup)
+        {
+            sortingGroup.sortingOrder = order;
+        }
+        else
+        {
+            foreach (var renderer in spriteRenderers)
+            {
+                if (UsingSortingLayerID() && renderer.sortingLayerID != sortingLayerID) continue;
+
+                renderer.sortingOrder = order;
+            }
+        }
+    }
+
+    private bool UsingSortingLayerID()
+    {
+        if (sortingLayerID >= 0) return true;
+        return false;
     }
 }

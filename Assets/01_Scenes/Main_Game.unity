@@ -184,6 +184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &3277244
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -504,6 +506,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &35503239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,8 +636,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -1119,7 +1123,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -1180,6 +1184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &69760846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,7 +1279,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -1444,8 +1450,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -1931,7 +1937,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -1993,6 +1999,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &162078035
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2224,7 +2232,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -2315,7 +2323,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -2597,6 +2605,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &252419158
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5102,8 +5112,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -6653,8 +6663,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -7059,8 +7069,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -7546,7 +7556,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -7624,6 +7634,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &369744289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7975,7 +7987,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -10362,6 +10374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &436847557
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10442,6 +10456,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &441436277
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10663,6 +10679,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &455189211
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11115,6 +11133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &539456224
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11285,6 +11305,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &543728889
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11439,6 +11461,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &556574384
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11945,7 +11969,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -12036,7 +12060,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -12127,7 +12151,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -13886,6 +13910,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &699806254
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14311,7 +14337,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -15792,6 +15818,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &752051184
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16887,7 +16915,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -16965,6 +16993,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &795818580
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17118,6 +17148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &822046614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17247,7 +17279,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -17325,6 +17357,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &843608601
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17712,7 +17746,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -18015,7 +18049,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -18566,7 +18600,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -18729,6 +18763,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &966990817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18822,7 +18858,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -18900,6 +18936,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &996167708
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20858,6 +20896,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &1045848791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21002,7 +21042,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -21260,7 +21300,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -21370,6 +21410,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1123434363
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21839,7 +21881,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -23479,8 +23521,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -24017,7 +24059,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -24108,7 +24150,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -24199,7 +24241,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -24537,7 +24579,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -24615,6 +24657,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1316546992
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -25377,8 +25421,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -25897,7 +25941,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -27768,7 +27812,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -28009,7 +28053,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -30984,7 +31028,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -32850,6 +32894,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1473412732
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -33068,8 +33114,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -33939,6 +33985,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1507922232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34156,7 +34204,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -35933,8 +35981,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -36611,7 +36659,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -36702,7 +36750,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -37302,7 +37350,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -38921,7 +38969,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -39895,7 +39943,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -39986,7 +40034,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -40044,7 +40092,7 @@ GameObject:
   - component: {fileID: 1805651261}
   - component: {fileID: 1805651257}
   - component: {fileID: 1805651258}
-  - component: {fileID: 1805651259}
+  - component: {fileID: 1805651262}
   - component: {fileID: 1805651260}
   m_Layer: 6
   m_Name: Player
@@ -40153,52 +40201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 0
---- !u!61 &1805651259
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805651254}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.15758531}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.34917066}
-  m_EdgeRadius: 0
+  useSortingGroup: 1
+  sortingLayerID: -1
 --- !u!50 &1805651260
 Rigidbody2D:
   serializedVersion: 5
@@ -40238,6 +40242,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae740ce0d20bd324b8dd3103723617cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!58 &1805651262
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805651254}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.25}
+  m_Radius: 0.25
 --- !u!1001 &1806555071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40389,6 +40429,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1809125499
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -40727,7 +40769,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -40953,6 +40995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1854569133
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41279,6 +41323,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1862615970
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -41642,7 +41688,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -41875,6 +41921,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1882391463
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -42077,6 +42125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &1909286323
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -42319,8 +42369,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: -283589813
+  m_SortingLayer: 1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -43168,7 +43218,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayer: -3
   m_SortingOrder: -1001
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -45652,7 +45702,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -45743,7 +45793,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -45834,7 +45884,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -47438,7 +47488,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -47499,6 +47549,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &2049544097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47770,8 +47822,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -48276,7 +48328,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -48354,6 +48406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &2092107152
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -48715,8 +48769,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -49264,8 +49318,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -999
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -50445,7 +50499,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -50570,6 +50624,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!61 &2126442025
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50788,8 +50844,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -1663017123
-  m_SortingLayer: -2
+  m_SortingLayerID: 2134248211
+  m_SortingLayer: -1
   m_SortingOrder: -1000
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -51368,7 +51424,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300012, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -51568,6 +51624,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &276167471691979009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52721,7 +52779,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300026, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -52920,6 +52978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoSortingOrder
   isStatic: 1
+  useSortingGroup: 0
+  sortingLayerID: -1
 --- !u!114 &2055102312360210177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58340,7 +58400,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300100, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
@@ -59359,7 +59419,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1853246359
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300098, guid: ed7554aeefd5da44a9fe1ee9b93afe77, type: 3}
