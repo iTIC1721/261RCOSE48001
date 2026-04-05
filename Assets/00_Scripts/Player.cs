@@ -23,22 +23,16 @@ public class Player : MonoBehaviour, IEntity
     public float attackPositionOffset = 0.2f;
 
     [Header("Ref")]
-    [SerializeField] private FloatingJoystick joystick;
-    [SerializeField] private InputActionReference moveActionReference;
+    public FloatingJoystick joystick;
+    public InputActionReference moveActionReference;
 
-    private bool canControl = true;
+    public bool CanControl { get; private set; } = true;
 
-    private Rigidbody2D rb;
     private Animator animator;
 
-    private Vector2 moveInput = Vector2.zero;
-    private bool isMoving = false;
+    [HideInInspector] public float lastAttackTime = 0;
 
-    private int playerDir = 1;
-
-    private float lastAttackTime = 0;
-
-    private Monster target = null;
+    [HideInInspector] public Monster target = null;
 
     private void Awake()
     {
@@ -47,21 +41,13 @@ public class Player : MonoBehaviour, IEntity
             Instance = this;
         }
 
-        rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
     {
         CheckCanControl();
-
-        if (joystick != null)
-        {
-            SetTarget();
-            OnMove();
-            Rotate();
-            OnAttack();
-        }
+        SetTarget();
     }
 
     public void Initialize()
@@ -69,74 +55,9 @@ public class Player : MonoBehaviour, IEntity
         animator.SetBool("isDeath", false);
     }
 
-    private void OnMove()
-    {
-        if (!joystick.IsMoving)
-        {
-            if (isMoving) MoveStop();
-            
-            return;
-        }
-
-        Vector2 joystickDir = joystick.Direction;
-        moveInput = (joystickDir.sqrMagnitude > 0.01f) ? joystickDir : moveActionReference.action.ReadValue<Vector2>();
-
-        if (enableMove && canControl) 
-            Move();
-    }
-
-    private void Move()
-    {
-        //transform.Translate(moveInput.normalized * Time.deltaTime * 5f);
-        //rb.MovePosition(rb.position + moveInput.normalized * Time.deltaTime * moveSpeed);
-        rb.linearVelocity = moveInput.normalized * moveSpeed;
-
-        if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
-        {
-            isMoving = true;
-            animator.SetBool("1_Move", true);
-        }
-    }
-
-    private void MoveStop()
-    {
-        isMoving = false;
-        animator.SetBool("1_Move", false); 
-        rb.linearVelocity = Vector2.zero;
-    }
-
-    private void Rotate()
-    {
-        // 타겟 존재 시 플레이어 방향 타겟에게 고정
-        if (target != null)
-        {
-            if (target.transform.position.x >= transform.position.x)
-            {
-                playerDir = -1;
-            }
-            else
-            {
-                playerDir = 1;
-            }
-        }
-        else if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
-        {
-            if (moveInput.x > 0)
-            {
-                playerDir = -1;
-            }
-            else
-            {
-                playerDir = 1;
-            }
-        }
-
-        transform.localScale = new Vector3(playerDir, 1, 1);
-    }
-
     private void SetTarget()
     {
-        if (!enableMove || !canControl) return;
+        if (!enableMove || !CanControl) return;
 
         Monster beforeTarget = target;
         target = FindNearestMonster();
@@ -177,18 +98,6 @@ public class Player : MonoBehaviour, IEntity
         return nearest;
     }
 
-    private void OnAttack()
-    {
-        if (!canControl | !enableAttack) return;
-
-        if (isMoving) return;
-
-        if (target == null) return;
-
-        if (Time.time - lastAttackTime >= attackDelay)
-            Attack();
-    }
-
     private void CheckCanControl()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("DAMAGED"))
@@ -197,22 +106,22 @@ public class Player : MonoBehaviour, IEntity
             if (animTime == 0)
             {
                 // 플레이 중이 아님
-                canControl = true;
+                CanControl = true;
             }
             if (animTime > 0 && animTime < 1.0f)
             {
                 // 애니메이션 플레이 중
-                canControl = false;
+                CanControl = false;
             }
             else if (animTime >= 1.0f)
             {
                 // 애니메이션 종료
-                canControl = true;
+                CanControl = true;
             }
         }
         else
         {
-            canControl = true;
+            CanControl = true;
         }
     }
 

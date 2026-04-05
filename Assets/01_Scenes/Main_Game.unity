@@ -39635,6 +39635,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1805651255}
   - component: {fileID: 1805651256}
+  - component: {fileID: 1805651261}
   - component: {fileID: 1805651257}
   - component: {fileID: 1805651258}
   - component: {fileID: 1805651259}
@@ -39685,6 +39686,8 @@ MonoBehaviour:
   attackPositionOffset: 0.2
   joystick: {fileID: 8170153792862027087}
   moveActionReference: {fileID: 871695840}
+  lastAttackTime: 0
+  target: {fileID: 0}
 --- !u!114 &1805651257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39813,6 +39816,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1805651261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805651254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae740ce0d20bd324b8dd3103723617cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1001 &1806555071
 PrefabInstance:
   m_ObjectHideFlags: 0
