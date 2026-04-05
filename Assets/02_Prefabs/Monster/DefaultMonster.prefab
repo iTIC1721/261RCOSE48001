@@ -2133,6 +2133,7 @@ MonoBehaviour:
   invulnerable: 0
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 1222224849848012162}
+  spriteRoot: {fileID: 943674861432952428}
 --- !u!114 &1941653131782122712
 MonoBehaviour:
   m_ObjectHideFlags: 0

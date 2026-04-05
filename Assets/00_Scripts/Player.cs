@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IEntity
     public float attackPositionOffset = 0.2f;
 
     [Header("Ref")]
+    public Transform spriteRoot;
     public FloatingJoystick joystick;
     public InputActionReference moveActionReference;
 

@@ -4,14 +4,14 @@ using UnityEngine.AI;
 public class BTMoveToPlayer : BTNode
 {
     private Transform player;
-    private Transform monster;
+    private Transform spriteRoot;
     private Animator animator;
     private NavMeshAgent navMeshAgent;
 
     public BTMoveToPlayer(Transform player, Monster monster)
     {
         this.player = player;
-        this.monster = monster.transform;
+        this.spriteRoot = monster.spriteRoot;
         animator = monster.GetComponentInChildren<Animator>();
         navMeshAgent = monster.GetComponent<NavMeshAgent>();
     }
@@ -25,11 +25,11 @@ public class BTMoveToPlayer : BTNode
 
         if (navMeshAgent.velocity.x > 0)
         {
-            monster.localScale = new Vector3(-1, 1, 1);
+            spriteRoot.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
-            monster.localScale = new Vector3(1, 1, 1);
+            spriteRoot.localScale = new Vector3(1, 1, 1);
         }
 
         return state = BTNodeState.Running;

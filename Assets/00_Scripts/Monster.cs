@@ -15,6 +15,9 @@ public class Monster : PoolObject, IEntity
     public string damageTMPName;
     public GameObject targetEffect;
 
+    [Header("Ref")]
+    public Transform spriteRoot;
+
     private Animator animator;
 
     public bool IsDied { get; private set; }

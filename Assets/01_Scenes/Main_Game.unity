@@ -39684,6 +39684,7 @@ MonoBehaviour:
   detectRange: 5
   attackDelay: 0.7
   attackPositionOffset: 0.2
+  spriteRoot: {fileID: 8437719919518125510}
   joystick: {fileID: 8170153792862027087}
   moveActionReference: {fileID: 871695840}
   lastAttackTime: 0

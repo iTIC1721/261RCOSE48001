@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        transform.localScale = new Vector3(playerDir, 1, 1);
+        player.spriteRoot.localScale = new Vector3(playerDir, 1, 1);
     }
 
     private void Attack()
