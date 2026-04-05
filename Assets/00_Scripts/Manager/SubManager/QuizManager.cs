@@ -41,8 +41,8 @@ public class QuizManager : MonoBehaviour
     private int hp = 5;
     private int combo = 0;
 
-    private IEntity player;
-    private IEntity monster;
+    private Entity player;
+    private Entity monster;
 
     private float totalDamage = 0;
     private int progressCount = 0;
@@ -86,14 +86,14 @@ public class QuizManager : MonoBehaviour
         playerObj.transform.localScale = new Vector3(-1, 1, 1);
         playerObj.GetComponent<Player>().enableMove = false;
         playerObj.GetComponent<Player>().enableAttack = false;
-        player = playerObj.GetComponent<IEntity>();
+        player = playerObj.GetComponent<Entity>();
 
         // 몬스터 생성
         int monsterId = quizSettingDict[MANAGER.StudyManager.currentStageDifficulty].monsterId;
         var monsterObj = Instantiate(MANAGER.DB.monsterDB.GetMonsterData(monsterId).monster, monsterPos);
         monsterObj.transform.localPosition = new Vector3(0, 0, monsterObj.transform.localPosition.z);
         monsterObj.transform.localScale = new Vector3(1, 1, 1);
-        monster = monsterObj.GetComponent<IEntity>();
+        monster = monsterObj.GetComponent<Entity>();
 
         StartQuiz();
     }

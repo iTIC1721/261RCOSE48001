@@ -1,11 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : MonoBehaviour, IEntity
+public class Player : Entity
 {
     public static Player Instance { get; private set; }
-
-    public Transform Transform => this.transform;
 
     [Header("Control")]
     public bool enableMove = false;
@@ -51,8 +50,9 @@ public class Player : MonoBehaviour, IEntity
         SetTarget();
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
+        hp = maxHp;
         animator.SetBool("isDeath", false);
     }
 
@@ -126,18 +126,23 @@ public class Player : MonoBehaviour, IEntity
         }
     }
 
-    public void Attack()
+    public override void Attack()
     {
         animator.SetTrigger("2_Attack");
         lastAttackTime = Time.time;
     }
 
-    public void GetDamaged(params DamageInfo[] damageInfos)
+    public override void GetDamaged(params DamageInfo[] damageInfos)
     {
         animator.SetTrigger("3_Damaged");
+        foreach (DamageInfo damageInfo in damageInfos)
+        {
+            hp -= damageInfo.damage;
+        }
+        OnDamaged?.Invoke(hp, maxHp);
     }
 
-    public void Die()
+    public override void Die()
     {
         if (!animator.GetBool("isDeath"))
         {

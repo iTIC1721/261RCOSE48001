@@ -1,15 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-public class Monster : PoolObject, IEntity
+public class Monster : Entity
 {
-    public Transform Transform => this.transform;
-
     [Header("Stat")]
-    public float maxHp = 10f;
     public bool invulnerable = false;
-
-    private float hp = 0;
 
     [Header("FX")]
     public string damageTMPName;
@@ -29,7 +24,7 @@ public class Monster : PoolObject, IEntity
         Initialize();
     }
 
-    public void Initialize()
+    public override void Initialize()
     {
         IsDied = false;
         hp = maxHp;
@@ -53,12 +48,12 @@ public class Monster : PoolObject, IEntity
         }
     }
 
-    public void Attack()
+    public override void Attack()
     {
         animator.SetTrigger("2_Attack");
     }
 
-    public void GetDamaged(params DamageInfo[] damageInfos)
+    public override void GetDamaged(params DamageInfo[] damageInfos)
     {
         animator.SetTrigger("3_Damaged");
 
@@ -93,9 +88,11 @@ public class Monster : PoolObject, IEntity
                 Log.LogWarning("BaseCanvas 또는 damageLayer가 없습니다.");
             }
         }
+
+        OnDamaged?.Invoke(hp, maxHp);
     }
 
-    public void Die()
+    public override void Die()
     {
         if (!animator.GetBool("isDeath"))
         {
@@ -113,6 +110,6 @@ public class Monster : PoolObject, IEntity
     {
         yield return new WaitForSeconds(1);
 
-        Return();
+        Destroy(gameObject);
     }
 }
