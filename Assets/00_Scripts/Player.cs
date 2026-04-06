@@ -11,6 +11,7 @@ public class Player : Entity
     public bool enableAttack = false;
 
     [Header("Setting")]
+    public bool invulnerable = false;
     public float moveSpeed = 10f;
 
     [Space]
@@ -150,11 +151,14 @@ public class Player : Entity
         {
             float damage = damageInfo.damage;
 
-            hp -= damage;
-            if (hp <= 0)
+            if (!invulnerable)
             {
-                Die();
-                break;
+                hp -= damage;
+                if (hp <= 0)
+                {
+                    Die();
+                    break;
+                }
             }
 
             // damageTMP Ãâ·Â

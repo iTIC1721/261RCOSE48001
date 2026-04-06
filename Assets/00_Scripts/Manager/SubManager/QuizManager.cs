@@ -86,6 +86,7 @@ public class QuizManager : MonoBehaviour
         playerObj.transform.localScale = new Vector3(-1, 1, 1);
         playerObj.GetComponent<Player>().enableMove = false;
         playerObj.GetComponent<Player>().enableAttack = false;
+        playerObj.GetComponent<Player>().invulnerable = true;
         player = playerObj.GetComponent<Entity>();
 
         // 몬스터 생성

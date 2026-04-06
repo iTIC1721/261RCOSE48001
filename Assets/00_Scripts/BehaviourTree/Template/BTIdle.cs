@@ -15,9 +15,12 @@ public class BTIdle : BTNode
     public override BTNodeState Evaluate()
     {
         animator.SetBool("1_Move", false);
-        navMeshAgent.isStopped = true;
-        navMeshAgent.ResetPath();
-        navMeshAgent.velocity = Vector3.zero;
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = true;
+            navMeshAgent.ResetPath();
+            navMeshAgent.velocity = Vector3.zero;
+        }
         return BTNodeState.Success;
     }
 }

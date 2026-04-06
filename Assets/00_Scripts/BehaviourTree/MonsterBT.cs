@@ -11,8 +11,11 @@ public abstract class MonsterBT : BehaviourTree
         monster = GetComponent<Monster>();
 
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
+        if (agent != null)
+        {
+            agent.updateRotation = false;
+            agent.updateUpAxis = false;
+        }
     }
 
     protected override abstract BTNode SetupBehaviorTree();
