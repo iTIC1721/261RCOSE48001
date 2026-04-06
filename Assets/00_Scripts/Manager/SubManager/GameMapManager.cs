@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -103,6 +104,29 @@ public class GameMapManager : MonoBehaviour
             startPos = currentMap.transform.position;
         }
 
+        if (currentStage > 0)
+        {
+            StartCoroutine(MoveMapCoroutine(startPos));
+        }
+        else
+        {
+            MoveMap(startPos);
+        }
+    }
+
+    private IEnumerator MoveMapCoroutine(Vector3 startPos)
+    {
+        GLOBAL_CANVAS.Fade.FadeIn(0.3f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        MoveMap(startPos);
+
+        GLOBAL_CANVAS.Fade.FadeOut(0.1f);
+    }
+
+    private void MoveMap(Vector3 startPos)
+    {
         // 플레이어 startPos로 텔레포트
         Player.Instance.transform.position = startPos;
 
