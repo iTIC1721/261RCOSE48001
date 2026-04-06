@@ -23,6 +23,10 @@ public class DefaultMonsterBT : MonsterBT
     {
         BTNode root = new BTSelectorNode(new List<BTNode>
         {
+            // 플레이어 사망 시 Idle
+            new BTConditionDecorator(
+                new BTIdle(monster), 
+                () => Player.Instance.IsDied),
             new BTConditionDecorator(new BTSelectorNode(new List<BTNode>
             {
                 // 스킬 사용 중이 아닐 때
@@ -37,7 +41,7 @@ public class DefaultMonsterBT : MonsterBT
                         {
                             new BTCheckPlayerIsInRange(monster, 7.5f, true),
                             new BTInvoke(monster, PrepareSkill)
-                        }), 6),
+                        }), 3),
                         // 스킬 쿨타임이 안 찼을 땐 플레이어에게로 이동
                         new BTSequenceNode(new List<BTNode>
                         {
