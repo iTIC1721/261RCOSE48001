@@ -21,6 +21,9 @@ public class Player : Entity
     public float attackDelay = 1;
     public float attackPositionOffset = 0.2f;
 
+    [Header("FX")]
+    public string damageTMPName;
+
     [Header("Ref")]
     public Transform spriteRoot;
     public FloatingJoystick joystick;
@@ -33,6 +36,8 @@ public class Player : Entity
     [HideInInspector] public float lastAttackTime = 0;
 
     [HideInInspector] public Monster target = null;
+
+    public bool IsDied { get; private set; }
 
     private void Awake()
     {
@@ -53,6 +58,7 @@ public class Player : Entity
     public override void Initialize()
     {
         hp = maxHp;
+        IsDied = false;
         animator.SetBool("isDeath", false);
     }
 
@@ -101,7 +107,11 @@ public class Player : Entity
 
     private void CheckCanControl()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("DAMAGED"))
+        if (IsDied)
+        {
+            CanControl = false;
+        }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("DAMAGED"))
         {
             float animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
             if (animTime == 0)
@@ -135,10 +145,34 @@ public class Player : Entity
     public override void GetDamaged(params DamageInfo[] damageInfos)
     {
         animator.SetTrigger("3_Damaged");
+
         foreach (DamageInfo damageInfo in damageInfos)
         {
-            hp -= damageInfo.damage;
+            float damage = damageInfo.damage;
+
+            hp -= damage;
+            if (hp <= 0)
+            {
+                Die();
+                break;
+            }
+
+            // damageTMP 출력
+            if (BaseCanvas.Instance != null && BaseCanvas.Instance.damageLayer != null)
+            {
+                if (damageTMPName.Length > 0)
+                {
+                    var damageTMP = MANAGER.Pool.PoolingObj(damageTMPName).Get((value) => {
+                        value.GetComponent<DamageTMP>().Initialize(BaseCanvas.Instance.damageLayer, Transform, Vector3.zero, damage, Color.white);
+                    });
+                }
+            }
+            else
+            {
+                Log.LogWarning("BaseCanvas 또는 damageLayer가 없습니다.");
+            }
         }
+
         OnDamaged?.Invoke(hp, maxHp);
     }
 
@@ -149,6 +183,9 @@ public class Player : Entity
             animator.SetBool("isDeath", true);
             animator.SetTrigger("4_Death");
         }
+
+        // TODO: 플레이어 사망 시 이벤트
+        IsDied = true;
     }
 
     public void SpawnAttackObject()

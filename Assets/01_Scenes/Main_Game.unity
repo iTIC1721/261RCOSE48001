@@ -40208,8 +40208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d81900712eb6f04daa0604aa8d1ec8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  hp: 100
-  maxHp: 100
+  hp: 50
+  maxHp: 50
   enableMove: 1
   enableAttack: 1
   moveSpeed: 5
@@ -40219,6 +40219,7 @@ MonoBehaviour:
   detectRange: 5
   attackDelay: 0.7
   attackPositionOffset: 0.2
+  damageTMPName: StudyDamageTMP
   spriteRoot: {fileID: 8437719919518125510}
   joystick: {fileID: 8170153792862027087}
   moveActionReference: {fileID: 871695840}
