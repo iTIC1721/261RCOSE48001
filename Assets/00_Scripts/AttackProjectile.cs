@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerProjectile : PlayerAttackObject
+public class AttackProjectile : AttackObject
 {
     public SpriteRenderer sprite;
 

@@ -2365,6 +2365,7 @@ MonoBehaviour:
   hp: 0
   maxHp: 50
   invulnerable: 0
+  attackPositionOffset: 0.2
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 1222224849848012162}
   spriteRoot: {fileID: 943674861432952428}
@@ -4634,6 +4635,7 @@ GameObject:
   - component: {fileID: 943674861432952428}
   - component: {fileID: 6855800911050099174}
   - component: {fileID: 2917140974116043031}
+  - component: {fileID: 2049429928015118661}
   m_Layer: 7
   m_Name: UnitRoot
   m_TagString: Untagged
@@ -4694,6 +4696,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2049429928015118661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4710674287084571266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 972f8980da8befa4cb1ac9a4c65dbc4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAnimationEvent
 --- !u!1 &4811859754945529977
 GameObject:
   m_ObjectHideFlags: 0

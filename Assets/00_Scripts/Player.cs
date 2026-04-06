@@ -158,7 +158,7 @@ public class Player : Entity
         Vector2 direction = target.transform.position - transform.position;
 
         MANAGER.Pool.PoolingObj("PlayerProjectile").Get(GetAttackPosition(), value => {
-            PlayerProjectile p = value.GetComponent<PlayerProjectile>();
+            AttackProjectile p = value.GetComponent<AttackProjectile>();
             p.Initialize(10, this);
 
             value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
