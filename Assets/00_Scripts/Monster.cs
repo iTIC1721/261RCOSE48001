@@ -113,24 +113,7 @@ public class Monster : Entity
         Destroy(gameObject);
     }
 
-    public void SpawnAttackObject()
-    {
-        if (Player.Instance == null) return;
-
-        Vector2 direction = (monsterBT as DefaultMonsterBT).AttackDirection;
-
-        MANAGER.Pool.PoolingObj("DefaultMonsterProjectile").Get(GetAttackPosition(), value => {
-            AttackProjectile p = value.GetComponent<AttackProjectile>();
-            p.Initialize(10, this);
-
-            value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
-            value.transform.localScale = (spriteRoot.transform.localScale.x < 0) ? new Vector3(-1, 1, 1) : Vector3.one;
-            p.direction = direction;
-            p.speed = 10;
-        });
-    }
-
-    private Vector3 GetAttackPosition()
+    public Vector3 GetAttackPosition()
     {
         return transform.position + Vector3.up * attackPositionOffset;
     }
