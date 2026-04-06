@@ -145,6 +145,8 @@ public class Player : Entity
 
     public override void GetDamaged(params DamageInfo[] damageInfos)
     {
+        if (IsDied) return;
+
         animator.SetTrigger("3_Damaged");
 
         foreach (DamageInfo damageInfo in damageInfos)

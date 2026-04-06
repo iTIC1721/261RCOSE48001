@@ -59,6 +59,8 @@ public class Monster : Entity
 
     public override void GetDamaged(params DamageInfo[] damageInfos)
     {
+        if (IsDied) return;
+
         monsterBT.GetDamagedAnimation();
 
         for (int i = 0; i < damageInfos.Length; i++)
