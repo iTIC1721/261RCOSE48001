@@ -10,6 +10,8 @@ public class DefaultMonsterBT : MonsterBT
     private Coroutine prepareSkillCoroutine;
     private DangerTrail dangerTrail;
 
+    public Vector2 AttackDirection { get; private set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -63,10 +65,12 @@ public class DefaultMonsterBT : MonsterBT
 
     private IEnumerator PrepareSkillCoroutine(float time)
     {
+        AttackDirection = (Player.Instance.transform.position - transform.position).normalized;
+
         GameObject dangerTrailObj = MANAGER.Pool.PoolingObj("DangerTrail").Get(value => {
             value.GetComponent<DangerTrail>().Initialize(
                 startPosition: transform.position,
-                direction: (Player.Instance.transform.position - transform.position).normalized,
+                direction: AttackDirection,
                 lifeTime: time);
         });
         dangerTrail = dangerTrailObj.GetComponent<DangerTrail>();

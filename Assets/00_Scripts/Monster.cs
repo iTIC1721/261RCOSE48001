@@ -117,7 +117,7 @@ public class Monster : Entity
     {
         if (Player.Instance == null) return;
 
-        Vector2 direction = Player.Instance.transform.position - transform.position;
+        Vector2 direction = (monsterBT as DefaultMonsterBT).AttackDirection;
 
         MANAGER.Pool.PoolingObj("DefaultMonsterProjectile").Get(GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
