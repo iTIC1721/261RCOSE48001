@@ -14,12 +14,14 @@ public class Monster : Entity
     public Transform spriteRoot;
 
     private Animator animator;
+    private MonsterBT monsterBT;
 
     public bool IsDied { get; private set; }
 
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        monsterBT = GetComponent<MonsterBT>();
 
         Initialize();
     }
@@ -50,12 +52,12 @@ public class Monster : Entity
 
     public override void Attack()
     {
-        animator.SetTrigger("2_Attack");
+        monsterBT.AttackAnimation();
     }
 
     public override void GetDamaged(params DamageInfo[] damageInfos)
     {
-        animator.SetTrigger("3_Damaged");
+        monsterBT.GetDamagedAnimation();
 
         for (int i = 0; i < damageInfos.Length; i++)
         {
@@ -94,11 +96,7 @@ public class Monster : Entity
 
     public override void Die()
     {
-        if (!animator.GetBool("isDeath"))
-        {
-            animator.SetBool("isDeath", true);
-            animator.SetTrigger("4_Death");
-        }
+        monsterBT.DieAnimation();
 
         SetColliderEnabled(false);
 

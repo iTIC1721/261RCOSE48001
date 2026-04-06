@@ -16,4 +16,8 @@ public abstract class MonsterBT : BehaviourTree
     }
 
     protected override abstract BTNode SetupBehaviorTree();
+
+    public abstract void AttackAnimation();
+    public abstract void GetDamagedAnimation();
+    public abstract void DieAnimation();
 }

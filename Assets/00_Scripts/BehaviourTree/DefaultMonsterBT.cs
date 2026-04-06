@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class DefaultMonsterBT : MonsterBT
 {
+    private Animator animator;
+
     private bool isPreparingSkill = false;
     private Coroutine prepareSkillCoroutine;
     private DangerTrail dangerTrail;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        animator = GetComponentInChildren<Animator>();
+    }
 
     protected override BTNode SetupBehaviorTree()
     {
@@ -14,14 +22,13 @@ public class DefaultMonsterBT : MonsterBT
         {
             new BTConditionDecorator(new BTSelectorNode(new List<BTNode>
             {
+                // 스킬 사용 중이 아닐 때
                 new BTConditionDecorator(new BTSequenceNode(new List<BTNode>
                 {
-                    // 스킬 사용 중이 아닐 때
                     new BTCheckAnimationEnd(monster, "DAMAGED"),
                     new BTCheckAnimationEnd(monster, "ATTACK"),
                     new BTSelectorNode(new List<BTNode>
                     {
-
                         // 쿨타임마다 스킬 시전 시도
                         new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
                         {
@@ -36,17 +43,11 @@ public class DefaultMonsterBT : MonsterBT
                         })
                     })
                 }), () => !isPreparingSkill),
-                new BTConditionDecorator(new BTSelectorNode(new List<BTNode>
-                {
-                    // 스킬 사용 중일 때
-                    new BTSequenceNode(new List<BTNode>
-                    {
-                        // 스킬 시전 중 공격받으면 취소
-                        new BTInvertDecorator(new BTCheckAnimationEnd(monster, "DAMAGED")),
-                        new BTInvoke(monster, StopSkill)
-                    }),                  
-                }), () => isPreparingSkill)
             }), () => !monster.IsDied),
+            // 스킬 시전 중 죽으면 취소
+            new BTConditionDecorator(
+                new BTInvoke(monster, StopSkill), 
+                () => monster.IsDied && isPreparingSkill),
             new BTIdle(monster)
         });
 
@@ -93,5 +94,24 @@ public class DefaultMonsterBT : MonsterBT
         isPreparingSkill = false;
 
         monster.Attack();
+    }
+
+    public override void AttackAnimation()
+    {
+        animator.SetTrigger("2_Attack");
+    }
+
+    public override void GetDamagedAnimation()
+    {
+        if (!isPreparingSkill) animator.SetTrigger("3_Damaged");
+    }
+
+    public override void DieAnimation()
+    {
+        if (!animator.GetBool("isDeath"))
+        {
+            animator.SetBool("isDeath", true);
+            animator.SetTrigger("4_Death");
+        }
     }
 }
