@@ -14186,7 +14186,7 @@ MonoBehaviour:
   hpText: {fileID: 595150446}
   fill: {fileID: 1499748441}
   backFill: {fileID: 195953343}
-  backFillSpeed: 0.1
+  backFillSpeed: 0.5
 --- !u!1 &723540017
 GameObject:
   m_ObjectHideFlags: 0
@@ -40208,8 +40208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d81900712eb6f04daa0604aa8d1ec8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  hp: 10
-  maxHp: 10
+  hp: 100
+  maxHp: 100
   enableMove: 1
   enableAttack: 1
   moveSpeed: 5
