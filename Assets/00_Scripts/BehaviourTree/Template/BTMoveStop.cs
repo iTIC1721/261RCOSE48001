@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BTIdle : BTNode
+public class BTMoveStop : BTNode
 {
     private Animator animator;
     private NavMeshAgent navMeshAgent;
 
-    public BTIdle(Monster monster)
+    public BTMoveStop(Monster monster)
     {
         animator = monster.GetComponentInChildren<Animator>();
         navMeshAgent = monster.GetComponent<NavMeshAgent>();
@@ -21,6 +21,7 @@ public class BTIdle : BTNode
             navMeshAgent.ResetPath();
             navMeshAgent.velocity = Vector3.zero;
         }
+
         return BTNodeState.Success;
     }
 }

@@ -12,7 +12,7 @@ public class QuizMonsterBT : MonsterBT
 
     protected override BTNode SetupBehaviorTree()
     {
-        BTNode root = new BTIdle(monster);
+        BTNode root = new BTMoveStop(monster);
         return root;
     }
 
