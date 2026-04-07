@@ -1,9 +1,7 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerAttackObjectSpawner : AttackObjectSpawner
 {
-    public float attackPositionOffset = 0.2f;
     public Player player;
 
     public override void SpawnAttackObject()
@@ -14,7 +12,7 @@ public class PlayerAttackObjectSpawner : AttackObjectSpawner
 
         Vector2 direction = target.transform.position - transform.position;
 
-        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(GetAttackPosition(), value => {
+        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(player.attackOrigin.position, value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
             p.Initialize(10, player);
 
@@ -22,10 +20,5 @@ public class PlayerAttackObjectSpawner : AttackObjectSpawner
             p.direction = direction;
             p.speed = 10;
         });
-    }
-
-    private Vector3 GetAttackPosition()
-    {
-        return transform.position + Vector3.up * attackPositionOffset;
     }
 }

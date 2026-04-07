@@ -40436,6 +40436,7 @@ Transform:
   m_Children:
   - {fileID: 613951895513353112}
   - {fileID: 753845549}
+  - {fileID: 1984204061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1805651256
@@ -40461,7 +40462,7 @@ MonoBehaviour:
     m_Bits: 128
   detectRange: 5
   attackDelay: 0.7
-  attackPositionOffset: 0.2
+  attackOrigin: {fileID: 1984204061}
   damageTMPName: StudyDamageTMP
   spriteRoot: {fileID: 8437719919518125510}
   joystick: {fileID: 8170153792862027087}
@@ -40612,7 +40613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5163c2c4a29e4c14b863783f03553d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackObjectSpawner
-  attackPositionOffset: 0.2
   player: {fileID: 1805651256}
 --- !u!114 &1805651264
 MonoBehaviour:
@@ -46063,6 +46063,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1984204060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1984204061}
+  m_Layer: 6
+  m_Name: AttackOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1984204061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984204060}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1805651255}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1994021005
 GameObject:
   m_ObjectHideFlags: 0

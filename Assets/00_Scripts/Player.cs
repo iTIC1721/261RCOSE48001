@@ -20,7 +20,7 @@ public class Player : Entity
 
     [Space]
     public float attackDelay = 1;
-    public float attackPositionOffset = 0.2f;
+    public Transform attackOrigin;
 
     [Header("FX")]
     public string damageTMPName;
@@ -95,7 +95,7 @@ public class Player : Entity
             if (dist < nearestDist)
             {
                 // 벽에 가려지지 않았는지 체크
-                RaycastHit2D hit = Physics2D.Raycast(GetAttackPosition(), cols[i].transform.position - transform.position, float.PositiveInfinity, LayerMask.GetMask("Wall", "Monster"));
+                RaycastHit2D hit = Physics2D.Raycast(attackOrigin.position, cols[i].transform.position - transform.position, float.PositiveInfinity, LayerMask.GetMask("Wall", "Monster"));
                 if (hit.collider == null || !hit.collider.TryGetComponent<Monster>(out _)) continue;
 
                 nearestDist = dist;
@@ -192,10 +192,5 @@ public class Player : Entity
 
         // TODO: 플레이어 사망 시 이벤트
         IsDied = true;
-    }
-
-    private Vector3 GetAttackPosition()
-    {
-        return transform.position + Vector3.up * attackPositionOffset;
     }
 }
