@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GameMapManager : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
     [Serializable]
     public class StageData
