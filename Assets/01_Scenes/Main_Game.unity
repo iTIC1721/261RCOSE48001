@@ -40412,6 +40412,8 @@ GameObject:
   - component: {fileID: 1805651258}
   - component: {fileID: 1805651262}
   - component: {fileID: 1805651260}
+  - component: {fileID: 1805651264}
+  - component: {fileID: 1805651263}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -40598,6 +40600,32 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.25}
   m_Radius: 0.25
+--- !u!114 &1805651263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805651254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5163c2c4a29e4c14b863783f03553d26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackObjectSpawner
+  attackPositionOffset: 0.2
+  player: {fileID: 1805651256}
+--- !u!114 &1805651264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805651254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c61a28da3dbfe4ab8ab3f5bcb4760f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackHelper
 --- !u!1001 &1806555071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59827,9 +59855,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3199976374303289222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b221d258b07dbb419c08e5075f04756, type: 3}
+  m_Script: {fileID: 11500000, guid: 2586556559776574692942a31694ee70, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationEvent
+  m_EditorClassIdentifier: Assembly-CSharp::AttackAnimationEventLinker
 --- !u!1 &8450960781975409038
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class DefaultMonsterBT : MonsterBT
     private Coroutine prepareSkillCoroutine;
     private DangerTrail dangerTrail;
 
-    private Vector2 attackDirection;
+    public Vector2 AttackDirection { get; private set; }
 
     protected override void Awake()
     {
@@ -71,12 +71,12 @@ public class DefaultMonsterBT : MonsterBT
 
     private IEnumerator PrepareSkillCoroutine(float time)
     {
-        attackDirection = (Player.Instance.transform.position - transform.position).normalized;
+        AttackDirection = (Player.Instance.transform.position - transform.position).normalized;
 
         GameObject dangerTrailObj = MANAGER.Pool.PoolingObj("DangerTrail").Get(value => {
             value.GetComponent<DangerTrail>().Initialize(
                 startPosition: transform.position,
-                direction: attackDirection,
+                direction: AttackDirection,
                 lifeTime: time);
         });
         dangerTrail = dangerTrailObj.GetComponent<DangerTrail>();
@@ -123,22 +123,5 @@ public class DefaultMonsterBT : MonsterBT
             animator.SetBool("isDeath", true);
             animator.SetTrigger("4_Death");
         }
-    }
-
-    public void SpawnAttackObject()
-    {
-        if (Player.Instance == null) return;
-
-        Vector2 direction = attackDirection;
-
-        MANAGER.Pool.PoolingObj("DefaultMonsterProjectile").Get(monster.GetAttackPosition(), value => {
-            AttackProjectile p = value.GetComponent<AttackProjectile>();
-            p.Initialize(10, monster);
-
-            value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
-            value.transform.localScale = (monster.spriteRoot.transform.localScale.x < 0) ? new Vector3(-1, 1, 1) : Vector3.one;
-            p.direction = direction;
-            p.speed = 10;
-        });
     }
 }

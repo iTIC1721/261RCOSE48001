@@ -2322,6 +2322,8 @@ GameObject:
   - component: {fileID: 4491557005359833526}
   - component: {fileID: 6267204171564275338}
   - component: {fileID: 3769219807437066113}
+  - component: {fileID: 7915237741494455867}
+  - component: {fileID: 7443235559782507257}
   m_Layer: 7
   m_Name: DefaultMonster
   m_TagString: Untagged
@@ -4394,6 +4396,33 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7915237741494455867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692000075017178043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c61a28da3dbfe4ab8ab3f5bcb4760f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackHelper
+--- !u!114 &7443235559782507257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3692000075017178043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc404776c169e34d84124de71deefd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DefaultMonsterAttackObjectSpawner
+  attackPositionOffset: 0.2
+  monster: {fileID: 5283364795342291531}
+  bt: {fileID: 1941653131782122712}
 --- !u!1 &3753778894617797366
 GameObject:
   m_ObjectHideFlags: 0
@@ -4635,7 +4664,7 @@ GameObject:
   - component: {fileID: 943674861432952428}
   - component: {fileID: 6855800911050099174}
   - component: {fileID: 2917140974116043031}
-  - component: {fileID: 2049429928015118661}
+  - component: {fileID: 5343904718881806809}
   m_Layer: 7
   m_Name: UnitRoot
   m_TagString: Untagged
@@ -4696,7 +4725,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2049429928015118661
+--- !u!114 &5343904718881806809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4705,9 +4734,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4710674287084571266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 972f8980da8befa4cb1ac9a4c65dbc4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2586556559776574692942a31694ee70, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MonsterAnimationEvent
+  m_EditorClassIdentifier: Assembly-CSharp::AttackAnimationEventLinker
 --- !u!1 &4811859754945529977
 GameObject:
   m_ObjectHideFlags: 0
