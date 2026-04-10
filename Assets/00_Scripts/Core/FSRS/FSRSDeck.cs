@@ -6,7 +6,8 @@ public enum CardState
 {
     New,
     Learning,
-    Review
+    Review,
+    Relearning   // Review 카드가 Again을 받으면 진입하는 상태
 }
 
 [Serializable]
@@ -42,14 +43,20 @@ public class Deck
 
     public List<int> todayCardIds = new List<int>();
 
-    // FSRS weight (덱마다 존재)
+    // FSRS-5 weight (21개)
+    // w[0]~w[3]  : 첫 리뷰 rating 1~4에 대한 초기 Stability
+    // w[4]~w[5]  : 초기 Difficulty (D0) 계산용
+    // w[6]~w[9]  : Difficulty 업데이트 delta (rating 1~4)
+    // w[10]~w[16]: Stability 업데이트 (recall / forget)
+    // w[17]~w[19]: Short-term Stability 업데이트 (같은 날 재복습)
+    // w[20]      : (FSRS-6에서 망각 곡선 형태 조정용, FSRS-5에서는 사용하지 않음)
     public float[] w = new float[21] {
-        0.4f, 1f, 3f, 5f,
-        7.1949f, 0.5345f, 1.4604f, 0.0046f,
-        1.54575f, 0.1192f, 1.01925f, 1.9395f,
-        0.11f, 0.29605f, 2.2698f, 0.2315f,
-        2.9898f, 0.51655f, 0.6621f, 0.5f,
-        0.1f
+        0.4072f, 1.1829f, 3.1262f, 15.4722f,   // w[0]~w[3]
+        7.2102f, 0.5316f, 1.0651f, 0.0589f,     // w[4]~w[7]
+        1.5330f, 0.1544f, 1.0071f, 1.9395f,     // w[8]~w[11]
+        0.1100f, 0.2900f, 2.2700f, 0.2320f,     // w[12]~w[15]
+        2.9898f, 0.5100f, 0.8000f, 0.0f,        // w[16]~w[19]
+        0.0f                                      // w[20] (미사용)
     };
 
     public int GetLogCount()
@@ -117,7 +124,9 @@ public class Card
     public float difficulty = 5f;
     public float stability = 1f;
 
+    // Learning / Relearning 단계에서의 step 인덱스
     public int stepIndex = 0;
+
     [SerializeField] private long dueTicks;
     public DateTime due
     {
