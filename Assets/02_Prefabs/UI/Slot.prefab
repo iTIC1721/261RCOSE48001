@@ -276,8 +276,8 @@ MonoBehaviour:
   - {fileID: 8119158666710874857}
   - {fileID: 8687352758861973390}
   - {fileID: 8094182638228067435}
-  rollSpeed: 1800
-  decelerationThreshold: 0.9
+  rollSpeed: 2400
+  decelerationThreshold: 0.8
   decelerationAmount: 0.2
 --- !u!222 &2770207533187500986
 CanvasRenderer:
