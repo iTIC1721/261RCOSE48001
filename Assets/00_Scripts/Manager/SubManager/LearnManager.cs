@@ -12,6 +12,7 @@ public class LearnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI meaningText;
     [SerializeField] TextMeshProUGUI progressText;
     [SerializeField] Button nextButton;
+    [SerializeField] TextMeshProUGUI[] nextDueTexts;
 
     int newCount = 0;
     int reviewCount = 0;
@@ -41,12 +42,30 @@ public class LearnManager : MonoBehaviour
 
             wordText.text = currentCard.front;
             meaningText.text = currentCard.back;
+
+            DateTime[] dues = FSRSScheduler.PreviewNextDues(currentCard, MANAGER.StudyManager.deck);
+            for (int rating = 1; rating <= 4; rating++)
+            {
+                if (rating - 1 < nextDueTexts.Length && nextDueTexts[rating - 1] != null) 
+                    nextDueTexts[rating - 1].text = FormatDue(dues[rating - 1]);
+            }
         }
         else
         {
             // 끝내기
             CompleteStage();
         }
+    }
+
+    string FormatDue(DateTime due)
+    {
+        TimeSpan diff = due - CustomTime.GetTimeNow();
+
+        if (diff.TotalMinutes < 60)
+            return $"< {(int)diff.TotalMinutes}분";
+        if (diff.TotalHours < 24)
+            return $"< {(int)diff.TotalHours}시간";
+        return $"< {(int)diff.TotalDays}일";
     }
 
     public void RateCard(int rating)

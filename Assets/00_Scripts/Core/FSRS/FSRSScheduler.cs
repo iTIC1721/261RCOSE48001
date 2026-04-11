@@ -166,4 +166,80 @@ public static class FSRSScheduler
 
         card.lastReview = now;
     }
+
+
+    // ─────────────────────────────────────────────
+    // 카드 상태를 변경하지 않고 rating별 예상 due를 반환
+    // ─────────────────────────────────────────────
+    public static DateTime[] PreviewNextDues(Card card, Deck deck)
+    {
+        DateTime now = CustomTime.GetTimeNow();
+        DateTime[] dues = new DateTime[4]; // index 0 = rating 1 (Again) ~ index 3 = rating 4 (Easy)
+
+        for (int rating = 1; rating <= 4; rating++)
+        {
+            dues[rating - 1] = PredictDue(card, deck, rating, now);
+        }
+
+        return dues;
+    }
+
+    static DateTime PredictDue(Card card, Deck deck, int rating, DateTime now)
+    {
+        float[] w = deck.w;
+
+        switch (card.state)
+        {
+            case CardState.New:
+                if (rating == 1 || rating == 2)
+                    return now.AddMinutes(FSRSScheduler.LearningSteps[0]);
+                else
+                    return now.AddDays(GetInterval(InitStability(rating, w)));
+
+            case CardState.Learning:
+            case CardState.Relearning:
+                {
+                    float[] steps = (card.state == CardState.Learning)
+                        ? FSRSScheduler.LearningSteps
+                        : FSRSScheduler.RelearningSteps;
+
+                    if (rating == 1)
+                        return now.AddMinutes(steps[0]);
+
+                    if (rating == 2)
+                        return now.AddMinutes(steps[card.stepIndex]);
+
+                    // Good / Easy: 다음 step 또는 졸업
+                    int nextStep = card.stepIndex + 1;
+                    if (nextStep >= steps.Length)
+                    {
+                        float s = StabilityShortTerm(card.stability, rating, w);
+                        return now.AddDays(GetInterval(s));
+                    }
+                    else
+                    {
+                        return now.AddMinutes(steps[nextStep]);
+                    }
+                }
+
+            case CardState.Review:
+                {
+                    float t = (float)(now - card.lastReview).TotalDays;
+                    float r = GetRetrievability(card.stability, t);
+
+                    if (rating == 1)
+                    {
+                        return now.AddMinutes(FSRSScheduler.RelearningSteps[0]);
+                    }
+                    else
+                    {
+                        float s = StabilityRecall(card.difficulty, card.stability, r, rating, w);
+                        return now.AddDays(GetInterval(s));
+                    }
+                }
+
+            default:
+                return now;
+        }
+    }
 }
