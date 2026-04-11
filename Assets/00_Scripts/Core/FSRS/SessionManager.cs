@@ -17,14 +17,14 @@ public class SessionManager
         {
             if (c.lastReview.Date == CustomTime.GetTimeNow())
             {
-                if (c.state != CardState.Learning)
+                if (c.state != CardState.Learning && c.state != CardState.Relearning)
                 {
                     studiedCount++;
                 }
                 else
                 {
                     tmp.Enqueue(c);
-                }                
+                }
             }
             else
             {

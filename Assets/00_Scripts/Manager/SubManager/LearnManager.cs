@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -50,26 +51,22 @@ public class LearnManager : MonoBehaviour
 
     public void RateCard(int rating)
     {
-        if (rating == 1)
-        {
-            if (currentCard.state == CardState.New)
-            {
-                newCount--;
-                reviewCount++;
-            }
-        }
+        // MainScheduler.RateCard 호출 전에 카운터 차감
+        if (currentCard.state == CardState.New)
+            newCount--;
         else
-        {
-            if (currentCard.state == CardState.New)
-                newCount--;
-            else
-                reviewCount--;
-            studiedCount++;
-        }
-        RefreshProgressText();
+            reviewCount--;
 
-        // 결과 기록
-        MANAGER.StudyManager.SubmitAnswer(rating);
+        // MainScheduler.RateCard 호출 (due 갱신)
+        bool requeued = MANAGER.StudyManager.SubmitAnswer(rating);
+
+        // requeue되었는지 확인
+        if (requeued)
+            reviewCount++;
+        else
+            studiedCount++;
+
+        RefreshProgressText();
 
         meaningText.gameObject.SetActive(true);
         nextButton.gameObject.SetActive(true);

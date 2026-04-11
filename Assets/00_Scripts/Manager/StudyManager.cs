@@ -89,14 +89,25 @@ public class StudyManager : MonoBehaviour
         return result;
     }
 
-    public void SubmitAnswer(int rating)
+    public bool SubmitAnswer(int rating)
     {
         MainScheduler.RateCard(currentCard, deck, rating);
 
         // Again이면 다시 넣기
-        if (rating == 1)
+        //if (rating == 1)
+        //{
+        //    session.Requeue(currentCard);
+        //}
+
+        // 다음 due가 오늘 자정 이내라면 세션 큐로 되돌리기
+        DateTime endOfToday = CustomTime.GetTimeNow().Date.AddDays(1);
+        bool requeued = currentCard.due < endOfToday;
+
+        if (requeued)
         {
             session.Requeue(currentCard);
         }
+
+        return requeued;
     }
 }
