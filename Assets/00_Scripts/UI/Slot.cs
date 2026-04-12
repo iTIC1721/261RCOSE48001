@@ -36,7 +36,11 @@ public class Slot : MonoBehaviour
 
     private IEnumerator RollCoroutine(int index, int rollCount)
     {
-        float finalDist = 600f * rollCount + 200f * index;
+        float imageSizeY = 200f;
+        float finalDist = imageSizeY * (images.Count - 1) * rollCount + imageSizeY * index;
+
+        float rollTime = (float)rollCount / rollSpeed;
+        float scaledRollSpeed = (rollCount + ((float)index / (images.Count - 1))) / rollTime;
 
         float moveDist = 0;
         while (moveDist < finalDist)
@@ -44,9 +48,9 @@ public class Slot : MonoBehaviour
             yield return null;
 
             float speed = (moveDist > finalDist * decelerationThreshold) ? 
-                Mathf.Lerp(rollSpeed, rollSpeed * decelerationAmount, (moveDist - finalDist * decelerationThreshold) / (finalDist * (1 - decelerationThreshold))) : 
-                rollSpeed;
-            moveDist += speed * Time.deltaTime;
+                Mathf.Lerp(scaledRollSpeed, scaledRollSpeed * decelerationAmount, (moveDist - finalDist * decelerationThreshold) / (finalDist * (1 - decelerationThreshold))) :
+                scaledRollSpeed;
+            moveDist += speed * Time.unscaledDeltaTime;
             slotObject.anchoredPosition = Vector2.down * ((moveDist % 600) + 100);
         }
 
