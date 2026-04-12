@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2E4\uC74C"
+  m_text: "\uC815\uB2F5 \uBCF4\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
   m_sharedMaterial: {fileID: -31177075467478427, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
@@ -554,7 +554,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1691989656}
         m_TargetAssemblyTypeName: LearnManager, Assembly-CSharp
-        m_MethodName: ShowNextWord
+        m_MethodName: ShowAnswer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3135,7 +3135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uBAA8\uB984"
+  m_text: "\uB2E4\uC2DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
   m_sharedMaterial: {fileID: -31177075467478427, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
@@ -3400,7 +3400,7 @@ MonoBehaviour:
   wordText: {fileID: 649118579}
   meaningText: {fileID: 1952083802}
   progressText: {fileID: 186067242}
-  nextButton: {fileID: 72342836}
+  answerButton: {fileID: 72342836}
   nextDueTexts:
   - {fileID: 1992657156}
   - {fileID: 888456680}

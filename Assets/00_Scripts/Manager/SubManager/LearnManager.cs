@@ -11,7 +11,7 @@ public class LearnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI wordText;
     [SerializeField] TextMeshProUGUI meaningText;
     [SerializeField] TextMeshProUGUI progressText;
-    [SerializeField] Button nextButton;
+    [SerializeField] Button answerButton;
     [SerializeField] TextMeshProUGUI[] nextDueTexts;
 
     int newCount = 0;
@@ -38,7 +38,7 @@ public class LearnManager : MonoBehaviour
         if (currentCard != null)
         {
             meaningText.gameObject.SetActive(false);
-            nextButton.gameObject.SetActive(false);
+            answerButton.gameObject.SetActive(true);
 
             wordText.text = currentCard.front;
             meaningText.text = currentCard.back;
@@ -68,6 +68,12 @@ public class LearnManager : MonoBehaviour
         return $"< {(int)diff.TotalDays}일";
     }
 
+    public void ShowAnswer()
+    {
+        meaningText.gameObject.SetActive(true);
+        answerButton.gameObject.SetActive(false);
+    }
+
     public void RateCard(int rating)
     {
         // MainScheduler.RateCard 호출 전에 카운터 차감
@@ -87,8 +93,9 @@ public class LearnManager : MonoBehaviour
 
         RefreshProgressText();
 
-        meaningText.gameObject.SetActive(true);
-        nextButton.gameObject.SetActive(true);
+        ShowNextWord();
+
+        answerButton.gameObject.SetActive(true);
     }
 
     private void RefreshProgressText()
