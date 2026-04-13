@@ -40,7 +40,7 @@ public class SkillManager : MonoBehaviour
     // ─────────────────────────────────────────────
     // 트리거 이벤트 발동 (Player에서 호출)
     // ─────────────────────────────────────────────
-    public void TriggerSkills(SkillTriggerType trigger)
+    public void TriggerSkills(EntityContext context, SkillTriggerType trigger)
     {
         foreach (var (skillName, entry) in activeSkills)
         {
@@ -54,7 +54,7 @@ public class SkillManager : MonoBehaviour
             if (effect.triggerType == SkillTriggerType.Passive) continue;
 
             // 실행
-            effect.Execute(stack);
+            effect.Execute(context, stack);
         }
     }
 

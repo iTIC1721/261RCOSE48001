@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class AttackHelper : MonoBehaviour
 {
+    private Entity source;
     private AttackObjectSpawner attackObjectSpawner;
     private SkillManager skillManager;
 
     private void Awake()
     {
+        source = GetComponent<Entity>();
         attackObjectSpawner = GetComponent<AttackObjectSpawner>();
         skillManager = GetComponent<SkillManager>();
     }
@@ -14,7 +16,7 @@ public class AttackHelper : MonoBehaviour
     public void Attack()
     {
         SpawnAttackObject();
-        if (skillManager != null) skillManager.TriggerSkills(SkillTriggerType.OnAttack);
+        TriggerSkill();
     }
 
     private void SpawnAttackObject()
@@ -26,5 +28,13 @@ public class AttackHelper : MonoBehaviour
         }
 
         attackObjectSpawner.SpawnAttackObject();
+    }
+
+    private void TriggerSkill()
+    {
+        if (source == null || skillManager == null) return;
+
+        EntityContext context = source.BuildContext(10);
+        skillManager.TriggerSkills(context, SkillTriggerType.OnAttack);
     }
 }
