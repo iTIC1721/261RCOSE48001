@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SlotMachine : MonoBehaviour
 {
     [SerializeField] GameObject slotMachine;
     [SerializeField] List<Slot> slots;
+    [SerializeField] int baseRollCount = 4;
 
     private int slotDummyCount = 2;
 
@@ -13,11 +15,20 @@ public class SlotMachine : MonoBehaviour
     private void Awake()
     {
         targetSkills = new SkillData[slots.Count];
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            int index = i;
+
+            slots[i].GetComponent<Button>().onClick.RemoveAllListeners();
+            slots[i].GetComponent<Button>().onClick.AddListener(() => SelectSlot(index));
+        }
     }
 
+    // TODO: 테스트용
     private void Start()
     {
-        StartSlotMachine();
+        Invoke("StartSlotMachine", 2);
     }
 
     public void StartSlotMachine()
@@ -86,7 +97,7 @@ public class SlotMachine : MonoBehaviour
         }
 
         // Roll
-        Roll(indexes, 8);
+        Roll(indexes, baseRollCount);
     }
 
     public void ExitSlotMachine()
