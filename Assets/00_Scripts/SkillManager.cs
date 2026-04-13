@@ -9,13 +9,6 @@ public class SkillManager : MonoBehaviour
     // 스킬 이름 → (SkillData, 현재 스택) 딕셔너리
     private Dictionary<string, (SkillData data, int stack)> activeSkills = new();
 
-    // TODO: 테스트용 임시 기본 스킬
-    public SkillData testSkill;
-    private void Start()
-    {
-        AddSkill(testSkill);
-    }
-
     private void Awake()
     {
         entity = GetComponent<Entity>();

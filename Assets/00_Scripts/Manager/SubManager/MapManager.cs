@@ -30,6 +30,8 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    public SlotMachine skillSlotMachine;
+
     [Header("Map")]
     public List<StageData> stageDatas;
 
@@ -123,6 +125,8 @@ public class MapManager : MonoBehaviour
         MoveMap(startPos);
 
         GLOBAL_CANVAS.Fade.FadeOut(0.1f);
+
+        skillSlotMachine.StartSlotMachine();
     }
 
     private void MoveMap(Vector3 startPos)

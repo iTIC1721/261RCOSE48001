@@ -25,12 +25,6 @@ public class SlotMachine : MonoBehaviour
         }
     }
 
-    // TODO: 테스트용
-    private void Start()
-    {
-        Invoke("StartSlotMachine", 2);
-    }
-
     public void StartSlotMachine()
     {
         // 일시정지

@@ -46,7 +46,7 @@ public class FadeManager : MonoBehaviour
         while (t < time)
         {
             yield return null;
-            t += Time.deltaTime;
+            t += Time.unscaledDeltaTime;
 
             fadeImage.color = Color.Lerp(startColor, endColor, t / time);
         }
