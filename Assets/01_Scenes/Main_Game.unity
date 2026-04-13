@@ -41051,7 +41051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddded98187a91f740aa0d481e2d49b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillManager
-  testSkill: {fileID: 11400000, guid: 0bfcbb4f46e68984096790459264df79, type: 2}
 --- !u!1001 &1806555071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60160,7 +60159,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1440}
+  m_SizeDelta: {x: 0, y: 1920}
   m_Pivot: {x: 0, y: 0}
 --- !u!1 &8170153792862027083
 GameObject:
