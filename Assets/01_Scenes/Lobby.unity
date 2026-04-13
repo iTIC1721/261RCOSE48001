@@ -1799,6 +1799,7 @@ MonoBehaviour:
   characterDB: {fileID: 11400000, guid: 6acbf5de96b5ebf45a0fce09012b904e, type: 2}
   monsterDB: {fileID: 11400000, guid: 1e0b7054335a954488d8a94de4c947aa, type: 2}
   shopDB: {fileID: 11400000, guid: f4926e3ce2472d14fb7706ce24b61f12, type: 2}
+  skillDB: {fileID: 11400000, guid: 93184df0cbe4384499da75aa6c7bfce7, type: 2}
 --- !u!1 &2108824571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,7 +1995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b364ef3be20f8043b93e891bbe37acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MANAGER
-  dataPath: C:\Users\itico\Downloads\eng_test.csv
+  dataPath: C:\Users\itico\Downloads\eng_demo.csv
   useCustomTime: 0
   year: 2026
   month: 3
