@@ -18,4 +18,38 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public abstract void Attack();
 
     public abstract void GetDamaged(params DamageInfo[] damageInfos);
+
+    public virtual EntityContext BuildContext(float damage)
+    {
+        EntityContext context = new EntityContext()
+        {
+            source = this,
+            damage = damage
+        };
+        return context;
+    }
+
+    public virtual EntityContext BuildContext(float damage, Vector2 direction)
+    {
+        EntityContext context = new EntityContext()
+        {
+            source = this,
+            damage = damage,
+            direction = direction
+        };
+        return context;
+    }
+
+    public virtual EntityContext BuildContext(float damage, Entity target)
+    {
+        EntityContext context = new EntityContext()
+        {
+            source = this,
+            damage = damage,
+            target = target,
+            targetPosition = (Vector2)target.transform.position,
+            direction = ((Vector2)target.transform.position - (Vector2)this.transform.position).normalized
+        };
+        return context;
+    }
 }
