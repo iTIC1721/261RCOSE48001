@@ -3,9 +3,17 @@ using UnityEngine;
 
 public class SlotMachine : MonoBehaviour
 {
+    [SerializeField] GameObject slotMachine;
     [SerializeField] List<Slot> slots;
 
     private int slotDummyCount = 2;
+
+    private SkillData[] targetSkills;
+
+    private void Awake()
+    {
+        targetSkills = new SkillData[slots.Count];
+    }
 
     private void Start()
     {
@@ -16,13 +24,13 @@ public class SlotMachine : MonoBehaviour
     {
         // 일시정지
         Time.timeScale = 0;
+        slotMachine.SetActive(true);
 
         // 등장 가능 스킬 풀 지정
         List<SkillData> skillPool = GetSkillPool();
 
         // 풀 내에서 슬롯 개수만큼 정답 스킬 지정
         RandomQueue<SkillData> rq = new RandomQueue<SkillData>(skillPool);
-        SkillData[] targetSkills = new SkillData[slots.Count];
         if (skillPool.Count >= slots.Count)
         {
             // 스킬 풀의 스킬 개수가 충분할 경우 중복 없이 랜덤으로 뽑음
@@ -83,7 +91,16 @@ public class SlotMachine : MonoBehaviour
 
     public void ExitSlotMachine()
     {
+        slotMachine.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    public void SelectSlot(int index)
+    {
+        SkillData selectedSkill = targetSkills[index];
+        Player.Instance.skillManager.AddSkill(selectedSkill);
+
+        ExitSlotMachine();
     }
 
     private List<SkillData> GetSkillPool()

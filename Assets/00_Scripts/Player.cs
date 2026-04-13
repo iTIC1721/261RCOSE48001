@@ -33,6 +33,7 @@ public class Player : Entity
     public bool CanControl { get; private set; } = true;
 
     private Animator animator;
+    [HideInInspector] public SkillManager skillManager;
 
     [HideInInspector] public float lastAttackTime = 0;
 
@@ -48,6 +49,7 @@ public class Player : Entity
         }
 
         animator = GetComponentInChildren<Animator>();
+        skillManager = GetComponent<SkillManager>();
     }
 
     private void Update()

@@ -9,8 +9,8 @@ public class SkillManager : MonoBehaviour
     // 스킬 이름 → (SkillData, 현재 스택) 딕셔너리
     private Dictionary<string, (SkillData data, int stack)> activeSkills = new();
 
+    // TODO: 테스트용 임시 기본 스킬
     public SkillData testSkill;
-
     private void Start()
     {
         AddSkill(testSkill);
@@ -54,6 +54,8 @@ public class SkillManager : MonoBehaviour
             var (data, stack) = entry;
             var effect = data.skillEffect;
 
+            if (effect == null) continue;
+
             // 발동 조건 체크
             if (!effect.CanTrigger(trigger)) continue;
 
@@ -63,6 +65,7 @@ public class SkillManager : MonoBehaviour
             // 실행
             EntityContext context = entity.BuildContext(10);
             effect.Execute(context, stack);
+            Log.LogMessage($"스킬 발동: {data.name}");
         }
     }
 
