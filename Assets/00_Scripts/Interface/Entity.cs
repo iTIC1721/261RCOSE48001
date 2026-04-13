@@ -28,28 +28,4 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
         };
         return context;
     }
-
-    public virtual EntityContext BuildContext(float damage, Vector2 direction)
-    {
-        EntityContext context = new EntityContext()
-        {
-            source = this,
-            damage = damage,
-            direction = direction
-        };
-        return context;
-    }
-
-    public virtual EntityContext BuildContext(float damage, IDamageable target)
-    {
-        EntityContext context = new EntityContext()
-        {
-            source = this,
-            damage = damage,
-            target = target,
-            targetPosition = (Vector2)target.Transform.position,
-            direction = ((Vector2)target.Transform.position - (Vector2)this.Transform.position).normalized
-        };
-        return context;
-    }
 }

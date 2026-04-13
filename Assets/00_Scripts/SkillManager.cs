@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    private Entity entity;
+
     // 스킬 이름 → (SkillData, 현재 스택) 딕셔너리
     private Dictionary<string, (SkillData data, int stack)> activeSkills = new();
 
@@ -12,6 +14,11 @@ public class SkillManager : MonoBehaviour
     private void Start()
     {
         AddSkill(testSkill);
+    }
+
+    private void Awake()
+    {
+        entity = GetComponent<Entity>();
     }
 
     // ─────────────────────────────────────────────
@@ -40,7 +47,7 @@ public class SkillManager : MonoBehaviour
     // ─────────────────────────────────────────────
     // 트리거 이벤트 발동 (Player에서 호출)
     // ─────────────────────────────────────────────
-    public void TriggerSkills(EntityContext context, SkillTriggerType trigger)
+    public void TriggerSkills(SkillTriggerType trigger)
     {
         foreach (var (skillName, entry) in activeSkills)
         {
@@ -54,6 +61,7 @@ public class SkillManager : MonoBehaviour
             if (effect.triggerType == SkillTriggerType.Passive) continue;
 
             // 실행
+            EntityContext context = entity.BuildContext(10);
             effect.Execute(context, stack);
         }
     }

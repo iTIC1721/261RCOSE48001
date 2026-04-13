@@ -193,4 +193,14 @@ public class Player : Entity
         // TODO: 플레이어 사망 시 이벤트
         IsDied = true;
     }
+
+    public override EntityContext BuildContext(float damage)
+    {
+        EntityContext context = base.BuildContext(damage);
+        context.target = target;
+        context.targetPosition = target.Transform.position;
+        context.direction = ((Vector2)target.Transform.position - (Vector2)Transform.position).normalized;
+
+        return context;
+    }
 }
