@@ -11,6 +11,6 @@ public class AttackAnimationEventLinker : MonoBehaviour
 
     public void SpawnAttackObject()
     {
-        if (attackHelper != null) attackHelper.SpawnAttackObject();
+        if (attackHelper != null) attackHelper.Attack();
     }
 }

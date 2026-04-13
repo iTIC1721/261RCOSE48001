@@ -7,6 +7,13 @@ public class SkillManager : MonoBehaviour
     // 스킬 이름 → (SkillData, 현재 스택) 딕셔너리
     private Dictionary<string, (SkillData data, int stack)> activeSkills = new();
 
+    public SkillData testSkill;
+
+    private void Start()
+    {
+        AddSkill(testSkill);
+    }
+
     // ─────────────────────────────────────────────
     // 스킬 추가 (레벨업 시 호출)
     // ─────────────────────────────────────────────
@@ -47,7 +54,7 @@ public class SkillManager : MonoBehaviour
             if (effect.triggerType == SkillTriggerType.Passive) continue;
 
             // 실행
-            effect.Execute();
+            effect.Execute(stack);
         }
     }
 
