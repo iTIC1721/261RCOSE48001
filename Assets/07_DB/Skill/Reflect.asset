@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
-  m_Name: Skill1
+  m_Name: Reflect
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillSprite: {fileID: 21300000, guid: d348ec458a39bd34a9090a228e2708fe, type: 3}
-  skillName: SideShot
-  skillDesc: "\uACF5\uACA9 \uC2DC \uC591 \uC606\uC73C\uB85C \uCD94\uAC00\uB85C \uAC80\uC744
-    \uB358\uC9D1\uB2C8\uB2E4."
+  skillSprite: {fileID: 21300000, guid: e1da7840243da654ebadccd6803ada81, type: 3}
+  skillName: Reflect
+  skillDesc: "\uAC80\uC774 \uBCBD\uC5D0 \uB9DE\uACE0 \uBC18\uC0AC\uB429\uB2C8\uB2E4."
   skillEffects:
-  - {fileID: 11400000, guid: 217ef36ef9b8a494095150dfde262829, type: 2}
+  - {fileID: 11400000, guid: 0c464a6a407ea8546bacfe2e5ce5c118, type: 2}
   isStackable: 1
   maxStack: 3

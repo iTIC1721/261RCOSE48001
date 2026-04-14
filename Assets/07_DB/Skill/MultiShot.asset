@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
-  m_Name: Skill8
+  m_Name: MultiShot
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillSprite: {fileID: 21300000, guid: e1da7840243da654ebadccd6803ada81, type: 3}
-  skillName: Reflect
-  skillDesc: "\uAC80\uC774 \uBCBD\uC5D0 \uB9DE\uACE0 \uBC18\uC0AC\uB429\uB2C8\uB2E4."
+  skillSprite: {fileID: 21300000, guid: db1670a9082383b49a24bd0ed88fd206, type: 3}
+  skillName: MultiShot
+  skillDesc: "\uACF5\uACA9 \uC2DC \uC2A4\uD0DD \uC218\uB9CC\uD07C \uCD94\uAC00 \uACF5\uACA9\uC744
+    \uC2DC\uD589\uD569\uB2C8\uB2E4."
   skillEffects:
-  - {fileID: 11400000, guid: 0c464a6a407ea8546bacfe2e5ce5c118, type: 2}
+  - {fileID: 11400000, guid: a27220531e670ed438adc6cfff19c986, type: 2}
+  - {fileID: 11400000, guid: 745a4ed0c943f6846a6f18fe3d9e9405, type: 2}
   isStackable: 1
-  maxStack: 3
+  maxStack: 2
