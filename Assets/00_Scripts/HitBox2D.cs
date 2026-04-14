@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +39,13 @@ public class HitBox2D : MonoBehaviour
     public float Damage
     {
         get => damageInfo.damage;
-        set => damageInfo.damage = value;
+        set => StartCoroutine(SetDamageCoroutine(value));
+    }
+
+    private IEnumerator SetDamageCoroutine(float value)
+    {
+        yield return null; 
+        if (damageInfo != null) damageInfo.damage = value;
     }
 
     private ColliderState _state = ColliderState.Closed;

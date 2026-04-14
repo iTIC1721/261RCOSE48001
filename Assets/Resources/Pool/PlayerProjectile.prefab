@@ -52,9 +52,9 @@ MonoBehaviour:
   lifeTime: 10
   hitBox: {fileID: 2180794079005733919}
   sprite: {fileID: 2591147969886118509}
-  ricochetCount: 2
-  piercingCount: 2
-  reflectCount: 2
+  ricochetCount: 0
+  piercingCount: 0
+  reflectCount: 0
   direction: {x: 0, y: 0}
   speed: 10
 --- !u!114 &2180794079005733919
