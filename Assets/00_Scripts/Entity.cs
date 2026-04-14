@@ -16,6 +16,7 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public abstract void Die();
 
     public abstract void Attack();
+    public abstract Vector3 GetAttackPosition();
 
     public abstract void GetDamaged(params DamageInfo[] damageInfos);
 
@@ -28,4 +29,5 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
         };
         return context;
     }
+
 }

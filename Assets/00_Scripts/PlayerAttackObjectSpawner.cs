@@ -12,7 +12,7 @@ public class PlayerAttackObjectSpawner : AttackObjectSpawner
 
         Vector2 direction = target.transform.position - transform.position;
 
-        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(player.attackOrigin.position, value => {
+        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(player.GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
             p.Initialize(10, player);
 

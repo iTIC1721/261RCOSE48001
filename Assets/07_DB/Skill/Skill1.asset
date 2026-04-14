@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Skill1
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillSprite: {fileID: 21300000, guid: d348ec458a39bd34a9090a228e2708fe, type: 3}
-  skillName: Skill 1
-  skillDesc: "\uC2A4\uD0AC 1"
-  skillEffect: {fileID: 11400000, guid: a2d058d01d0abef4eb2a26550439bb3d, type: 2}
+  skillName: SideShot
+  skillDesc: "\uACF5\uACA9 \uC2DC \uC591 \uC606\uC73C\uB85C \uCD94\uAC00\uB85C \uAC80\uC744
+    \uB358\uC9D1\uB2C8\uB2E4."
+  skillEffect: {fileID: 11400000, guid: 217ef36ef9b8a494095150dfde262829, type: 2}
   isStackable: 1
-  maxStack: 5
+  maxStack: 3

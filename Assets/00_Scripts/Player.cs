@@ -205,4 +205,9 @@ public class Player : Entity
 
         return context;
     }
+
+    public override Vector3 GetAttackPosition()
+    {
+        return attackOrigin.position;
+    }
 }

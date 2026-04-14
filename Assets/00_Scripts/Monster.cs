@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Monster : Entity
 {
@@ -115,7 +114,7 @@ public class Monster : Entity
         Destroy(gameObject);
     }
 
-    public Vector3 GetAttackPosition()
+    public override Vector3 GetAttackPosition()
     {
         return transform.position + Vector3.up * attackPositionOffset;
     }
