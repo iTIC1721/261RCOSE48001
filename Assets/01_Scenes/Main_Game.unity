@@ -40865,9 +40865,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   hp: 50
   maxHp: 50
-  damage: 10
-  damageAdder: 0
-  damageMultiplier: 1
+  baseDamage: 10
   ricochetCount: 0
   piercingCount: 0
   reflectCount: 0

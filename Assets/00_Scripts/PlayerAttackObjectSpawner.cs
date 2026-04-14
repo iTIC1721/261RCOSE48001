@@ -15,7 +15,7 @@ public class PlayerAttackObjectSpawner : AttackObjectSpawner
 
         MANAGER.Pool.PoolingObj("PlayerProjectile").Get(player.GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
-            p.Initialize(player.damage, player, player.ricochetCount, player.piercingCount, player.reflectCount);
+            p.Initialize(player.Damage, player, player.ricochetCount, player.piercingCount, player.reflectCount);
 
             value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
             p.direction = direction;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillData", menuName = "Scriptable Objects/SkillData")]
@@ -8,7 +9,7 @@ public class SkillData : ScriptableObject
     public string skillDesc;
 
     [Header("스킬 효과 (SO 직접 할당)")]
-    public SkillEffect skillEffect;
+    public List<SkillEffect> skillEffects;
 
     [Header("스택")]
     public bool isStackable = true;

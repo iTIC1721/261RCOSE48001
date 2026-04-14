@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
@@ -10,9 +12,7 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public float maxHp;
 
     [Header("Attack")]
-    public float damage;
-    public float damageAdder = 0;
-    public float damageMultiplier = 1;
+    public float baseDamage;
 
     [Header("Projectile")]
     public int ricochetCount = 0;
@@ -21,6 +21,26 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
 
     public Action<float, float> OnDamaged;
     public Action OnDeath;
+
+    private List<float> damageAdders = new();
+    public void AddAdder(float amount) => damageAdders.Add(amount);
+    public void RemoveAdder(float amount) => damageAdders.Remove(amount);
+
+    private List<float> damageMultipliers = new();
+    public void AddMultiplier(float amount) => damageMultipliers.Add(amount);
+    public void RemoveMultiplier(float amount) => damageMultipliers.Remove(amount);
+
+    public float Damage { 
+        get
+        {
+            float damageAdder = damageAdders.Sum();
+            float damageMultiplier = 1;
+            foreach (float m in damageMultipliers) damageMultiplier *= m;
+
+            return (baseDamage + damageAdder) * damageMultiplier;
+        }
+    }
+
 
     public abstract void Initialize();
 
@@ -40,7 +60,7 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
         EntityContext context = new EntityContext()
         {
             source = this,
-            damage = (this.damage + damageAdder) * damageMultiplier
+            damage = Damage
         };
         return context;
     }

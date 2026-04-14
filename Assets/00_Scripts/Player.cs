@@ -205,9 +205,13 @@ public class Player : Entity
     public override EntityContext BuildContext()
     {
         EntityContext context = base.BuildContext();
-        context.target = target;
-        context.targetPosition = target.Transform.position;
-        context.direction = ((Vector2)target.Transform.position - (Vector2)Transform.position).normalized;
+
+        if (target != null)
+        {
+            context.target = target;
+            context.targetPosition = target.Transform.position;
+            context.direction = ((Vector2)target.Transform.position - (Vector2)Transform.position).normalized;
+        }
 
         return context;
     }

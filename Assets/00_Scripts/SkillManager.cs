@@ -51,6 +51,9 @@ public class SkillManager : MonoBehaviour
 
             activeSkills[data.skillName] = (existing.data, existing.stack + 1);
             Log.LogMessage($"[SkillManager] {data.skillName} 스택 {existing.stack + 1} 획득");
+
+            // 패시브 스킬은 즉시 적용
+            ApplyPassiveIfNeeded(existing.data, existing.stack + 1);
         }
         else
         {
@@ -70,20 +73,22 @@ public class SkillManager : MonoBehaviour
         foreach (var (skillName, entry) in activeSkills)
         {
             var (data, stack) = entry;
-            var effect = data.skillEffect;
+            foreach (var effect in data.skillEffects)
+            {
+                if (effect == null) continue;
 
-            if (effect == null) continue;
+                // 발동 조건 체크
+                if (!effect.CanTrigger(trigger)) continue;
 
-            // 발동 조건 체크
-            if (!effect.CanTrigger(trigger)) continue;
+                // 패시브는 TriggerSkills로 발동하지 않음
+                if (effect.triggerType == SkillTriggerType.Passive) continue;
 
-            // 패시브는 TriggerSkills로 발동하지 않음
-            if (effect.triggerType == SkillTriggerType.Passive) continue;
+                // 실행
+                EntityContext context = entity.BuildContext();
+                effect.Execute(context, stack);
 
-            // 실행
-            EntityContext context = entity.BuildContext();
-            effect.Execute(context, stack);
-            Log.LogMessage($"스킬 발동: {data.name}");
+                Log.LogMessage($"스킬 발동: {data.name}");
+            }            
         }
     }
 
@@ -92,19 +97,25 @@ public class SkillManager : MonoBehaviour
     // ─────────────────────────────────────────────
     private void ApplyPassiveIfNeeded(SkillData data, int stack)
     {
-        if (data.skillEffect is PassiveSkillEffect passiveEffect)
-            passiveEffect.ApplyPassive(stack);
+        EntityContext context = entity.BuildContext();
+        foreach (var effect in data.skillEffects)
+        {
+            if (effect is PassiveSkillEffect passiveEffect)
+                passiveEffect.ApplyPassive(context, stack);
+        }
     }
 
     // ─────────────────────────────────────────────
     // 유틸리티
     // ─────────────────────────────────────────────
-    /// <summary>현재 보유 스킬 목록 반환</summary>
+    /// <summary>
+    /// 현재 보유 스킬 목록 반환
+    /// </summary>
     public IEnumerable<(SkillData data, int stack)> GetActiveSkills()
         => activeSkills.Values;
 
     /// <summary>현재 보유 스킬 목록 반환</summary>
     /// <param name="trigger">트리거 타입</param>
     public IEnumerable<(SkillData data, int stack)> GetActiveSkills(SkillTriggerType trigger)
-        => activeSkills.Values.Where(item => item.data.skillEffect.triggerType == trigger);
+        => activeSkills.Values.Where(item => item.data.skillEffects.Exists(m => m.triggerType == trigger));
 }

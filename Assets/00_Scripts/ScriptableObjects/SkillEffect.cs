@@ -20,5 +20,5 @@ public abstract class PassiveSkillEffect : SkillEffect
 {
     public override void Execute(EntityContext context, int stack) { }
 
-    public abstract void ApplyPassive(int stack);
+    public abstract void ApplyPassive(EntityContext context, int stack);
 }
