@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
   m_Name: FrontShot
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillSprite: {fileID: 21300000, guid: 00d6e818a1763c94f93c1548d3089ac6, type: 3}
+  skillSprite: {fileID: 21300000, guid: 002432945f61d644ab64c626891297ce, type: 3}
   skillName: FrontShot
   skillDesc: "\uACF5\uACA9 \uC2DC \uC804\uBC29\uC73C\uB85C \uCD94\uAC00\uB85C \uAC80\uC744
     \uB358\uC9D1\uB2C8\uB2E4."

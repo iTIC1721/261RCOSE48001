@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
   m_Name: SideShot
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillSprite: {fileID: 21300000, guid: d348ec458a39bd34a9090a228e2708fe, type: 3}
+  skillSprite: {fileID: 21300000, guid: 775316580fa847d45850d5c764c9ef32, type: 3}
   skillName: SideShot
   skillDesc: "\uACF5\uACA9 \uC2DC \uC591 \uC606\uC73C\uB85C \uCD94\uAC00\uB85C \uAC80\uC744
     \uB358\uC9D1\uB2C8\uB2E4."
