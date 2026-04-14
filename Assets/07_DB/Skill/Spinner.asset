@@ -10,8 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
-  m_Name: Skill10
+  m_Name: Spinner
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillSprite: {fileID: 21300000, guid: 197a8b2a6e4991a4fa07b0db25d61d68, type: 3}
-  skillName: Skill 10
-  skillDesc: "\uC2A4\uD0AC 10"
+  skillName: Spinner
+  skillDesc: "\uD50C\uB808\uC774\uC5B4 \uC8FC\uC704\uB97C \uB3C4\uB294 \uAD6C\uCCB4\uB97C
+    \uC0DD\uC131\uD569\uB2C8\uB2E4. \uAD6C\uCCB4\uB294 \uC801\uACFC \uB2FF\uC73C\uBA74
+    \uB370\uBBF8\uC9C0\uB97C \uC785\uD799\uB2C8\uB2E4."
+  skillEffects:
+  - {fileID: 11400000, guid: 392ea3e22e17ada4ebf603c9b31be5c2, type: 2}
+  isStackable: 0
+  maxStack: 5

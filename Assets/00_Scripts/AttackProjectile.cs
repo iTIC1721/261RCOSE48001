@@ -37,9 +37,9 @@ public class AttackProjectile : AttackObject
         reflect = reflectCount;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        transform.position += (Vector3)direction.normalized * speed * Time.deltaTime;
+        transform.position += (Vector3)direction.normalized * speed * Time.fixedDeltaTime;
     }
 
     private void ChangeDirection(Vector2 newDirection)

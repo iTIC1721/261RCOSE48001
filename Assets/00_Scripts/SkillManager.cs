@@ -8,7 +8,7 @@ public class SkillManager : MonoBehaviour
     [Serializable]
     public class SkillItem { 
         public SkillData skillData; 
-        [Range(1, 10)] public int stack; 
+        [Range(1, 10)] public int stack = 1; 
     }
 
     public List<SkillItem> skills;

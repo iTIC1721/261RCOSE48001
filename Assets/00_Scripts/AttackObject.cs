@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class AttackObject : PoolObject
 {
-    [Min(0)] public float lifeTime = 10;
+    public float lifeTime = 10;
     [SerializeField] protected HitBox2D hitBox;
 
     protected bool isInitialized = false;
@@ -12,7 +12,7 @@ public abstract class AttackObject : PoolObject
         hitBox.Initialize(damage, parent);
         StartHitBox();
 
-        Return(lifeTime, CallBack);
+        if (lifeTime > 0) Return(lifeTime, CallBack);
 
         isInitialized = true;
     }
