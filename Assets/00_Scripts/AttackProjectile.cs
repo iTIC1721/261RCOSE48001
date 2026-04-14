@@ -42,6 +42,12 @@ public class AttackProjectile : AttackObject
         transform.position += (Vector3)direction.normalized * speed * Time.deltaTime;
     }
 
+    private void ChangeDirection(Vector2 newDirection)
+    {
+        direction = newDirection;
+        transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!isInitialized) return;
@@ -61,7 +67,7 @@ public class AttackProjectile : AttackObject
                 Vector2 normal = ((Vector2)transform.position - closestPoint).normalized;
                 Vector2 nextDirection = Vector2.Reflect(direction, normal);
 
-                direction = nextDirection;
+                ChangeDirection(nextDirection);
             }
         }
     }
@@ -86,7 +92,7 @@ public class AttackProjectile : AttackObject
                     return;
                 }
 
-                direction = (nearest.position - transform.position).normalized;
+                ChangeDirection((nearest.position - transform.position).normalized);
                 hitBox.Damage = hitBox.Damage * 0.7f;
             }
             else
