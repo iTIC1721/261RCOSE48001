@@ -9,6 +9,16 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public float hp;
     public float maxHp;
 
+    [Header("Attack")]
+    public float damage;
+    public float damageAdder = 0;
+    public float damageMultiplier = 1;
+
+    [Header("Projectile")]
+    public int ricochetCount = 0;
+    public int piercingCount = 0;
+    public int reflectCount = 0;
+
     public Action<float, float> OnDamaged;
     public Action OnDeath;
 
@@ -25,12 +35,12 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     // IDamageable
     public abstract void GetDamaged(params DamageInfo[] damageInfos);
 
-    public virtual EntityContext BuildContext(float damage)
+    public virtual EntityContext BuildContext()
     {
         EntityContext context = new EntityContext()
         {
             source = this,
-            damage = damage
+            damage = (this.damage + damageAdder) * damageMultiplier
         };
         return context;
     }

@@ -202,9 +202,9 @@ public class Player : Entity
         IsDied = true;
     }
 
-    public override EntityContext BuildContext(float damage)
+    public override EntityContext BuildContext()
     {
-        EntityContext context = base.BuildContext(damage);
+        EntityContext context = base.BuildContext();
         context.target = target;
         context.targetPosition = target.Transform.position;
         context.direction = ((Vector2)target.Transform.position - (Vector2)Transform.position).normalized;

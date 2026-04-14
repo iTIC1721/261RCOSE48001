@@ -2366,6 +2366,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   hp: 0
   maxHp: 50
+  damage: 10
+  damageAdder: 0
+  damageMultiplier: 1
+  ricochetCount: 0
+  piercingCount: 0
+  reflectCount: 0
   invulnerable: 0
   attackPositionOffset: 0.2
   damageTMPName: StudyDamageTMP

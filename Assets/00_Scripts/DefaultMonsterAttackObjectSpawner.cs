@@ -15,7 +15,7 @@ public class DefaultMonsterAttackObjectSpawner : AttackObjectSpawner
 
         MANAGER.Pool.PoolingObj("DefaultMonsterProjectile").Get(monster.GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
-            p.Initialize(10, monster);
+            p.Initialize(monster.damage, monster, monster.ricochetCount, monster.piercingCount, monster.reflectCount);
 
             value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
             value.transform.localScale = (monster.spriteRoot.transform.localScale.x < 0) ? new Vector3(-1, 1, 1) : Vector3.one;

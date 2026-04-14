@@ -34,7 +34,7 @@ public class AttackHelper : MonoBehaviour
     {
         if (source == null || skillManager == null) return;
 
-        EntityContext context = source.BuildContext(10);
+        EntityContext context = source.BuildContext();
         skillManager.TriggerSkills(SkillTriggerType.OnAttack);
     }
 }

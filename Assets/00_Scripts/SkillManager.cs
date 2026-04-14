@@ -81,7 +81,7 @@ public class SkillManager : MonoBehaviour
             if (effect.triggerType == SkillTriggerType.Passive) continue;
 
             // 실행
-            EntityContext context = entity.BuildContext(10);
+            EntityContext context = entity.BuildContext();
             effect.Execute(context, stack);
             Log.LogMessage($"스킬 발동: {data.name}");
         }

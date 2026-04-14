@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class PlayerAttackObjectSpawner : AttackObjectSpawner
 {
@@ -14,7 +15,7 @@ public class PlayerAttackObjectSpawner : AttackObjectSpawner
 
         MANAGER.Pool.PoolingObj("PlayerProjectile").Get(player.GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
-            p.Initialize(10, player);
+            p.Initialize(player.damage, player, player.ricochetCount, player.piercingCount, player.reflectCount);
 
             value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
             p.direction = direction;

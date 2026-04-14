@@ -32,7 +32,10 @@ public class SideShotSkillEffect : SkillEffect
     {
         MANAGER.Pool.PoolingObj("PlayerProjectile").Get(source.GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
-            p.Initialize(damage, source);
+            if (source is Entity entity)
+                p.Initialize(damage, source, entity.ricochetCount, entity.piercingCount, entity.reflectCount);
+            else
+                p.Initialize(damage, source);
 
             value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
             p.direction = direction;
