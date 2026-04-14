@@ -35,6 +35,12 @@ public class HitBox2D : MonoBehaviour
         damageSource = null
     };
 
+    public float Damage
+    {
+        get => damageInfo.damage;
+        set => damageInfo.damage = value;
+    }
+
     private ColliderState _state = ColliderState.Closed;
 
     private List<Collider2D> lastHitCollidersList;
