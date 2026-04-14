@@ -15,13 +15,17 @@ public class Monster : Entity
     public Transform spriteRoot;
 
     private Animator animator;
+    private AttackHelper attackHelper;
     private MonsterBT monsterBT;
 
     public bool IsDied { get; private set; }
 
+    public override AttackHelper AttackHelper => attackHelper;
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        attackHelper = GetComponent<AttackHelper>();
         monsterBT = GetComponent<MonsterBT>();
 
         Initialize();
@@ -99,6 +103,8 @@ public class Monster : Entity
 
     public override void Die()
     {
+        OnDeath?.Invoke();
+
         monsterBT.DieAnimation();
 
         SetColliderEnabled(false);

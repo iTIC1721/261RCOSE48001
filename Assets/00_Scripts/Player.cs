@@ -33,6 +33,7 @@ public class Player : Entity
     public bool CanControl { get; private set; } = true;
 
     private Animator animator;
+    private AttackHelper attackHelper;
     [HideInInspector] public SkillManager skillManager;
 
     [HideInInspector] public float lastAttackTime = 0;
@@ -40,6 +41,8 @@ public class Player : Entity
     [HideInInspector] public Monster target = null;
 
     public bool IsDied { get; private set; }
+
+    public override AttackHelper AttackHelper => attackHelper;
 
     private void Awake()
     {
@@ -49,6 +52,7 @@ public class Player : Entity
         }
 
         animator = GetComponentInChildren<Animator>();
+        attackHelper = GetComponent<AttackHelper>();
         skillManager = GetComponent<SkillManager>();
     }
 
@@ -186,6 +190,8 @@ public class Player : Entity
 
     public override void Die()
     {
+        OnDeath?.Invoke();
+
         if (!animator.GetBool("isDeath"))
         {
             animator.SetBool("isDeath", true);
