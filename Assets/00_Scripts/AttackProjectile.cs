@@ -16,20 +16,16 @@ public class AttackProjectile : AttackObject
     [HideInInspector] public Vector2 direction;
     [HideInInspector] public float speed = 10;
 
-    public override void Initialize(float damage, IAttackable parent)
-    {
-        base.Initialize(damage, parent);
-
-        InitializeSetting();
-    }
-
     public void Initialize(float damage, IAttackable parent, int ricochetCount = 0, int piercingCount = 0, int reflectCount = 0)
     {
         base.Initialize(damage, parent);
 
-        this.ricochetCount = ricochetCount;
-        this.piercingCount = piercingCount;
-        this.reflectCount = reflectCount;
+        if (ricochetCount > 0 || piercingCount > 0 || reflectCount > 0)
+        {
+            this.ricochetCount = ricochetCount;
+            this.piercingCount = piercingCount;
+            this.reflectCount = reflectCount;
+        }
 
         InitializeSetting();
     }
@@ -80,23 +76,35 @@ public class AttackProjectile : AttackObject
         if (ricochet > 0)
         {
             ricochet--;
-            hitBox.Damage = hitBox.Damage * 0.7f;
 
             if (coll.TryGetComponent<Entity>(out var hit))
             {
                 Transform nearest = GetNearestEntityFromHitEntity(hit);
-                if (nearest == null) Return(CallBack);
+                if (nearest == null)
+                {
+                    Return(CallBack);
+                    return;
+                }
 
                 direction = (nearest.position - transform.position).normalized;
+                hitBox.Damage = hitBox.Damage * 0.7f;
             }
-            else Return(CallBack);
+            else
+            {
+                Return(CallBack);
+                return;
+            }
         }
         else if (ricochetCount <= 0 && piercing > 0)
         {
             piercing--;
             hitBox.Damage = hitBox.Damage * 0.67f;
         }
-        else Return(CallBack);
+        else
+        {
+            Return(CallBack);
+            return;
+        }
     }
 
     private Transform GetNearestEntityFromHitEntity(Entity hit)
