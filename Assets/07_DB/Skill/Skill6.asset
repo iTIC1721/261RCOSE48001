@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Skill6
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillSprite: {fileID: 21300000, guid: e127be8263f2dc846903afd6380e1d8a, type: 3}
-  skillName: Skill 6
-  skillDesc: "\uC2A4\uD0AC 6"
+  skillName: Ricochet
+  skillDesc: "\uAC80\uC774 \uC801\uC5D0\uAC8C \uB9DE\uACE0 \uADFC\uCC98\uC758 \uB2E4\uB978
+    \uC801\uC744 \uD5A5\uD574 \uB3C4\uD0C4\uB429\uB2C8\uB2E4."
+  skillEffects:
+  - {fileID: 11400000, guid: 4fbbdf3e342ad0e469f26cddcdcdfd11, type: 2}
+  isStackable: 1
+  maxStack: 3

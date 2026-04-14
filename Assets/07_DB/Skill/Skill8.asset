@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Skill8
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillSprite: {fileID: 21300000, guid: e1da7840243da654ebadccd6803ada81, type: 3}
-  skillName: Skill 8
-  skillDesc: "\uC2A4\uD0AC 8"
+  skillName: Reflect
+  skillDesc: "\uAC80\uC774 \uBCBD\uC5D0 \uB9DE\uACE0 \uBC18\uC0AC\uB429\uB2C8\uB2E4."
+  skillEffects:
+  - {fileID: 11400000, guid: 0c464a6a407ea8546bacfe2e5ce5c118, type: 2}
+  isStackable: 1
+  maxStack: 3
