@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour
         if (!player.CanControl | !player.enableAttack) return;
         if (player.target == null) return;
 
-        if (Time.time - player.lastAttackTime >= player.attackDelay)
+        if (Time.time - player.lastAttackTime >= player.AttackDelay)
             player.Attack();
     }
 }

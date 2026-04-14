@@ -12,7 +12,7 @@ public class AddDamageSkillEffect : PassiveSkillEffect
 
         if (context.source is Entity entity)
         {
-            entity.AddAdder(damageAdders[stack - 1]);
+            entity.AddDamageAdder(damageAdders[stack - 1]);
         }
     }
 }

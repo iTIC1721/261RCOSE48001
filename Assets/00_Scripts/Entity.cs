@@ -13,6 +13,7 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
 
     [Header("Attack")]
     public float baseDamage;
+    public float baseAttackDelay = 1;
 
     [Header("Projectile")]
     public int ricochetCount = 0;
@@ -23,12 +24,16 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public Action OnDeath;
 
     private List<float> damageAdders = new();
-    public void AddAdder(float amount) => damageAdders.Add(amount);
-    public void RemoveAdder(float amount) => damageAdders.Remove(amount);
+    public void AddDamageAdder(float amount) => damageAdders.Add(amount);
+    public void RemoveDamageAdder(float amount) => damageAdders.Remove(amount);
 
     private List<float> damageMultipliers = new();
-    public void AddMultiplier(float amount) => damageMultipliers.Add(amount);
-    public void RemoveMultiplier(float amount) => damageMultipliers.Remove(amount);
+    public void AddDamageMultiplier(float amount) => damageMultipliers.Add(amount);
+    public void RemoveDamageMultiplier(float amount) => damageMultipliers.Remove(amount);
+
+    private List<float> attackDelayMultipliers = new();
+    public void AddAttackDelayMultiplier(float amount) => attackDelayMultipliers.Add(amount);
+    public void RemoveAttackDelayMultiplier(float amount) => attackDelayMultipliers.Remove(amount);
 
     public float Damage { 
         get
@@ -38,6 +43,17 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
             foreach (float m in damageMultipliers) damageMultiplier *= m;
 
             return (baseDamage + damageAdder) * damageMultiplier;
+        }
+    }
+
+    public float AttackDelay
+    {
+        get
+        {
+            float attackDelayMultiplier = 1;
+            foreach (float m in attackDelayMultipliers) attackDelayMultiplier *= m;
+
+            return baseAttackDelay * attackDelayMultiplier;
         }
     }
 

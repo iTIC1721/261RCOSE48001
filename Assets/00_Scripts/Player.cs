@@ -19,7 +19,6 @@ public class Player : Entity
     public float detectRange = 5;
 
     [Space]
-    public float attackDelay = 1;
     public Transform attackOrigin;
 
     [Header("FX")]

@@ -40866,6 +40866,7 @@ MonoBehaviour:
   hp: 50
   maxHp: 50
   baseDamage: 10
+  baseAttackDelay: 1
   ricochetCount: 0
   piercingCount: 0
   reflectCount: 0
@@ -40877,7 +40878,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   detectRange: 5
-  attackDelay: 0.7
   attackOrigin: {fileID: 1984204061}
   damageTMPName: StudyDamageTMP
   spriteRoot: {fileID: 8437719919518125510}

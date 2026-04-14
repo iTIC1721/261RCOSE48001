@@ -12,7 +12,7 @@ public class MultiplyDamageSkillEffect : PassiveSkillEffect
 
         if (context.source is Entity entity)
         {
-            entity.AddMultiplier(damageMultipliers[stack - 1]);
+            entity.AddDamageMultiplier(damageMultipliers[stack - 1]);
         }
     }
 }

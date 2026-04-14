@@ -42,7 +42,7 @@ public class DefaultMonsterBT : MonsterBT
                             new BTCheckPlayerIsInRange(monster, 7.5f, true),
                             new BTMoveStop(monster),
                             new BTInvoke(PrepareSkill)
-                        }), 3),
+                        }), monster.AttackDelay),
                         // 스킬 쿨타임이 안 찼을 땐 플레이어에게로 이동
                         new BTSequenceNode(new List<BTNode>
                         {

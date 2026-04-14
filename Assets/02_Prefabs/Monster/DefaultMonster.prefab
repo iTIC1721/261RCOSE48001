@@ -2367,6 +2367,7 @@ MonoBehaviour:
   hp: 0
   maxHp: 50
   baseDamage: 10
+  baseAttackDelay: 3
   ricochetCount: 0
   piercingCount: 0
   reflectCount: 0
