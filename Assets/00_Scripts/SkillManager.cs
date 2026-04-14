@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
+    [Serializable]
+    public class SkillItem { public SkillData skillData; public int stack; }
+
+    public List<SkillItem> skills;
+
     private Entity entity;
 
     // 蝶鑒 檜葷 ⊥ (SkillData, ⑷營 蝶鷗) 蛐敷傘葬
@@ -13,6 +18,22 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         entity = GetComponent<Entity>();
+    }
+
+    private void Start()
+    {
+        InitializeSkill();
+    }
+
+    public void InitializeSkill()
+    {
+        foreach (var item in skills)
+        {
+            for (int i = 0; i < item.stack; i++)
+            {
+                AddSkill(item.skillData);
+            }
+        }
     }
 
     // 式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式式
