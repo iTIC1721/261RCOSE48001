@@ -6,7 +6,10 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
     [Serializable]
-    public class SkillItem { public SkillData skillData; public int stack; }
+    public class SkillItem { 
+        public SkillData skillData; 
+        [Range(1, 10)] public int stack; 
+    }
 
     public List<SkillItem> skills;
 
