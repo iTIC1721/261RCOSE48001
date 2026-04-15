@@ -40824,7 +40824,6 @@ GameObject:
   - component: {fileID: 1805651262}
   - component: {fileID: 1805651260}
   - component: {fileID: 1805651264}
-  - component: {fileID: 1805651263}
   - component: {fileID: 1805651265}
   m_Layer: 6
   m_Name: Player
@@ -41018,19 +41017,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.25}
   m_Radius: 0.25
---- !u!114 &1805651263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805651254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5163c2c4a29e4c14b863783f03553d26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackObjectSpawner
-  player: {fileID: 1805651256}
 --- !u!114 &1805651264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41056,7 +41042,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillManager
   skills:
-  - skillData: {fileID: 11400000, guid: 020b3fb0e4b67c04982e075796093edf, type: 2}
+  - skillData: {fileID: 11400000, guid: 49f26265c33a4ca48b217260a8cbf05d, type: 2}
+    stack: 1
+  - skillData: {fileID: 11400000, guid: dfefc3edc1e6e3e48a5da770a4a0d00b, type: 2}
     stack: 1
 --- !u!1001 &1806555071
 PrefabInstance:

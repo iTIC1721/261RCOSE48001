@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
-  m_Name: Skill11
+  m_Name: TestProjectileEffect
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillSprite: {fileID: 21300000, guid: 630c7ca8e24eefa43b993986a62f2865, type: 3}
-  skillName: Skill 11
-  skillDesc: "\uC2A4\uD0AC 11"
+  skillName: TestProjectileEffect
+  skillDesc: "\uD14C\uC2A4\uD2B8"
+  skillEffects:
+  - {fileID: 11400000, guid: 85cc1a3dab4ebde4780fec5e2c65347c, type: 2}
+  isStackable: 0
+  maxStack: 5

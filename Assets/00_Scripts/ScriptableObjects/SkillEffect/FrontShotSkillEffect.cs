@@ -1,9 +1,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FrontShot", menuName = "Skill Effect/FrontShot")]
-public class FrontShotSkillEffect : SkillEffect
+public class FrontShotSkillEffect : ShotSkillEffect
 {
-    public float[] angles = new float[3] { 7.5f, 15f, 22.5f };
+    public float[] angles = new float[3] { 0, 7.5f, 15f };
     public float damageMultiplier = 0.75f;
 
     public override void Execute(EntityContext context, int stack)
@@ -13,29 +13,22 @@ public class FrontShotSkillEffect : SkillEffect
         int shotCount = (stack > angles.Length) ? angles.Length : stack;
         for (int i = 0; i < shotCount; i++)
         {
-            float damage = context.damage * damageMultiplier;
-            // left
-            Vector2 leftRotated = Quaternion.Euler(0, 0, angles[i]) * baseDirection;
-            SpawnProjectile(context.source, damage, leftRotated);
-
-            // right
-            Vector2 rightRotated = Quaternion.Euler(0, 0, -angles[i]) * baseDirection;
-            SpawnProjectile(context.source, damage, rightRotated);
-        }
-    }
-
-    private void SpawnProjectile(IAttackable source, float damage, Vector2 direction)
-    {
-        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(source.GetAttackPosition(), value => {
-            AttackProjectile p = value.GetComponent<AttackProjectile>();
-            if (source is Entity entity)
-                p.Initialize(damage, source, entity.ricochetCount, entity.piercingCount, entity.reflectCount);
+            if (i == 0)
+            {
+                SpawnProjectile(context.source, context.damage, baseDirection);
+            }
             else
-                p.Initialize(damage, source);
+            {
+                float damage = context.damage * damageMultiplier;
 
-            value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
-            p.direction = direction;
-            p.speed = 10;
-        });
+                // left
+                Vector2 leftRotated = Quaternion.Euler(0, 0, angles[i]) * baseDirection;
+                SpawnProjectile(context.source, damage, leftRotated);
+
+                // right
+                Vector2 rightRotated = Quaternion.Euler(0, 0, -angles[i]) * baseDirection;
+                SpawnProjectile(context.source, damage, rightRotated);
+            }            
+        }
     }
 }

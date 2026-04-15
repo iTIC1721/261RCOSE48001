@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DiagonalShot", menuName = "Skill Effect/DiagonalShot")]
-public class DiagonalShotSkillEffect : SkillEffect
+public class DiagonalShotSkillEffect : ShotSkillEffect
 {
     public float[] angles = new float[3] { 0, 15f, -15f };
     public float damageMultiplier = 1;
@@ -26,20 +26,5 @@ public class DiagonalShotSkillEffect : SkillEffect
             Vector2 rightRotated = Quaternion.Euler(0, 0, angles[i]) * rightDirection;
             SpawnProjectile(context.source, damage, rightRotated);
         }
-    }
-
-    private void SpawnProjectile(IAttackable source, float damage, Vector2 direction)
-    {
-        MANAGER.Pool.PoolingObj("PlayerProjectile").Get(source.GetAttackPosition(), value => {
-            AttackProjectile p = value.GetComponent<AttackProjectile>();
-            if (source is Entity entity)
-                p.Initialize(damage, source, entity.ricochetCount, entity.piercingCount, entity.reflectCount);
-            else
-                p.Initialize(damage, source);
-
-            value.transform.rotation = Quaternion.Euler(0, 0, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
-            p.direction = direction;
-            p.speed = 10;
-        });
     }
 }

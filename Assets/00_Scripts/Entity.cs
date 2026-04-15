@@ -57,6 +57,11 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
         }
     }
 
+    private readonly List<ProjectileEffect> _projectileEffects = new();
+    public IReadOnlyList<ProjectileEffect> ProjectileEffects => _projectileEffects;
+    public void AddOnHitEffect(ProjectileEffect effect) => _projectileEffects.Add(effect);
+    public void RemoveOnHitEffect(ProjectileEffect effect) => _projectileEffects.Remove(effect);
+
 
     public abstract void Initialize();
 

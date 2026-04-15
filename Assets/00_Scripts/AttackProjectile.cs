@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackProjectile : AttackObject
@@ -15,6 +16,10 @@ public class AttackProjectile : AttackObject
 
     [HideInInspector] public Vector2 direction;
     [HideInInspector] public float speed = 10;
+
+    private List<ProjectileEffect> _onHitEffects = new();
+    public void SetEffects(IReadOnlyList<ProjectileEffect> effects) 
+        => _onHitEffects = new List<ProjectileEffect>(effects);
 
     public void Initialize(float damage, IAttackable parent, int ricochetCount = 0, int piercingCount = 0, int reflectCount = 0)
     {
@@ -79,6 +84,12 @@ public class AttackProjectile : AttackObject
 
     public virtual void HitCallBack(Collider2D coll)
     {
+        // OnHit 이펙트 먼저 실행
+        foreach (var effect in _onHitEffects)
+            effect.Execute(this, coll, direction);
+
+
+        // 투사체 다음 행동 관련
         if (ricochet > 0)
         {
             ricochet--;

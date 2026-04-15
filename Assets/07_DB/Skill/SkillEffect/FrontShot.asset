@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: FrontShot
   m_EditorClassIdentifier: Assembly-CSharp::FrontShotSkillEffect
   triggerType: 1
+  projectileName: PlayerProjectile
   angles:
+  - 0
   - 7.5
   - 15
-  - 22.5
+  damageMultiplier: 0.75

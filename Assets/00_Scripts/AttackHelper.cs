@@ -23,7 +23,7 @@ public class AttackHelper : MonoBehaviour
     {
         if (attackObjectSpawner == null)
         {
-            Log.LogWarning("AttackObjectSpawner가 없습니다.");
+            //Log.LogWarning("AttackObjectSpawner가 없습니다.");
             return;
         }
 
