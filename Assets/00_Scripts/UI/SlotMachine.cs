@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,21 +9,19 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] List<Slot> slots;
     [SerializeField] int baseRollCount = 4;
 
+    [Space]
+
+    [SerializeField] TextMeshProUGUI skillNameText;
+    [SerializeField] TextMeshProUGUI skillDescText;
+    [SerializeField] Button applyButton;
+
     private int slotDummyCount = 2;
 
     private SkillData[] targetSkills;
 
     private void Awake()
     {
-        targetSkills = new SkillData[slots.Count];
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            int index = i;
-
-            slots[i].GetComponent<Button>().onClick.RemoveAllListeners();
-            slots[i].GetComponent<Button>().onClick.AddListener(() => SelectSlot(index));
-        }
+        InitializeSlotMachine();
     }
 
     public void StartSlotMachine()
@@ -30,6 +29,9 @@ public class SlotMachine : MonoBehaviour
         // 일시정지
         Time.timeScale = 0;
         slotMachine.SetActive(true);
+
+        // 초기화
+        InitializeSlotMachine();
 
         // 등장 가능 스킬 풀 지정
         List<SkillData> skillPool = GetSkillPool();
@@ -94,6 +96,23 @@ public class SlotMachine : MonoBehaviour
         Roll(indexes, baseRollCount);
     }
 
+    private void InitializeSlotMachine()
+    {
+        targetSkills = new SkillData[slots.Count];
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            int index = i;
+
+            slots[i].GetComponent<Button>().onClick.RemoveAllListeners();
+            slots[i].GetComponent<Button>().onClick.AddListener(() => SelectSlot(index));
+        }
+
+        skillNameText.text = string.Empty;
+        skillDescText.text = string.Empty;
+        applyButton.interactable = false;
+    }
+
     public void ExitSlotMachine()
     {
         slotMachine.SetActive(false);
@@ -101,6 +120,43 @@ public class SlotMachine : MonoBehaviour
     }
 
     public void SelectSlot(int index)
+    {
+        SkillData selectedSkill = targetSkills[index];
+
+        applyButton.onClick.RemoveAllListeners();
+        applyButton.onClick.AddListener(() => ApplySlot(index));
+
+        skillNameText.text = selectedSkill.skillName;
+        skillDescText.text = selectedSkill.skillDesc;
+        applyButton.interactable = true;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (i == index)
+            {
+                slots[i].button.onClick.RemoveAllListeners();
+                slots[i].button.onClick.AddListener(() => DeselectSlot(index));
+            }
+            else
+            {
+                int tmp = i;
+                slots[i].button.onClick.RemoveAllListeners();
+                slots[i].button.onClick.AddListener(() => SelectSlot(tmp));
+            }
+        }
+    }
+
+    public void DeselectSlot(int index)
+    {
+        skillNameText.text = string.Empty;
+        skillDescText.text = string.Empty;
+        applyButton.interactable = false;
+
+        slots[index].button.onClick.RemoveAllListeners();
+        slots[index].button.onClick.AddListener(() => SelectSlot(index));
+    }
+
+    public void ApplySlot(int index)
     {
         SkillData selectedSkill = targetSkills[index];
         Player.Instance.skillManager.AddSkill(selectedSkill);

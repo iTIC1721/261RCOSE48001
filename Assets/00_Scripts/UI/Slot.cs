@@ -11,7 +11,7 @@ public class Slot : MonoBehaviour
     [SerializeField] float decelerationThreshold = 0.9f;
     [SerializeField] float decelerationAmount = 0.5f;
 
-    Button button;
+    public Button button { get; private set; }
 
     private void Awake()
     {
