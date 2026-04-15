@@ -32,6 +32,8 @@ public class SkillManager : MonoBehaviour
     {
         foreach (var item in skills)
         {
+            if (item.stack < 1) item.stack = 1;
+
             for (int i = 0; i < item.stack; i++)
             {
                 AddSkill(item.skillData);

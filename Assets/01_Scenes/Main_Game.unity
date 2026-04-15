@@ -41043,9 +41043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SkillManager
   skills:
   - skillData: {fileID: 11400000, guid: 49f26265c33a4ca48b217260a8cbf05d, type: 2}
-    stack: 1
-  - skillData: {fileID: 11400000, guid: dfefc3edc1e6e3e48a5da770a4a0d00b, type: 2}
-    stack: 1
+    stack: 0
 --- !u!1001 &1806555071
 PrefabInstance:
   m_ObjectHideFlags: 0
