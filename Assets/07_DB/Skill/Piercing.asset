@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
   m_Name: Piercing
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillSprite: {fileID: 21300000, guid: 108ea55510767604aac9f97e3759da34, type: 3}
+  skillSprite: {fileID: -5644966865477618822, guid: 37c7db26d602ab84cab5fd1f75032138, type: 3}
   skillName: Piercing
   skillDesc: "\uAC80\uC774 \uC801\uC5D0\uAC8C \uB9DE\uACE0 \uAD00\uD1B5\uB429\uB2C8\uB2E4.
     (Ricochet \uC6B0\uC120 \uC801\uC6A9)"

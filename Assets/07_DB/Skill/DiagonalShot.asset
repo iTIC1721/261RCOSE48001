@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
   m_Name: DiagonalShot
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
-  skillSprite: {fileID: 21300000, guid: 2e51782b8250e26418cf3ea58261028d, type: 3}
+  skillSprite: {fileID: -9065347158251605998, guid: 6b1cd86863145a449926aeaff9bee317, type: 3}
   skillName: DiagonalShot
   skillDesc: "\uACF5\uACA9 \uC2DC \uC0AC\uC120\uC73C\uB85C \uCD94\uAC00\uB85C \uAC80\uC744
     \uB358\uC9D1\uB2C8\uB2E4."

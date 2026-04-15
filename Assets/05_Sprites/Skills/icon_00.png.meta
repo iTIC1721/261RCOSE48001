@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 00d6e818a1763c94f93c1548d3089ac6
+guid: f7395dcc063450e408af4d5ef6ae1332
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6578280660335621614
-    second: Skill3_0
+      213: 3228096277499690683
+    second: icon_00_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,30 +109,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skill3_0
+      name: icon_00_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 500
-        height: 500
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 21a8fd7b79045b4a0800000000000000
-      internalID: -6578280660335621614
+      spriteID: bbe312116708ccc20800000000000000
+      internalID: 3228096277499690683
       vertices: []
       indices: 
       edges: []
@@ -161,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Skill3_0: -6578280660335621614
+      icon_00_0: 3228096277499690683
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
