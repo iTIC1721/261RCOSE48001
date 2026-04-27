@@ -33,7 +33,6 @@ public class Player : Entity
 
     private Animator animator;
     private AttackHelper attackHelper;
-    [HideInInspector] public SkillManager skillManager;
 
     [HideInInspector] public float lastAttackTime = 0;
 
@@ -52,7 +51,7 @@ public class Player : Entity
 
         animator = GetComponentInChildren<Animator>();
         attackHelper = GetComponent<AttackHelper>();
-        skillManager = GetComponent<SkillManager>();
+        if (skillManager == null) skillManager = GetComponent<SkillManager>();
     }
 
     private void Update()

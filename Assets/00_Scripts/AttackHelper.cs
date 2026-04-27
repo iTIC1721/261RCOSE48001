@@ -4,13 +4,11 @@ public class AttackHelper : MonoBehaviour
 {
     private Entity source;
     private AttackObjectSpawner attackObjectSpawner;
-    private SkillManager skillManager;
 
     private void Awake()
     {
         source = GetComponent<Entity>();
         attackObjectSpawner = GetComponent<AttackObjectSpawner>();
-        skillManager = GetComponent<SkillManager>();
     }
 
     public void Attack()
@@ -32,9 +30,9 @@ public class AttackHelper : MonoBehaviour
 
     private void TriggerSkill()
     {
-        if (source == null || skillManager == null) return;
+        if (source == null || source.skillManager == null) return;
 
         EntityContext context = source.BuildContext();
-        skillManager.TriggerSkills(SkillTriggerType.OnAttack);
+        source.skillManager.TriggerSkills(SkillTriggerType.OnAttack);
     }
 }

@@ -14,6 +14,7 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     [Header("Attack")]
     public float baseDamage;
     public float baseAttackDelay = 1;
+    public SkillManager skillManager;
 
     [Header("Projectile")]
     public int ricochetCount = 0;

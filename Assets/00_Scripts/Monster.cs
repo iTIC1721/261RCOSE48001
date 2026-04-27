@@ -27,6 +27,7 @@ public class Monster : Entity
         animator = GetComponentInChildren<Animator>();
         attackHelper = GetComponent<AttackHelper>();
         monsterBT = GetComponent<MonsterBT>();
+        if (skillManager == null) skillManager = GetComponent<SkillManager>();
 
         Initialize();
     }
