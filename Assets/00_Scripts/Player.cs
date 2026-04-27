@@ -25,7 +25,6 @@ public class Player : Entity
     public string damageTMPName;
 
     [Header("Ref")]
-    public Transform spriteRoot;
     public FloatingJoystick joystick;
     public InputActionReference moveActionReference;
 

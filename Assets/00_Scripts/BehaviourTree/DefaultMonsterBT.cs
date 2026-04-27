@@ -11,8 +11,6 @@ public class DefaultMonsterBT : MonsterBT
     private Coroutine prepareSkillCoroutine;
     private DangerTrail dangerTrail;
 
-    public Vector2 AttackDirection { get; private set; }
-
     protected override void Awake()
     {
         base.Awake();

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Monster : Entity
 {
@@ -10,9 +11,6 @@ public class Monster : Entity
     [Header("FX")]
     public string damageTMPName;
     public GameObject targetEffect;
-
-    [Header("Ref")]
-    public Transform spriteRoot;
 
     private Animator animator;
     private AttackHelper attackHelper;
@@ -119,6 +117,14 @@ public class Monster : Entity
         yield return new WaitForSeconds(1);
 
         Destroy(gameObject);
+    }
+
+    public override EntityContext BuildContext()
+    {
+        EntityContext context = base.BuildContext();
+        context.direction = monsterBT.AttackDirection;
+
+        return context;
     }
 
     public override Vector3 GetAttackPosition()

@@ -2323,7 +2323,7 @@ GameObject:
   - component: {fileID: 6267204171564275338}
   - component: {fileID: 3769219807437066113}
   - component: {fileID: 7915237741494455867}
-  - component: {fileID: 7443235559782507257}
+  - component: {fileID: 6094085608007923721}
   m_Layer: 7
   m_Name: DefaultMonster
   m_TagString: Untagged
@@ -2368,14 +2368,15 @@ MonoBehaviour:
   maxHp: 50
   baseDamage: 10
   baseAttackDelay: 3
+  skillManager: {fileID: 0}
   ricochetCount: 0
   piercingCount: 0
   reflectCount: 0
+  spriteRoot: {fileID: 943674861432952428}
   invulnerable: 0
   attackPositionOffset: 0.2
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 1222224849848012162}
-  spriteRoot: {fileID: 943674861432952428}
 --- !u!114 &1941653131782122712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4413,7 +4414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c61a28da3dbfe4ab8ab3f5bcb4760f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackHelper
---- !u!114 &7443235559782507257
+--- !u!114 &6094085608007923721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4422,12 +4423,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3692000075017178043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc404776c169e34d84124de71deefd3, type: 3}
+  m_Script: {fileID: 11500000, guid: ddded98187a91f740aa0d481e2d49b50, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DefaultMonsterAttackObjectSpawner
-  attackPositionOffset: 0.2
-  monster: {fileID: 5283364795342291531}
-  bt: {fileID: 1941653131782122712}
+  m_EditorClassIdentifier: Assembly-CSharp::SkillManager
+  skills:
+  - skillData: {fileID: 11400000, guid: 86b6e98695e540b4d944218a2de4db9e, type: 2}
+    stack: 0
 --- !u!1 &3753778894617797366
 GameObject:
   m_ObjectHideFlags: 0

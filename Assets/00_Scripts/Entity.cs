@@ -21,6 +21,9 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public int piercingCount = 0;
     public int reflectCount = 0;
 
+    [Header("Entity Ref")]
+    public Transform spriteRoot;
+
     public Action<float, float> OnDamaged;
     public Action OnDeath;
 

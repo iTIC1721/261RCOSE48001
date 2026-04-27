@@ -6,6 +6,8 @@ public abstract class MonsterBT : BehaviourTree
     protected Monster monster;
     private NavMeshAgent agent;
 
+    public Vector2 AttackDirection { get; protected set; }
+
     protected virtual void Awake()
     {
         monster = GetComponent<Monster>();

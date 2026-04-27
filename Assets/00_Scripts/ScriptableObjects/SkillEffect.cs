@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public enum SkillTriggerType
@@ -44,6 +45,9 @@ public abstract class ShotSkillEffect : SkillEffect
 
                 // 스폰 시점의 스냅샷을 복사
                 p.SetEffects(entity.ProjectileEffects);
+
+                // 투사체 좌우반전
+                value.transform.localScale = (entity.spriteRoot.transform.localScale.x < 0) ? new Vector3(-1, 1, 1) : Vector3.one;
             }
             else
             {
