@@ -11,14 +11,14 @@ public class AttackHelper : MonoBehaviour
 
     public void Attack()
     {
-        TriggerSkill();
+        TriggerSkill(SkillTriggerType.OnAttack);
     }
 
-    private void TriggerSkill()
+    private void TriggerSkill(SkillTriggerType type)
     {
         if (source == null || source.skillManager == null) return;
 
         EntityContext context = source.BuildContext();
-        source.skillManager.TriggerSkills(SkillTriggerType.OnAttack);
+        source.skillManager.TriggerSkills(type);
     }
 }
