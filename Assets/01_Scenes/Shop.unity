@@ -211,6 +211,11 @@ MonoBehaviour:
   characterPos: {fileID: 665877855}
   panelButtonEnabled: {r: 0.27450982, g: 0.27450982, b: 0.27450982, a: 1}
   panelButtonDisabled: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+  selectedText: "\uC120\uD0DD\uB428"
+  selectText: "\uC120\uD0DD\uD558\uAE30"
+  purchaseText: C
+  moveToNextText: "\uB2E4\uC74C"
+  isPreparingGame: 0
 --- !u!1 &251085760
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,7 +848,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Main
+          m_StringArgument: Lobby
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &681536700
