@@ -23,6 +23,8 @@ public class AttackSpinner : AttackObject
 
     private void FixedUpdate()
     {
+        if (center == null) return;
+
         angle += spinSpeed * Time.fixedDeltaTime;
         if (angle > 360)
         {
