@@ -10,6 +10,7 @@ public class MANAGER : MonoBehaviour
     public static StudyManager StudyManager;
     public static InventoryManager Inventory;
     public static DBManager DB;
+    public static GameManager Game;
 
     public string dataPath;
     public bool useCustomTime = false;
@@ -28,6 +29,7 @@ public class MANAGER : MonoBehaviour
             Pool = GetComponentInChildren<PoolManager>();
             Inventory = GetComponentInChildren<InventoryManager>();
             DB = GetComponentInChildren<DBManager>();
+            Game = GetComponentInChildren<GameManager>();
         }
         else
         {

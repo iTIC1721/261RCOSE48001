@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -60,6 +61,8 @@ public class MapManager : MonoBehaviour
 
     public void Initialize()
     {
+        MANAGER.Game.InitializeGame();
+
         foreach (StageData data in stageDatas)
         {
             lastStageIndex += data.stageCount;
@@ -159,5 +162,22 @@ public class MapManager : MonoBehaviour
         {
             currentMapGate.OpenGate();
         }
+    }
+
+    public void ClearGame()
+    {
+        MANAGER.Game.isCleared = true;
+        StartCoroutine(ClearGameCoroutine());
+    }
+
+    private IEnumerator ClearGameCoroutine()
+    {
+        GLOBAL_CANVAS.Fade.FadeIn(0.5f);
+
+        yield return new WaitForSeconds(0.7f);
+
+        SceneManager.LoadScene("Main_Result");
+
+        GLOBAL_CANVAS.Fade.FadeOut(1f);
     }
 }
