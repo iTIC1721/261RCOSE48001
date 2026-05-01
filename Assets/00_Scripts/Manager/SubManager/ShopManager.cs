@@ -5,7 +5,6 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class ShopManager : MonoBehaviour
 {
@@ -22,6 +21,13 @@ public class ShopManager : MonoBehaviour
     [Header("Setting")]
     [SerializeField] Color panelButtonEnabled = Color.white;
     [SerializeField] Color panelButtonDisabled = Color.white;
+    [SerializeField] string selectedText = "선택됨";
+    [SerializeField] string selectText = "선택하기";
+    [SerializeField] string purchaseText = "C";
+    [SerializeField] string moveToNextText = "다음";
+
+    [Space]
+    [SerializeField] bool isPreparingGame = false;
 
     private int currentPanelIndex = 0;
 
@@ -108,14 +114,27 @@ public class ShopManager : MonoBehaviour
                 if (saveData.characterId == shopItems[i].characterId)
                 {
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택됨";
+                    if (isPreparingGame)
+                    {
+                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
+                        purchaseButton.GetComponent<Outline>().enabled = true;
+                        purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                            ActivePanel(1);
+                        });
+                    }
+                    else
+                    {
+                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
+                        purchaseButton.GetComponent<Outline>().enabled = false;
+                    }
                 }
                 else
                 {
                     ShopItem shopItem = shopItems[i];
 
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택하기";
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
+                    purchaseButton.GetComponent<Outline>().enabled = false;
                     purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
                         SelectCharacter(shopItem.id);
                     });
@@ -126,7 +145,8 @@ public class ShopManager : MonoBehaviour
                 ShopItem shopItem = shopItems[i];
 
                 Transform purchaseButton = itemTr.Find("Purchase");
-                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{shopItems[i].price} C";
+                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{shopItems[i].price} {purchaseText}";
+                purchaseButton.GetComponent<Outline>().enabled = false;
                 purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
                     PurchaseCharacter(shopItem.id);
                 });
@@ -159,15 +179,29 @@ public class ShopManager : MonoBehaviour
                 if (saveData.characterId == shopItems[i].characterId)
                 {
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택됨";
-                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    if (isPreparingGame)
+                    {
+                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
+                        purchaseButton.GetComponent<Outline>().enabled = true;
+                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                        purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                            ActivePanel(1);
+                        });
+                    }
+                    else
+                    {
+                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
+                        purchaseButton.GetComponent<Outline>().enabled = false;
+                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    }
                 }
                 else
                 {
                     ShopItem shopItem = shopItems[i];
 
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택하기";
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
+                    purchaseButton.GetComponent<Outline>().enabled = false;
                     purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
                     purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
                         SelectCharacter(shopItem.id);
@@ -202,15 +236,29 @@ public class ShopManager : MonoBehaviour
                 if (saveData.characterId == shopItems[i].characterId)
                 {
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택됨";
-                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    if (isPreparingGame)
+                    {
+                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
+                        purchaseButton.GetComponent<Outline>().enabled = true;
+                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                        purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                            ActivePanel(1);
+                        });
+                    }
+                    else
+                    {
+                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
+                        purchaseButton.GetComponent<Outline>().enabled = false;
+                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                    }
                 }
                 else
                 {
                     ShopItem shopItem = shopItems[i];
 
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"선택하기";
+                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
+                    purchaseButton.GetComponent<Outline>().enabled = false;
                     purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
                     purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
                         SelectCharacter(shopItem.id);
