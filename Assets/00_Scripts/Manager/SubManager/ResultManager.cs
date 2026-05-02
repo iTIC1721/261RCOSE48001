@@ -8,6 +8,8 @@ public class ResultManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1.0f;
+
         bool isCleared = MANAGER.Game.isCleared;
         if (isCleared)
         {

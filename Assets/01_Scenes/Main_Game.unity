@@ -41467,6 +41467,7 @@ MonoBehaviour:
   damageTMPName: StudyDamageTMP
   joystick: {fileID: 8170153792862027087}
   moveActionReference: {fileID: 871695840}
+  mapManager: {fileID: 1133148841}
   lastAttackTime: 0
   target: {fileID: 0}
 --- !u!114 &1805651257

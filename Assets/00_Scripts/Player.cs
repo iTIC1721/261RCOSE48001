@@ -27,6 +27,7 @@ public class Player : Entity
     [Header("Ref")]
     public FloatingJoystick joystick;
     public InputActionReference moveActionReference;
+    public MapManager mapManager;
 
     public bool CanControl { get; private set; } = true;
 
@@ -195,8 +196,10 @@ public class Player : Entity
             animator.SetTrigger("4_Death");
         }
 
-        // TODO: 플레이어 사망 시 이벤트
         IsDied = true;
+
+        // TODO: 플레이어 사망 시 이벤트
+        mapManager.GameOver();
     }
 
     public override EntityContext BuildContext()

@@ -174,10 +174,66 @@ public class MapManager : MonoBehaviour
     {
         GLOBAL_CANVAS.Fade.FadeIn(0.5f);
 
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSecondsRealtime(0.7f);
 
         SceneManager.LoadScene("Main_Result");
 
         GLOBAL_CANVAS.Fade.FadeOut(1f);
+    }
+
+    public void GameOver()
+    {
+        StartCoroutine(GameOverCoroutine());
+    }
+
+    private IEnumerator GameOverCoroutine()
+    {
+        Time.timeScale = 0.1f;
+
+        float camSize = Camera.main.orthographicSize;
+        float zoomSize = 5f;
+
+        Vector3 camPos = Camera.main.transform.position;
+        Vector3 playerPos = Player.Instance.transform.position;
+        Vector3 camDest = GetClampedPosition(camPos, camSize, playerPos, zoomSize);
+
+        float zoomTime = 2f;
+        float t = 0;
+        while (t < zoomTime)
+        {
+            yield return null;
+            t += Time.unscaledDeltaTime;
+
+            Camera.main.orthographicSize = Mathf.Lerp(camSize, zoomSize, MyMath.EaseInOut(t / zoomTime));
+            Camera.main.transform.position = Vector3.Lerp(camPos, camDest, MyMath.EaseInOut(t / zoomTime));
+        }
+
+        GLOBAL_CANVAS.Fade.FadeIn(0.5f);
+
+        yield return new WaitForSecondsRealtime(0.7f);
+
+        SceneManager.LoadScene("Main_Result");
+
+        GLOBAL_CANVAS.Fade.FadeOut(1f);
+    }
+
+    private Vector3 GetClampedPosition(Vector3 originalPosition, float originalSize, Vector2 targetPos, float newSize)
+    {
+        float originalHalfH = originalSize;         // orthographic size = 세로 절반
+        float originalHalfW = originalSize * Camera.main.aspect;
+
+        float zoomedHalfH = newSize;
+        float zoomedHalfW = newSize * Camera.main.aspect;
+
+        // 기존 카메라 범위의 경계 (originalPosition 기준)
+        float minX = originalPosition.x - originalHalfW + zoomedHalfW;
+        float maxX = originalPosition.x + originalHalfW - zoomedHalfW;
+        float minY = originalPosition.y - originalHalfH + zoomedHalfH;
+        float maxY = originalPosition.y + originalHalfH - zoomedHalfH;
+
+        float clampedX = Mathf.Clamp(targetPos.x, minX, maxX);
+        float clampedY = Mathf.Clamp(targetPos.y, minY, maxY);
+
+        return new Vector3(clampedX, clampedY, originalPosition.z);
     }
 }
