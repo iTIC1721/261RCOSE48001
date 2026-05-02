@@ -5,6 +5,8 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance { get => MANAGER.Audio; }
+
     #region Inspector Fields
     [Header("Audio Sources")]
     [SerializeField] private AudioSource bgmSource;
