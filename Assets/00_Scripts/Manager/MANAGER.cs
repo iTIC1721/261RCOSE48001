@@ -11,6 +11,7 @@ public class MANAGER : MonoBehaviour
     public static InventoryManager Inventory;
     public static DBManager DB;
     public static GameManager Game;
+    public static AudioManager Audio;
 
     public string dataPath;
     public bool useCustomTime = false;
@@ -30,6 +31,7 @@ public class MANAGER : MonoBehaviour
             Inventory = GetComponentInChildren<InventoryManager>();
             DB = GetComponentInChildren<DBManager>();
             Game = GetComponentInChildren<GameManager>();
+            Audio = GetComponentInChildren<AudioManager>();
         }
         else
         {
