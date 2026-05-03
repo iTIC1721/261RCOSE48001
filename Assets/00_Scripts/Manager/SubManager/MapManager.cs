@@ -176,9 +176,7 @@ public class MapManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.7f);
 
-        SceneManager.LoadScene("Main_Result");
-
-        GLOBAL_CANVAS.Fade.FadeOut(1f);
+        LoadingSceneManager.LoadScene("Main_Result", 0.7f);
     }
 
     public void GameOver()
@@ -212,9 +210,7 @@ public class MapManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.7f);
 
-        SceneManager.LoadScene("Main_Result");
-
-        GLOBAL_CANVAS.Fade.FadeOut(1f);
+        LoadingSceneManager.LoadScene("Main_Result", 0.7f);
     }
 
     private Vector3 GetClampedPosition(Vector3 originalPosition, float originalSize, Vector2 targetPos, float newSize)

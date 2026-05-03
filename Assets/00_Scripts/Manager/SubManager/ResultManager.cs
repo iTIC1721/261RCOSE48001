@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,15 @@ public class ResultManager : MonoBehaviour
 
     public void MoveToScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        StartCoroutine(MoveToSceneCoroutine(sceneName));
+    }
+
+    private IEnumerator MoveToSceneCoroutine(string sceneName)
+    {
+        GLOBAL_CANVAS.Fade.FadeIn(0.1f);
+
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        LoadingSceneManager.LoadScene(sceneName);
     }
 }

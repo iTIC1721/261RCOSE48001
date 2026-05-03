@@ -379,8 +379,18 @@ public class QuizManager : MonoBehaviour
 
     public void Back()
     {
-        SceneManager.LoadScene("StudyDungeon_StageSelect");
+        StartCoroutine(MoveToSceneCoroutine("StudyDungeon_DeckSelect"));
     }
+
+    private IEnumerator MoveToSceneCoroutine(string sceneName)
+    {
+        GLOBAL_CANVAS.Fade.FadeIn(0.1f);
+
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        LoadingSceneManager.LoadScene(sceneName);
+    }
+
 
     private void SetCombo(int combo)
     {

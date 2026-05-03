@@ -15,15 +15,29 @@ public class FadeManager : MonoBehaviour
         fadeImage.color = new Color(0, 0, 0, 0);
     }
 
-    public void FadeIn(float time, Action callback = null)
+    public void FadeIn(float time, Action callback = null, float waitTime = 0)
     {
+        StartCoroutine(FadeInInvoke(time, callback, waitTime));
+    }
+
+    private IEnumerator FadeInInvoke(float time, Action callback = null, float waitTime = 0)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+
         if (fadeCor != null) StopCoroutine(fadeCor);
 
         fadeCor = StartCoroutine(FadeCoroutine(1, time, callback));
     }
 
-    public void FadeOut(float time, Action callback = null)
+    public void FadeOut(float time, Action callback = null, float waitTime = 0)
     {
+        StartCoroutine(FadeOutInvoke(time, callback, waitTime));
+    }
+
+    private IEnumerator FadeOutInvoke(float time, Action callback = null, float waitTime = 0)
+    {
+        yield return new WaitForSecondsRealtime(waitTime);
+
         if (fadeCor != null) StopCoroutine(fadeCor);
 
         fadeCor = StartCoroutine(FadeCoroutine(0, time, callback));

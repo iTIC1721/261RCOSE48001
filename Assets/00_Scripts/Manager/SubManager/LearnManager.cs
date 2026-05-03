@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -141,6 +142,16 @@ public class LearnManager : MonoBehaviour
     public void Back()
     {
         SaveSystem.SaveDeck(MANAGER.StudyManager.deck);
-        SceneManager.LoadScene("StudyDungeon_StageSelect");
+
+        StartCoroutine(MoveToSceneCoroutine("StudyDungeon_StageSelect"));
+    }
+
+    private IEnumerator MoveToSceneCoroutine(string sceneName)
+    {
+        GLOBAL_CANVAS.Fade.FadeIn(0.1f);
+
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        LoadingSceneManager.LoadScene(sceneName);
     }
 }
