@@ -41,29 +41,4 @@ public static class MyMath
             return 1f - Mathf.Pow(-2f * t + 2f, 2f) / 2f;
         }
     }
-
-    // Ease In Elastic
-    public static float EaseInElastic(float t)
-    {
-        if (t == 0 || t == 1) return t;
-        return -Mathf.Pow(2f, 10f * t - 10f)
-               * Mathf.Sin((t * 10f - 10.75f) * (2f * Mathf.PI) / 3f);
-    }
-
-    // Ease Out Elastic
-    public static float EaseOutElastic(float t)
-    {
-        if (t == 0 || t == 1) return t;
-        return Mathf.Pow(2f, -10f * t)
-               * Mathf.Sin((t * 10f - 0.75f) * (2f * Mathf.PI) / 3f) + 1f;
-    }
-
-    // Ease In-Out Elastic
-    public static float EaseInOutElastic(float t)
-    {
-        if (t == 0 || t == 1) return t;
-        return t < 0.5f
-            ? -(Mathf.Pow(2f, 20f * t - 10f) * Mathf.Sin((20f * t - 11.125f) * (2f * Mathf.PI) / 4.5f)) / 2f
-            : (Mathf.Pow(2f, -20f * t + 10f) * Mathf.Sin((20f * t - 11.125f) * (2f * Mathf.PI) / 4.5f)) / 2f + 1f;
-    }
 }
