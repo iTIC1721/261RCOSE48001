@@ -10,6 +10,7 @@ public class MainManager : MonoBehaviour
     public float panelMoveTime = 0.5f;
     [SerializeField] List<Button> panelButtons = new List<Button>();
     [SerializeField] RectTransform mainPanel;
+    [SerializeField] RectTransform particle;
     [SerializeField] Image bgImage;
 
     [Space]
@@ -42,20 +43,26 @@ public class MainManager : MonoBehaviour
         float panelStartPos = mainPanel.anchoredPosition.x;
         float panelDestPos = 290f - 1040f * index;
 
+        float particleStartPos = particle.anchoredPosition.x;
+        float particleDestPos = -1000f * index;
+
         Color bgStartColor = bgColors[currentPanelIndex];
         Color bgDestColor = bgColors[index];
 
-        float t = 0;
-        while (t < panelMoveTime)
+        float time = 0;
+        while (time < panelMoveTime)
         {
             yield return null;
-            t += Time.deltaTime;
+            time += Time.deltaTime;
 
-            mainPanel.anchoredPosition = new Vector2(Mathf.Lerp(panelStartPos, panelDestPos, MyMath.EaseInOut(t / panelMoveTime)), mainPanel.anchoredPosition.y);
-            bgImage.color = Color.Lerp(bgStartColor, bgDestColor, MyMath.EaseInOut(t / panelMoveTime));
+            float t = MyMath.EaseInOut(time / panelMoveTime);
+            mainPanel.anchoredPosition = new Vector2(Mathf.Lerp(panelStartPos, panelDestPos, t), mainPanel.anchoredPosition.y);
+            particle.anchoredPosition = new Vector2(Mathf.Lerp(particleStartPos, particleDestPos, t), particle.anchoredPosition.y);
+            bgImage.color = Color.Lerp(bgStartColor, bgDestColor, t);
         }
 
         mainPanel.anchoredPosition = new Vector3(panelDestPos, mainPanel.anchoredPosition.y);
+        particle.anchoredPosition = new Vector3(particleDestPos, particle.anchoredPosition.y);
         bgImage.color = bgDestColor;
         currentPanelIndex = index;
 
