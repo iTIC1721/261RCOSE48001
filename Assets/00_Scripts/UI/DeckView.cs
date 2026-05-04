@@ -35,7 +35,8 @@ public class DeckView : MonoBehaviour
             MANAGER.StudyManager.Load(deck.id);
 
             // 오늘 스테이지 선택으로 이동
-            SceneManager.LoadScene("StudyDungeon_StageSelect");
+            //SceneManager.LoadScene("StudyDungeon_StageSelect");
+            deckBtn.GetComponent<SceneMoveButton>().MoveToScene("StudyDungeon_StageSelect");
         });
 
         // 덱 삭제 버튼 이벤트 추가

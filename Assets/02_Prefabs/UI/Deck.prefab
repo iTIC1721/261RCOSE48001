@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 8791963898792806857}
   - component: {fileID: 194104660647196504}
   - component: {fileID: 2786709827841339437}
+  - component: {fileID: -7232692501211233764}
   m_Layer: 5
   m_Name: Deck
   m_TagString: Untagged
@@ -292,6 +293,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-7232692501211233764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884632586243174439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0733b5614fa111c4f92e12156839fb52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
+  sceneName: 
 --- !u!1 &5253563348358027626
 GameObject:
   m_ObjectHideFlags: 0

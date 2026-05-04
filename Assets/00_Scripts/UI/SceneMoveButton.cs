@@ -1,9 +1,19 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class DeckSelectManager : MonoBehaviour
+public class SceneMoveButton : MonoBehaviour
 {
+    public string sceneName;
+
+    private void Start()
+    {
+        if (sceneName.Equals("")) return;
+
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(() => MoveToScene(sceneName));
+    }
+
     public void MoveToScene(string sceneName)
     {
         StartCoroutine(MoveToSceneCoroutine(sceneName));
