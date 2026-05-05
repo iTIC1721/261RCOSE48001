@@ -68,12 +68,12 @@ public class ShopManager : MonoBehaviour
             if (i == index)
             {
                 panels[i].SetActive(true);
-                panelButtons[i].GetComponent<Image>().color = panelButtonEnabled;
+                if (panelButtons[i] != null) panelButtons[i].GetComponent<Image>().color = panelButtonEnabled;
             }
             else
             {
                 panels[i].SetActive(false);
-                panelButtons[i].GetComponent<Image>().color = panelButtonDisabled;
+                if (panelButtons[i] != null) panelButtons[i].GetComponent<Image>().color = panelButtonDisabled;
             }
         }
 
