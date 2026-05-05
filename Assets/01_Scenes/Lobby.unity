@@ -397,15 +397,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Memorix
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
-  m_sharedMaterial: {fileID: -31177075467478427, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 97bb7922c4893dc45aba993467d879d8, type: 2}
+  m_sharedMaterial: {fileID: -8431063017037947894, guid: 97bb7922c4893dc45aba993467d879d8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 2248146944
+  m_fontColor: {r: 0, g: 0, b: 0, a: 0.5254902}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -899,8 +899,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Memorix
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
-  m_sharedMaterial: {fileID: -31177075467478427, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 97bb7922c4893dc45aba993467d879d8, type: 2}
+  m_sharedMaterial: {fileID: -8431063017037947894, guid: 97bb7922c4893dc45aba993467d879d8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1135,6 +1135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
   sceneName: Shop
+  fadeInTime: 0.1
+  fadeOutTime: 0.2
+  autoLink: 1
 --- !u!1 &677983216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,6 +1887,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
   sceneName: Main_Prepare
+  fadeInTime: 0.1
+  fadeOutTime: 0.2
+  autoLink: 1
 --- !u!1 &1046608798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,6 +2757,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
   sceneName: StudyDungeon_DeckSelect
+  fadeInTime: 0.1
+  fadeOutTime: 0.2
+  autoLink: 1
 --- !u!1 &1399690840
 GameObject:
   m_ObjectHideFlags: 0
@@ -8475,6 +8484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
   sceneName: 
+  fadeInTime: 0.1
+  fadeOutTime: 0.2
+  autoLink: 1
 --- !u!1 &2124491477
 GameObject:
   m_ObjectHideFlags: 0
