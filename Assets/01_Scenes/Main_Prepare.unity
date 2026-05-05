@@ -6378,6 +6378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
   sceneName: Main_Game
+  fadeInTime: 0.3
+  fadeOutTime: 2
 --- !u!95 &1096128386
 Animator:
   serializedVersion: 7

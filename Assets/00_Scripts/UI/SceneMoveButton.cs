@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class SceneMoveButton : MonoBehaviour
 {
     public string sceneName;
+    public float fadeInTime = 0.1f;
+    public float fadeOutTime = 0.2f;
 
     private void Start()
     {
@@ -20,10 +22,10 @@ public class SceneMoveButton : MonoBehaviour
 
     private IEnumerator MoveToSceneCoroutine(string sceneName)
     {
-        GLOBAL_CANVAS.Fade.FadeIn(0.1f);
+        GLOBAL_CANVAS.Fade.FadeIn(fadeInTime);
 
-        yield return new WaitForSecondsRealtime(0.2f);
+        yield return new WaitForSecondsRealtime(fadeInTime + 0.1f);
 
-        LoadingSceneManager.LoadScene(sceneName);
+        LoadingSceneManager.LoadScene(sceneName, fadeOutTime);
     }
 }
