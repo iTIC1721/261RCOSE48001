@@ -7,11 +7,15 @@ public class SceneMoveButton : MonoBehaviour
     public string sceneName;
     public float fadeInTime = 0.1f;
     public float fadeOutTime = 0.2f;
+    public bool autoLink = true;
 
     private void Start()
     {
-        Button button = GetComponent<Button>();
-        button.onClick.AddListener(() => MoveToScene());
+        if (autoLink)
+        {
+            Button button = GetComponent<Button>();
+            button.onClick.AddListener(() => MoveToScene());
+        }
     }
 
     public void MoveToScene()

@@ -33,6 +33,8 @@ public class DeckView : MonoBehaviour
         deckBtn.GetComponent<DeckButton>().AddEvent(() => {
             //Log.LogMessage(SaveSystem.LoadDeck(deck.id).ToString());
             MANAGER.StudyManager.Load(deck.id);
+
+            deckBtn.GetComponent<SceneMoveButton>().MoveToScene();
         });
 
         // 덱 삭제 버튼 이벤트 추가
