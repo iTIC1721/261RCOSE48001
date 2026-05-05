@@ -8,6 +8,11 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
+    enum PurchaseButtonType
+    {
+        Select, Selected, Purchase, MoveToNext
+    }
+
     [Header("UI")]
     [SerializeField] List<GameObject> panels = new List<GameObject>();
     [SerializeField] List<GameObject> panelButtons = new List<GameObject>();
@@ -111,16 +116,11 @@ public class ShopManager : MonoBehaviour
                     Transform purchaseButton = itemTr.Find("Purchase");
                     if (isPreparingGame)
                     {
-                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
-                        purchaseButton.GetComponent<Outline>().enabled = true;
-                        purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                            ActivePanel(1);
-                        });
+                        SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
                     }
                     else
                     {
-                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
-                        purchaseButton.GetComponent<Outline>().enabled = false;
+                        SetPurchaseButton(purchaseButton, PurchaseButtonType.Selected, null);
                     }
                 }
                 else
@@ -128,11 +128,7 @@ public class ShopManager : MonoBehaviour
                     ShopItem shopItem = shopItems[i];
 
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
-                    purchaseButton.GetComponent<Outline>().enabled = false;
-                    purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                        SelectCharacter(shopItem.id);
-                    });
+                    SetPurchaseButton(purchaseButton, PurchaseButtonType.Select, shopItem);
                 }
             }
             else
@@ -140,11 +136,7 @@ public class ShopManager : MonoBehaviour
                 ShopItem shopItem = shopItems[i];
 
                 Transform purchaseButton = itemTr.Find("Purchase");
-                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{shopItems[i].price} {purchaseText}";
-                purchaseButton.GetComponent<Outline>().enabled = false;
-                purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                    PurchaseCharacter(shopItem.id);
-                });
+                SetPurchaseButton(purchaseButton, PurchaseButtonType.Purchase, shopItem);
             }
 
             characterItems.Add(item);
@@ -176,18 +168,11 @@ public class ShopManager : MonoBehaviour
                     Transform purchaseButton = itemTr.Find("Purchase");
                     if (isPreparingGame)
                     {
-                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
-                        purchaseButton.GetComponent<Outline>().enabled = true;
-                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                        purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                            ActivePanel(1);
-                        });
+                        SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
                     }
                     else
                     {
-                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
-                        purchaseButton.GetComponent<Outline>().enabled = false;
-                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                        SetPurchaseButton(purchaseButton, PurchaseButtonType.Selected, null);
                     }
                 }
                 else
@@ -195,12 +180,7 @@ public class ShopManager : MonoBehaviour
                     ShopItem shopItem = shopItems[i];
 
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
-                    purchaseButton.GetComponent<Outline>().enabled = false;
-                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                    purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                        SelectCharacter(shopItem.id);
-                    });
+                    SetPurchaseButton(purchaseButton, PurchaseButtonType.Select, shopItem);
                 }
             }
         }
@@ -233,18 +213,11 @@ public class ShopManager : MonoBehaviour
                     Transform purchaseButton = itemTr.Find("Purchase");
                     if (isPreparingGame)
                     {
-                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
-                        purchaseButton.GetComponent<Outline>().enabled = true;
-                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                        purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                            ActivePanel(1);
-                        });
+                        SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
                     }
                     else
                     {
-                        purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
-                        purchaseButton.GetComponent<Outline>().enabled = false;
-                        purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                        SetPurchaseButton(purchaseButton, PurchaseButtonType.Selected, null);
                     }
                 }
                 else
@@ -252,14 +225,45 @@ public class ShopManager : MonoBehaviour
                     ShopItem shopItem = shopItems[i];
 
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
-                    purchaseButton.GetComponent<Outline>().enabled = false;
-                    purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
-                    purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
-                        SelectCharacter(shopItem.id);
-                    });
+                    SetPurchaseButton(purchaseButton, PurchaseButtonType.Select, shopItem);
                 }
             }
+        }
+    }
+
+    private void SetPurchaseButton(Transform purchaseButton, PurchaseButtonType type, ShopItem shopItem)
+    {
+        switch (type)
+        {
+            case PurchaseButtonType.Select:
+                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectText;
+                purchaseButton.GetComponent<Outline>().enabled = false;
+                purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                    if (shopItem != null) SelectCharacter(shopItem.id);
+                });
+                break;
+            case PurchaseButtonType.Selected:
+                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = selectedText;
+                purchaseButton.GetComponent<Outline>().enabled = false;
+                purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                break;
+            case PurchaseButtonType.Purchase:
+                int price = (shopItem != null) ? shopItem.price : -1;
+                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{shopItem.price} {purchaseText}";
+                purchaseButton.GetComponent<Outline>().enabled = false;
+                purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                    if (shopItem != null) PurchaseCharacter(shopItem.id);
+                });
+                break;
+            case PurchaseButtonType.MoveToNext:
+                purchaseButton.GetComponentInChildren<TextMeshProUGUI>().text = moveToNextText;
+                purchaseButton.GetComponent<Outline>().enabled = true;
+                purchaseButton.GetComponent<Button>().onClick.RemoveAllListeners();
+                purchaseButton.GetComponent<Button>().onClick.AddListener(() => {
+                    ActivePanel(1);
+                });
+                break;
         }
     }
 
