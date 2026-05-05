@@ -8,14 +8,13 @@ public class SceneMoveButton : MonoBehaviour
 
     private void Start()
     {
-        if (sceneName.Equals("")) return;
-
         Button button = GetComponent<Button>();
-        button.onClick.AddListener(() => MoveToScene(sceneName));
+        button.onClick.AddListener(() => MoveToScene());
     }
 
-    public void MoveToScene(string sceneName)
+    public void MoveToScene()
     {
+        if (sceneName.Equals("")) return;
         StartCoroutine(MoveToSceneCoroutine(sceneName));
     }
 

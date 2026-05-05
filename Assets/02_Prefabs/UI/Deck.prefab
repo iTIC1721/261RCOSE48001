@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0733b5614fa111c4f92e12156839fb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
-  sceneName: 
+  sceneName: StudyDungeon_StageSelect
 --- !u!1 &5253563348358027626
 GameObject:
   m_ObjectHideFlags: 0
