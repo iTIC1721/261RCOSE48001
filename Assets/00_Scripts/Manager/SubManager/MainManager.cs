@@ -41,7 +41,7 @@ public class MainManager : MonoBehaviour
     private IEnumerator MovePanelCoroutine(int index)
     {
         float panelStartPos = mainPanel.anchoredPosition.x;
-        float panelDestPos = 290f - 1040f * index;
+        float panelDestPos = -1040f * index;
 
         float particleStartPos = particle.anchoredPosition.x;
         float particleDestPos = -1000f * index;
