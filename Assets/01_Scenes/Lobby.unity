@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 389941019}
   - component: {fileID: 389941018}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: SelectPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3328,7 +3328,7 @@ GameObject:
   - component: {fileID: 1381605755}
   - component: {fileID: 1381605758}
   m_Layer: 5
-  m_Name: SubGameButton
+  m_Name: SubGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9630,7 +9630,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2133673531}
   m_Layer: 5
-  m_Name: MainButtonPanel
+  m_Name: MainPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
