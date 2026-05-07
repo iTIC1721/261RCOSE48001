@@ -53,13 +53,35 @@ public class UIPulse : MonoBehaviour
     }
 
     // 외부에서 펄싱 중지/재개 가능
-    public void StopPulse()
+    public void Stop()
+    {
+        StartCoroutine(StopPulseCoroutine());
+    }
+
+    private IEnumerator StopPulseCoroutine()
+    {
+        yield return null;
+        StopPulse();
+    }
+
+    private void StopPulse()
     {
         StopAllCoroutines();
         targetTransform.localScale = originalScale;
     }
 
-    public void StartPulse()
+    public void Resume()
+    {
+        StartCoroutine(StartPulseCoroutine());
+    }
+
+    private IEnumerator StartPulseCoroutine()
+    {
+        yield return null;
+        StartPulse();
+    }
+
+    private void StartPulse()
     {
         StopAllCoroutines();
         StartCoroutine(PulseRoutine());
