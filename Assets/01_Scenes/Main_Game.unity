@@ -41622,6 +41622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae740ce0d20bd324b8dd3103723617cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  joystick: {fileID: 8170153792862027087}
+  moveActionReference: {fileID: 1902446752}
 --- !u!58 &1805651262
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -43604,6 +43606,20 @@ Transform:
   - {fileID: 1704951570}
   m_Father: {fileID: 822181543}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1902446752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1515ab76e54f068e2f2207940fab32, type: 3}
+  m_Name: PlayerActions/Move
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
+  m_Asset: {fileID: -944628639613478452, guid: 6fd1648688291e94b94c4aa4d1bdbfb5, type: 3}
+  m_ActionId: 7706a403-1bce-42da-8e18-eab9392c59b6
 --- !u!1 &1904399516
 GameObject:
   m_ObjectHideFlags: 0

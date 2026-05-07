@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Player))]
 public class PlayerController : MonoBehaviour
 {
+    public FloatingJoystick joystick;
+    public InputActionReference moveActionReference;
+
     private Player player;
 
     private Rigidbody2D rb;
@@ -24,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (player.joystick != null)
+        if (joystick != null)
         {
             Move();
             Rotate();
@@ -34,15 +37,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        if (!player.joystick.IsMoving)
+        if (!joystick.IsMoving)
         {
             if (isMoving) MoveStop();
 
             return;
         }
 
-        Vector2 joystickDir = player.joystick.Direction;
-        moveInput = (joystickDir.sqrMagnitude > 0.01f) ? joystickDir : player.moveActionReference.action.ReadValue<Vector2>();
+        Vector2 joystickDir = joystick.Direction;
+        moveInput = (joystickDir.sqrMagnitude > 0.01f) ? joystickDir : moveActionReference.action.ReadValue<Vector2>();
 
         if (player.enableMove && player.CanControl)
             MoveStart();

@@ -25,8 +25,6 @@ public class Player : Entity
     public string damageTMPName;
 
     [Header("Ref")]
-    public FloatingJoystick joystick;
-    public InputActionReference moveActionReference;
     public MapManager mapManager;
 
     public bool CanControl { get; private set; } = true;
