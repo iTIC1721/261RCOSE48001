@@ -9,13 +9,26 @@ public class SceneMoveButton : MonoBehaviour
     public float fadeOutTime = 0.2f;
     public bool autoLink = true;
 
+    private Button button;
+
     private void Start()
     {
         if (autoLink)
         {
-            Button button = GetComponent<Button>();
-            button.onClick.AddListener(() => MoveToScene());
+            Link();
         }
+    }
+
+    public void Link()
+    {
+        if (button == null) button = GetComponent<Button>();
+        button.onClick.AddListener(MoveToScene);
+    }
+
+    public void Unlink()
+    {
+        if (button == null) button = GetComponent<Button>();
+        button.onClick.RemoveListener(MoveToScene);
     }
 
     public void MoveToScene()

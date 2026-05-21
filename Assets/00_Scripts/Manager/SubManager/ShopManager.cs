@@ -22,6 +22,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] RectTransform itemView;
     [SerializeField] GameObject characterItemPrefab;
     [SerializeField] Transform characterPos;
+    [SerializeField] Button backButton;
 
     [Header("Setting")]
     [SerializeField] Color panelButtonEnabled = Color.white;
@@ -77,6 +78,21 @@ public class ShopManager : MonoBehaviour
                 panels[i].SetActive(false);
                 if (panelButtons[i] != null) panelButtons[i].GetComponent<Image>().color = panelButtonDisabled;
             }
+        }
+
+        // 뒤로가기 버튼 변경
+        if (index > 0)
+        {
+            backButton.onClick.RemoveAllListeners();
+
+            int tmp = index;
+            backButton.onClick.AddListener(() => ActivePanel(tmp - 1));
+        }
+        else
+        {
+            backButton.onClick.RemoveAllListeners();
+
+            backButton.GetComponent<SceneMoveButton>().Link();
         }
 
         // Money Text 갱신
