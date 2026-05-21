@@ -31,9 +31,6 @@ public class ShopManager : MonoBehaviour
     [SerializeField] string purchaseText = "C";
     [SerializeField] string moveToNextText = "¥Ÿ¿Ω";
 
-    [Space]
-    [SerializeField] bool isPreparingGame = false;
-
     private int currentPanelIndex = 0;
 
     // -----------------------------
@@ -114,14 +111,7 @@ public class ShopManager : MonoBehaviour
                 if (saveData.characterId == shopItems[i].characterId)
                 {
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    if (isPreparingGame)
-                    {
-                        SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
-                    }
-                    else
-                    {
-                        SetPurchaseButton(purchaseButton, PurchaseButtonType.Selected, null);
-                    }
+                    SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
                 }
                 else
                 {
@@ -166,14 +156,7 @@ public class ShopManager : MonoBehaviour
                 if (saveData.characterId == shopItems[i].characterId)
                 {
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    if (isPreparingGame)
-                    {
-                        SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
-                    }
-                    else
-                    {
-                        SetPurchaseButton(purchaseButton, PurchaseButtonType.Selected, null);
-                    }
+                    SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
                 }
                 else
                 {
@@ -211,14 +194,7 @@ public class ShopManager : MonoBehaviour
                 if (saveData.characterId == shopItems[i].characterId)
                 {
                     Transform purchaseButton = itemTr.Find("Purchase");
-                    if (isPreparingGame)
-                    {
-                        SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
-                    }
-                    else
-                    {
-                        SetPurchaseButton(purchaseButton, PurchaseButtonType.Selected, null);
-                    }
+                    SetPurchaseButton(purchaseButton, PurchaseButtonType.MoveToNext, null);
                 }
                 else
                 {
