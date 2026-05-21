@@ -16,3 +16,4 @@ MonoBehaviour:
   name: Knight
   desc: "\uAE30\uC0AC"
   character: {fileID: 8526008287122380829, guid: 88e15b751634f3f4c8006a17d3dda077, type: 3}
+  projectileName: PlayerProjectile_Knight

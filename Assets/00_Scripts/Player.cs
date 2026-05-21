@@ -29,7 +29,7 @@ public class Player : Entity
 
     public bool CanControl { get; private set; } = true;
 
-    private Animator animator;
+    [HideInInspector] public Animator animator;
     private AttackHelper attackHelper;
 
     [HideInInspector] public float lastAttackTime = 0;
@@ -37,6 +37,8 @@ public class Player : Entity
     [HideInInspector] public Monster target = null;
 
     public bool IsDied { get; private set; }
+
+    public int CharacterId { get; private set; }
 
     public override AttackHelper AttackHelper => attackHelper;
 
@@ -52,6 +54,11 @@ public class Player : Entity
         if (skillManager == null) skillManager = GetComponent<SkillManager>();
     }
 
+    private void Start()
+    {
+        Initialize();
+    }
+
     private void Update()
     {
         CheckCanControl();
@@ -63,6 +70,24 @@ public class Player : Entity
         hp = maxHp;
         IsDied = false;
         animator.SetBool("isDeath", false);
+    }
+
+    public void SetCharacter()
+    {
+        CharacterId = SaveSystem.LoadPlayerData().characterId;
+        Log.LogMessage($"Character ID: {CharacterId}");
+
+        // TODO: 캐릭터 스킨 변경
+        Destroy(spriteRoot.parent.gameObject);
+
+        GameObject prefab = MANAGER.DB.characterDB.GetCharacterData(CharacterId).character;
+        GameObject characterSprite = Instantiate(prefab, this.transform);
+        characterSprite.transform.localPosition = Vector3.zero;
+        spriteRoot = characterSprite.transform.Find("UnitRoot");
+
+        // ref 재설정
+        animator = characterSprite.GetComponentInChildren<Animator>();
+        GetComponent<AutoSortingOrder>().SetReference(characterSprite);
     }
 
     private void SetTarget()

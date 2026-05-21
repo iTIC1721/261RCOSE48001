@@ -16,3 +16,4 @@ MonoBehaviour:
   name: Hero
   desc: "\uC6A9\uC0AC"
   character: {fileID: 1969806181433156253, guid: e3d319cf6612c7842b5ef74d3e3fa658, type: 3}
+  projectileName: PlayerProjectile_Hero

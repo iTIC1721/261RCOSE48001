@@ -14,19 +14,7 @@ public class AutoSortingOrder : MonoBehaviour
 
     private void Awake()
     {
-        if (useSortingGroup)
-        {
-            sortingGroup = GetComponentInChildren<SortingGroup>();
-            if (sortingGroup == null)
-            {
-                sortingGroup = transform.AddComponent<SortingGroup>();
-            }
-            if (UsingSortingLayerID()) sortingGroup.sortingLayerID = sortingLayerID;
-        }
-        else
-        {
-            spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        }
+        SetReference(gameObject);
     }
 
     private void Start()
@@ -39,6 +27,23 @@ public class AutoSortingOrder : MonoBehaviour
         if (!isStatic)
         {
             SetSortingOrder();
+        }
+    }
+
+    public void SetReference(GameObject parent)
+    {
+        if (useSortingGroup)
+        {
+            sortingGroup = parent.GetComponentInChildren<SortingGroup>();
+            if (sortingGroup == null)
+            {
+                sortingGroup = parent.transform.AddComponent<SortingGroup>();
+            }
+            if (UsingSortingLayerID()) sortingGroup.sortingLayerID = sortingLayerID;
+        }
+        else
+        {
+            spriteRenderers = parent.GetComponentsInChildren<SpriteRenderer>();
         }
     }
 

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     private Player player;
 
     private Rigidbody2D rb;
-    private Animator animator;
+    //private Animator animator;
 
     private Vector2 moveInput = Vector2.zero;
     private bool isMoving = false;
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
         player = GetComponent<Player>();
 
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponentInChildren<Animator>();
+        //animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -58,14 +58,14 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(moveInput.x) > 0.01f || Mathf.Abs(moveInput.y) > 0.01f)
         {
             isMoving = true;
-            animator.SetBool("1_Move", true);
+            player.animator.SetBool("1_Move", true);
         }
     }
 
     private void MoveStop()
     {
         isMoving = false;
-        animator.SetBool("1_Move", false);
+        player.animator.SetBool("1_Move", false);
         rb.linearVelocity = Vector2.zero;
     }
 

@@ -62,6 +62,7 @@ public class MapManager : MonoBehaviour
     public void Initialize()
     {
         MANAGER.Game.InitializeGame();
+        Player.Instance.SetCharacter();
 
         foreach (StageData data in stageDatas)
         {

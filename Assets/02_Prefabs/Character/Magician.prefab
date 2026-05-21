@@ -1250,7 +1250,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9142873725420025970}
-  - component: {fileID: -555742418374828558}
   - component: {fileID: 3629737385900769192}
   m_Layer: 5
   m_Name: Magician
@@ -1279,20 +1278,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &-555742418374828558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2654978829236002237}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d81900712eb6f04daa0604aa8d1ec8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  enableMove: 0
-  enableAttack: 0
 --- !u!114 &3629737385900769192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3930,6 +3915,7 @@ GameObject:
   - component: {fileID: 7311479623014832195}
   - component: {fileID: 2429970592973331171}
   - component: {fileID: 7008606268609614447}
+  - component: {fileID: 2342469083224457784}
   m_Layer: 0
   m_Name: UnitRoot
   m_TagString: Untagged
@@ -3977,7 +3963,7 @@ Animator:
   m_GameObject: {fileID: 3784339249109051573}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e9358c226bb09e24da9c5f7064768810, type: 2}
+  m_Controller: {fileID: 9100000, guid: e6bb1772f72b7d94397cc1c25e66ec81, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3989,6 +3975,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2342469083224457784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3784339249109051573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586556559776574692942a31694ee70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackAnimationEventLinker
 --- !u!1 &4048948221312749869
 GameObject:
   m_ObjectHideFlags: 0

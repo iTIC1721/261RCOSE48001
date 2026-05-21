@@ -27,10 +27,17 @@ public abstract class PassiveSkillEffect : SkillEffect
 public abstract class ShotSkillEffect : SkillEffect
 {
     [Header("Åõ»çÃ¼")]
-    public string projectileName = "PlayerProjectile";
+    public bool playerProjectile = true;
+    [ShowIf("playerProjectile", false)] public string projectileName = "PlayerProjectile";
 
     protected void SpawnProjectile(IAttackable source, float damage, Vector2 direction)
     {
+        if (playerProjectile)
+        {
+            int characterId = Player.Instance.CharacterId;
+            projectileName = MANAGER.DB.characterDB.GetCharacterData(characterId).projectileName;
+        }
+
         MANAGER.Pool.PoolingObj(projectileName).Get(source.GetAttackPosition(), value => {
             AttackProjectile p = value.GetComponent<AttackProjectile>();
 

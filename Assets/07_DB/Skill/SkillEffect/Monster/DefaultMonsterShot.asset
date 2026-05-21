@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: DefaultMonsterShot
   m_EditorClassIdentifier: Assembly-CSharp::DefaultShotSkillEffect
   triggerType: 1
+  playerProjectile: 0
   projectileName: DefaultMonsterProjectile

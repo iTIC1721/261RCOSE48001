@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4869083509058670855}
   - component: {fileID: 5859964333351157148}
   m_Layer: 0
-  m_Name: PlayerProjectile
+  m_Name: PlayerProjectile_Magician
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -248,7 +248,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: df96032537d4c482e9b20c674c73dc45, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ffef52aa2bdb04c1394af5d4599ed210, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

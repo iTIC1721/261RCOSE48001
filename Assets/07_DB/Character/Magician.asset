@@ -16,3 +16,4 @@ MonoBehaviour:
   name: Magician
   desc: "\uB9C8\uBC95\uC0AC"
   character: {fileID: 2654978829236002237, guid: ead5a0c86964ef045815e7632976e65c, type: 3}
+  projectileName: PlayerProjectile_Magician

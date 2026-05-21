@@ -3490,6 +3490,7 @@ GameObject:
   - component: {fileID: 6660395089553107402}
   - component: {fileID: 5857445862324107108}
   - component: {fileID: 7311983292358281356}
+  - component: {fileID: 6736405820287842479}
   m_Layer: 0
   m_Name: UnitRoot
   m_TagString: Untagged
@@ -3537,7 +3538,7 @@ Animator:
   m_GameObject: {fileID: 5969079265493228723}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e9358c226bb09e24da9c5f7064768810, type: 2}
+  m_Controller: {fileID: 9100000, guid: e6bb1772f72b7d94397cc1c25e66ec81, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -3549,6 +3550,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6736405820287842479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969079265493228723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2586556559776574692942a31694ee70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AttackAnimationEventLinker
 --- !u!1 &6011087420519579061
 GameObject:
   m_ObjectHideFlags: 0
@@ -4753,7 +4766,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2376841316228538185}
-  - component: {fileID: 4240448749974668464}
   - component: {fileID: 6938771745089254279}
   m_Layer: 5
   m_Name: Knight
@@ -4782,20 +4794,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -170}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4240448749974668464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8526008287122380829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d81900712eb6f04daa0604aa8d1ec8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  enableMove: 0
-  enableAttack: 0
 --- !u!114 &6938771745089254279
 MonoBehaviour:
   m_ObjectHideFlags: 0
