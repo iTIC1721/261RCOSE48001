@@ -72,10 +72,11 @@ public class TestQuizManager : MonoBehaviour
     [SerializeField] private GameObject resultPanel;
     [SerializeField] private TextMeshProUGUI resultText;
 
-    // ── 온보딩 상태 ──
-    private OnboardingQuiz _onboardingQuiz;
-    private List<QuizAnswer> _onboardingAnswers = new List<QuizAnswer>();
-    private int _onboardingIndex = 0;
+    // ── CAT 온보딩 상태 ──
+    private CatQuestion _catCurrentQuestion;
+    private int _catQuestionNum = 0;
+    private int _catMaxQuestions = 0;
+    private System.DateTime _catQuestionStartTime;
 
     // ── 설정 ──
     [Header("학습 설정")]
@@ -220,68 +221,95 @@ public class TestQuizManager : MonoBehaviour
     }
 
     // ══════════════════════════════════════════
-    // [3단계] 온보딩 퀴즈 (O/X 직접 풀기)
+    // [3단계] CAT 온보딩 (적응형, 평균 15문항)
     // ══════════════════════════════════════════
     private IEnumerator OnboardingFlow()
     {
         ShowLoading("온보딩 퀴즈 준비 중...");
 
-        yield return ApiManager.Instance.GetOnboardingQuiz(
-            onSuccess: q => _onboardingQuiz = q,
-            onError: err => ShowLoading($"퀴즈 로드 실패: {err}")
+        yield return ApiManager.Instance.CatStart(
+            onSuccess: q => {
+                _catCurrentQuestion = q;
+                _catMaxQuestions = q.max_questions;
+                _catQuestionNum = q.question_num;
+            },
+            onError: err => ShowLoading($"온보딩 시작 실패: {err}")
         );
 
-        if (_onboardingQuiz == null || _onboardingQuiz.questions.Length == 0)
+        if (_catCurrentQuestion == null)
         {
-            ShowLoading("온보딩 퀴즈 로드 실패.");
+            ShowLoading("온보딩 시작 실패.");
             yield break;
         }
 
-        _onboardingIndex = 0;
-        _onboardingAnswers.Clear();
         SetPanels(onboarding: true);
-        ShowOnboardingWord();
+        ShowCatQuestion();
     }
 
-    private void ShowOnboardingWord()
+    private void ShowCatQuestion()
     {
-        if (_onboardingIndex >= _onboardingQuiz.questions.Length)
-        {
-            StartCoroutine(SubmitOnboarding());
-            return;
-        }
-
-        var q = _onboardingQuiz.questions[_onboardingIndex];
-        onboardingWordText.text = q.word;
-        onboardingProgressText.text = $"{_onboardingIndex + 1} / {_onboardingQuiz.questions.Length}";
+        onboardingWordText.text = _catCurrentQuestion.word;
+        onboardingProgressText.text = $"{_catCurrentQuestion.question_num} / {_catMaxQuestions}";
+        _catQuestionStartTime = System.DateTime.Now;
     }
 
     private void OnOnboardingAnswer(bool correct)
     {
-        var q = _onboardingQuiz.questions[_onboardingIndex];
-        _onboardingAnswers.Add(new QuizAnswer
-        {
-            order = q.order,
-            word = q.word,
-            correct = correct,
-            response_time_ms = 0
-        });
-        _onboardingIndex++;
-        ShowOnboardingWord();
+        // 버튼 비활성화 (중복 클릭 방지)
+        knowButton.interactable = false;
+        dontKnowButton.interactable = false;
+
+        int responseMs = (int)(System.DateTime.Now - _catQuestionStartTime).TotalMilliseconds;
+        StartCoroutine(SubmitCatAnswer(correct, responseMs));
     }
 
-    private IEnumerator SubmitOnboarding()
-    {
-        ShowLoading("온보딩 결과 분석 중...");
+    // CAT 완료 여부를 멤버 변수로 관리 (코루틴-콜백 간 상태 공유)
+    private bool _catDone = false;
 
-        yield return ApiManager.Instance.SubmitOnboardingAnswers(
-            answers: _onboardingAnswers.ToArray(),
-            onSuccess: profile => {
-                Debug.Log($"온보딩 완료! 초기 userRating: {profile.user_rating}");
-                StartCoroutine(LoadAndStartQuiz());
+    private IEnumerator SubmitCatAnswer(bool correct, int responseMs)
+    {
+        ShowLoading("분석 중...");
+
+        _catDone = false;
+        string answeredWord = _catCurrentQuestion.word;
+        CatQuestion nextQuestion = null;
+        CatResult finalResult = null;
+
+        yield return ApiManager.Instance.CatAnswer(
+            word: answeredWord,
+            correct: correct,
+            responseTimeMs: responseMs,
+            onQuestion: next => {
+                nextQuestion = next;
             },
-            onError: err => ShowLoading($"온보딩 제출 실패: {err}")
+            onDone: result => {
+                finalResult = result;
+                _catDone = true;
+            },
+            onError: err => ShowLoading($"답변 제출 실패: {err}")
         );
+
+        if (_catDone && finalResult != null)
+        {
+            Debug.Log($"CAT 온보딩 완료! 문항 수: {finalResult.question_num}, " +
+                      $"초기 userRating: {finalResult.user_profile.user_rating}");
+            StartCoroutine(LoadAndStartQuiz());
+        }
+        else if (nextQuestion != null)
+        {
+            _catCurrentQuestion = nextQuestion;
+            _catQuestionNum = nextQuestion.question_num;
+            knowButton.interactable = true;
+            dontKnowButton.interactable = true;
+            SetPanels(onboarding: true);
+            ShowCatQuestion();
+        }
+        else
+        {
+            // 에러 케이스 — 버튼 복구
+            knowButton.interactable = true;
+            dontKnowButton.interactable = true;
+        }
     }
 
     // ══════════════════════════════════════════
@@ -489,7 +517,7 @@ public class TestQuizManager : MonoBehaviour
     private string _sessionResultMsg = "";
 
     // ── PlayerPrefs 키 ──
-    private static string TodayWordsKey => $"studied_words_{System.DateTime.Today:yyyy-MM-dd}";
+    private string TodayWordsKey => $"studied_words_{ApiManager.Instance.UserId}_{System.DateTime.Today:yyyy-MM-dd}";
 
     // ──────────────────────────────────────────
     // 오늘 학습 단어 저장 / 불러오기
@@ -501,7 +529,7 @@ public class TestQuizManager : MonoBehaviour
         // 오늘 이전 날짜 키 정리 (최근 30일치만 검사)
         for (int i = 1; i <= 30; i++)
         {
-            string oldKey = $"studied_words_{System.DateTime.Today.AddDays(-i):yyyy-MM-dd}";
+            string oldKey = $"studied_words_{ApiManager.Instance.UserId}_{System.DateTime.Today.AddDays(-i):yyyy-MM-dd}";
             if (PlayerPrefs.HasKey(oldKey))
             {
                 PlayerPrefs.DeleteKey(oldKey);
