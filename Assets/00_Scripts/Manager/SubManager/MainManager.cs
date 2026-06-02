@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VectorGraphics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,6 +35,8 @@ public class MainManager : MonoBehaviour
         }
 
         bgImage.color = bgColors[0];
+
+        StartCoroutine(InitializeUserCoroutine());
     }
 
     private void MovePanelHorizontal(int index)
@@ -121,5 +124,66 @@ public class MainManager : MonoBehaviour
         if (currentDungeonIndex >= dungeonCount - 1) return;
 
         MovePanelVertical(currentDungeonIndex + 1);
+    }
+
+    public void MoveToStudyDungeon()
+    {
+        StartCoroutine(MoveToNextSceneCoroutine());
+    }
+
+    private IEnumerator MoveToNextSceneCoroutine()
+    {
+        GLOBAL_CANVAS.Fade.FadeIn(0.1f);
+
+        string targetScene = "";
+        yield return ApiManager.Instance.GetUserProfile(
+            onSuccess: profile => {
+                targetScene = profile.onboarding_completed
+                    ? "StudyDungeon_ApiStageSelect"
+                    : "StudyDungeon_ApiOnboarding";
+            },
+            onError: err => {
+                Debug.LogError($"프로필 로드 실패: {err}");
+            }
+        );
+
+        if (targetScene.Equals(""))
+        {
+            GLOBAL_CANVAS.Fade.FadeOut(0.2f);
+            yield break;
+        }
+
+        yield return new WaitForSecondsRealtime(0.2f);
+
+        LoadingSceneManager.LoadScene(targetScene, 0.2f);
+    }
+
+    private IEnumerator InitializeUserCoroutine()
+    {
+        // user_id가 없을 때만 생성 및 초기화
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("user_id", "")))
+        {
+            yield return ApiManager.Instance.CreateUser(
+                onSuccess: profile => {
+                    Debug.Log($"유저 생성 완료: {profile.user_id}");
+                },
+                onError: err => {
+                    Debug.LogError($"유저 생성 실패: {err}");
+                }
+            );
+
+            yield return ApiManager.Instance.InitDefault(
+                onSuccess: result => {
+                    Debug.Log($"초기화 완료 — 총 단어 수: {result.total_words}");
+                },
+                onError: err => {
+                    Debug.LogError($"초기화 실패: {err}");
+                }
+            );
+        }
+        else
+        {
+            Debug.Log($"기존 유저 확인 — user_id: {PlayerPrefs.GetString("user_id")}");
+        }
     }
 }

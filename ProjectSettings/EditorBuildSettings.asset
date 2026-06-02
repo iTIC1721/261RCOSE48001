@@ -17,17 +17,29 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01_Scenes/Main_Result.unity
     guid: d6fc4c94ceec94b49ae22cc4435dea03
-  - enabled: 1
+  - enabled: 0
     path: Assets/01_Scenes/StudyDungeon_DeckSelect.unity
     guid: 2c31c57f1f55a904dbc2ddd337ed5b81
-  - enabled: 1
+  - enabled: 0
     path: Assets/01_Scenes/StudyDungeon_StageSelect.unity
     guid: 56221deead97ae34b93b56d4560a97eb
-  - enabled: 1
+  - enabled: 0
     path: Assets/01_Scenes/StudyDungeon_Learn.unity
     guid: a18047f84db05bb4e8bf882feb809d62
-  - enabled: 1
+  - enabled: 0
     path: Assets/01_Scenes/StudyDungeon_Quiz.unity
+    guid: 5a5abbdb513cd77428edd0f99893f64b
+  - enabled: 1
+    path: Assets/01_Scenes/StudyDungeon_ApiStageSelect.unity
+    guid: 7ab960b15e83a6441a7967f9b0a5e9ed
+  - enabled: 1
+    path: Assets/01_Scenes/StudyDungeon_ApiOnboarding.unity
+    guid: a581cacd84473db4fa9691ffec42a634
+  - enabled: 1
+    path: Assets/01_Scenes/StudyDungeon_ApiLearn.unity
+    guid: 61ee504b250833848b87ea5131efe429
+  - enabled: 1
+    path: Assets/01_Scenes/StudyDungeon_ApiQuiz.unity
     guid: 69cd7c8cc03d3884189e1e4f53934623
   - enabled: 1
     path: Assets/01_Scenes/Shop.unity

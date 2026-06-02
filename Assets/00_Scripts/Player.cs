@@ -222,7 +222,7 @@ public class Player : Entity
         IsDied = true;
 
         // TODO: 플레이어 사망 시 이벤트
-        mapManager.GameOver();
+        mapManager?.GameOver();
     }
 
     public override EntityContext BuildContext()
