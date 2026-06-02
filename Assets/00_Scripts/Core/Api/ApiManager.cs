@@ -71,6 +71,18 @@ public class UserProfile
     public int total_sessions;
     public bool onboarding_completed;
     public string last_updated;
+    public string created_at;
+
+    public int DayCount
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(created_at)) return 1;
+            if (DateTime.TryParse(created_at, out var created))
+                return (DateTime.Today - created.Date).Days + 1;
+            return 1;
+        }
+    }
 }
 
 [Serializable]
