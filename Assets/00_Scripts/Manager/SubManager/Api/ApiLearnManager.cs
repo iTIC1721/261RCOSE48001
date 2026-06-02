@@ -268,17 +268,12 @@ public class ApiLearnManager : MonoBehaviour
             }
             else
             {
-                string ratingLine = sessionResult != null
-                    ? $"새 Rating : {sessionResult.user_rating}\n\n"
-                    : "새 Rating : (저장 실패)\n\n";
+                //string ratingLine = sessionResult != null
+                //    ? $"새 Rating : {sessionResult.user_rating}\n\n"
+                //    : "새 Rating : (저장 실패)\n\n";
 
                 resultPanel.descTexts[0].text =
-                    $"학습 완료! 총 {totalCount}개\n\n" +
-                    ratingLine +
-                    $"Again (1) : {count[1]}개\n" +
-                    $"Hard  (2) : {count[2]}개\n" +
-                    $"Good  (3) : {count[3]}개\n" +
-                    $"Easy  (4) : {count[4]}개";
+                    $"학습 완료! 총 {totalCount}개";
             }
         }
 
