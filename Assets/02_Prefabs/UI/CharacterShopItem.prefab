@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 8375364183680680861}
   - component: {fileID: 7789452695685271900}
   - component: {fileID: 5948027384798737157}
+  - component: {fileID: 8378231324331710376}
   m_Layer: 5
   m_Name: Purchase
   m_TagString: Untagged
@@ -299,6 +300,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8378231324331710376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 368981489107063747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &734677814724008635
 GameObject:
   m_ObjectHideFlags: 0

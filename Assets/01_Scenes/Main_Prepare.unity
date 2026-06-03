@@ -5580,9 +5580,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
-  sfxKey: UI_Click
+  sfxKey: button_click
   volumeScale: 1
-  usePooled: 1
+  usePooled: 0
 --- !u!1 &665877854
 GameObject:
   m_ObjectHideFlags: 0
@@ -5760,9 +5760,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
-  sfxKey: UI_Click
+  sfxKey: button_click
   volumeScale: 1
-  usePooled: 1
+  usePooled: 0
 --- !u!1 &699251771
 GameObject:
   m_ObjectHideFlags: 0
@@ -6443,9 +6443,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
-  sfxKey: UI_Click
+  sfxKey: button_click
   volumeScale: 1
-  usePooled: 1
+  usePooled: 0
 --- !u!1 &1188236436
 GameObject:
   m_ObjectHideFlags: 0
@@ -7686,9 +7686,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
-  sfxKey: UI_Click
+  sfxKey: button_click
   volumeScale: 1
-  usePooled: 1
+  usePooled: 0
 --- !u!114 &8551965532595706725
 MonoBehaviour:
   m_ObjectHideFlags: 0
