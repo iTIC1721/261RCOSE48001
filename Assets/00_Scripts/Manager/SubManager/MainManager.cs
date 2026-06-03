@@ -155,7 +155,14 @@ public class MainManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.2f);
 
-        LoadingSceneManager.LoadScene(targetScene, 0.2f);
+        if (targetScene.Equals("StudyDungeon_ApiStageSelect"))
+        {
+            ApiStageView.LoadScene();
+        }
+        else
+        {
+            LoadingSceneManager.LoadScene(targetScene, 0.2f);
+        }
     }
 
     private IEnumerator InitializeUserCoroutine()
