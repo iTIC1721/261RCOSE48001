@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 39039682}
   - component: {fileID: 39039681}
   - component: {fileID: 39039684}
+  - component: {fileID: 39039685}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -316,6 +317,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &39039685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39039679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &104518802
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a01ab6c633cbf2c48b6ee30fbee4f88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  bgmLibrary: {fileID: 0}
+  sfxLibrary: {fileID: 11400000, guid: 32847421da3252c4d8ce33db8f96595a, type: 2}
   bgmSource: {fileID: 0}
   sfxSource: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 44a1bf7dface58b4e8601c6a91fe4dc7, type: 2}
@@ -1062,6 +1080,7 @@ GameObject:
   - component: {fileID: 572106408}
   - component: {fileID: 572106407}
   - component: {fileID: 572106411}
+  - component: {fileID: 572106413}
   m_Layer: 5
   m_Name: VolcanoButton
   m_TagString: Untagged
@@ -1190,6 +1209,21 @@ MonoBehaviour:
   lockColor: {r: 0.20784314, g: 0.20784314, b: 0.20784314, a: 1}
   lockPanel: {fileID: 1240972223}
   lockMessageText: {fileID: 1441853887}
+--- !u!114 &572106413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572106405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &592489666
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,6 +1375,7 @@ GameObject:
   - component: {fileID: 614247504}
   - component: {fileID: 614247507}
   - component: {fileID: 614247508}
+  - component: {fileID: 614247509}
   m_Layer: 5
   m_Name: ShopButton
   m_TagString: Untagged
@@ -1488,6 +1523,21 @@ MonoBehaviour:
   fadeInTime: 0.1
   fadeOutTime: 0.2
   autoLink: 1
+--- !u!114 &614247509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 614247502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &635899811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,6 +1550,7 @@ GameObject:
   - component: {fileID: 635899815}
   - component: {fileID: 635899814}
   - component: {fileID: 635899813}
+  - component: {fileID: 635899816}
   m_Layer: 5
   m_Name: UpButton
   m_TagString: Untagged
@@ -1620,6 +1671,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 635899811}
   m_CullTransparentMesh: 1
+--- !u!114 &635899816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635899811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &677983216
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1910,7 @@ GameObject:
   - component: {fileID: 750524032}
   - component: {fileID: 750524031}
   - component: {fileID: 750524035}
+  - component: {fileID: 750524037}
   m_Layer: 5
   m_Name: OceanButton
   m_TagString: Untagged
@@ -1972,6 +2039,21 @@ MonoBehaviour:
   lockColor: {r: 0.20784314, g: 0.20784314, b: 0.20784314, a: 1}
   lockPanel: {fileID: 2084532268}
   lockMessageText: {fileID: 931532979}
+--- !u!114 &750524037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750524029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &756503297
 GameObject:
   m_ObjectHideFlags: 0
@@ -2699,6 +2781,7 @@ GameObject:
   - component: {fileID: 1026681554}
   - component: {fileID: 1026681557}
   - component: {fileID: 1026681558}
+  - component: {fileID: 1026681560}
   m_Layer: 5
   m_Name: GrasslandButton
   m_TagString: Untagged
@@ -2826,6 +2909,21 @@ MonoBehaviour:
   lockColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
   lockPanel: {fileID: 756503297}
   lockMessageText: {fileID: 780830652}
+--- !u!114 &1026681560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026681552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1046608798
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,6 +2937,7 @@ GameObject:
   - component: {fileID: 1046608801}
   - component: {fileID: 1046608800}
   - component: {fileID: 1046608803}
+  - component: {fileID: 1046608804}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -2970,6 +3069,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1046608804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046608798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1050611928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,6 +3096,7 @@ GameObject:
   - component: {fileID: 1050611932}
   - component: {fileID: 1050611931}
   - component: {fileID: 1050611930}
+  - component: {fileID: 1050611933}
   m_Layer: 5
   m_Name: DownButton
   m_TagString: Untagged
@@ -3102,6 +3217,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050611928}
   m_CullTransparentMesh: 1
+--- !u!114 &1050611933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050611928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1066309648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3950,6 +4080,7 @@ GameObject:
   - component: {fileID: 1381605756}
   - component: {fileID: 1381605755}
   - component: {fileID: 1381605759}
+  - component: {fileID: 1381605760}
   m_Layer: 5
   m_Name: SubGame
   m_TagString: Untagged
@@ -4084,6 +4215,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95c31a0490553b469e43102c39f7f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlphaButton
+--- !u!114 &1381605760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381605753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1399690840
 GameObject:
   m_ObjectHideFlags: 0
@@ -10167,6 +10313,7 @@ GameObject:
   - component: {fileID: 2114863645}
   - component: {fileID: 2114863648}
   - component: {fileID: 2114863649}
+  - component: {fileID: 2114863650}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -10314,6 +10461,21 @@ MonoBehaviour:
   fadeInTime: 0.1
   fadeOutTime: 0.2
   autoLink: 1
+--- !u!114 &2114863650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114863643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &2124491477
 GameObject:
   m_ObjectHideFlags: 0
