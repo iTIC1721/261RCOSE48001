@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -8,6 +9,10 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get => MANAGER.Audio; }
 
     #region Inspector Fields
+    [Header("Audio Libraries")]
+    [SerializeField] private AudioLibrary bgmLibrary;
+    [SerializeField] private AudioLibrary sfxLibrary;
+
     [Header("Audio Sources")]
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
@@ -184,6 +189,12 @@ public class AudioManager : MonoBehaviour
 
     #region BGM Methods
     /// <summary>BGM을 즉시 재생합니다.</summary>
+    public void PlayBGM(string key, bool loop = true)
+    {
+        AudioClip clip = bgmLibrary.Get(key)?.clip;
+        PlayBGM(clip, loop);
+    }
+
     public void PlayBGM(AudioClip clip, bool loop = true)
     {
         if (clip == null) { Log.LogWarning("[AudioManager] PlayBGM: clip이 null입니다."); return; }
@@ -196,6 +207,12 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>페이드 크로스와 함께 BGM을 전환합니다.</summary>
+    public void PlayBGMWithFade(string key, float fadeDuration = 1.0f, bool loop = true)
+    {
+        AudioClip clip = bgmLibrary.Get(key)?.clip;
+        PlayBGMWithFade(clip, fadeDuration, loop);
+    }
+
     public void PlayBGMWithFade(AudioClip clip, float fadeDuration = 1.0f, bool loop = true)
     {
         if (_bgmFadeCoroutine != null) StopCoroutine(_bgmFadeCoroutine);
@@ -260,11 +277,23 @@ public class AudioManager : MonoBehaviour
 
     #region SFX Methods
     /// <summary>SFX를 한 번 재생합니다.</summary>
+    public void PlaySFX(string key, float volumeScale = 1.0f)
+    {
+        AudioClip clip = sfxLibrary.Get(key)?.clip;
+        PlaySFX(clip, volumeScale);
+    }
+
     public void PlaySFX(AudioClip clip, float volumeScale = 1.0f)
     {
         if (clip == null) { Log.LogWarning("[AudioManager] PlaySFX: clip이 null입니다."); return; }
         if (_isSFXMuted || _isMasterMuted) return;
         sfxSource.PlayOneShot(clip, volumeScale);
+    }
+
+    public void PlaySFXPooled(string key, float volumeScale = 1.0f)
+    {
+        AudioClip clip = sfxLibrary.Get(key)?.clip;
+        PlaySFXPooled(clip, volumeScale);
     }
 
     /// <summary>SFX를 풀에서 꺼내 재생합니다. (동시 다발 재생에 적합)</summary>
@@ -277,6 +306,12 @@ public class AudioManager : MonoBehaviour
         src.clip = clip;
         src.volume = volumeScale;
         src.Play();
+    }
+
+    public void PlaySFXAtPoint(string key, Vector3 position, float volumeScale = 1.0f)
+    {
+        AudioClip clip = sfxLibrary.Get(key)?.clip;
+        PlaySFXAtPoint(clip, position, volumeScale);
     }
 
     /// <summary>3D 위치에서 SFX를 재생합니다.</summary>

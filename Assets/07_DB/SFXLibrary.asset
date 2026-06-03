@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf09edab8eeb8604599e45cfa2fea87d, type: 3}
+  m_Name: SFXLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
+  entries:
+  - key: button_click
+    clip: {fileID: 8300000, guid: 7965ba42e66d87c4a8d258a57ad4420f, type: 3}
+  - key: dungeon_enter
+    clip: {fileID: 8300000, guid: 82a50519dca6d0247b3e433b7f5f9de4, type: 3}
+  - key: enemy_attack
+    clip: {fileID: 8300000, guid: a5e3aed6e5c8f5846a9054d980e2a1e4, type: 3}
+  - key: enemy_hit
+    clip: {fileID: 8300000, guid: 8747b1bbf8d99b2438ea9deee6e1d84b, type: 3}
+  - key: player_attack
+    clip: {fileID: 8300000, guid: fa7d4904d44978144b988fffa04ef6c8, type: 3}
+  - key: player_hit
+    clip: {fileID: 8300000, guid: bf530922534f327438f40c495e50d286, type: 3}
+  - key: quiz_correct
+    clip: {fileID: 8300000, guid: 55cc391d82ddd4b48a00b627d8174368, type: 3}
+  - key: quiz_error
+    clip: {fileID: 8300000, guid: 8990eeb6beebc59439c1773588d590ae, type: 3}
+  - key: stage_clear
+    clip: {fileID: 8300000, guid: adfb59ee2dad5774abc968e11c4be402, type: 3}
+  - key: stage_levelup
+    clip: {fileID: 8300000, guid: 54adccd03296acc4cad009fbb4f31b88, type: 3}
+  - key: stage_move
+    clip: {fileID: 8300000, guid: 4147b76b1fbfc754cb29f7abcc2cab3c, type: 3}
+  - key: ui_popup
+    clip: {fileID: 8300000, guid: 1ee975aebcc2a1c48bdaec0f2c2d88fd, type: 3}
