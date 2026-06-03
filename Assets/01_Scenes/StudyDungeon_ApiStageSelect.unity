@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 22081683}
   - component: {fileID: 22081682}
   - component: {fileID: 22081684}
+  - component: {fileID: 22081685}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -251,6 +252,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &22081685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22081680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &124590428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,6 +1024,7 @@ GameObject:
   - component: {fileID: 1021725981}
   - component: {fileID: 1021725984}
   - component: {fileID: 1021725985}
+  - component: {fileID: 1021725986}
   m_Layer: 5
   m_Name: HardButton
   m_TagString: Untagged
@@ -1168,6 +1185,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1021725986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021725979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1023715026
 GameObject:
   m_ObjectHideFlags: 0
@@ -2025,6 +2057,7 @@ GameObject:
   - component: {fileID: 1680293430}
   - component: {fileID: 1680293433}
   - component: {fileID: 1680293434}
+  - component: {fileID: 1680293435}
   m_Layer: 5
   m_Name: EasyButton
   m_TagString: Untagged
@@ -2185,6 +2218,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1680293435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680293428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1001 &1701067725
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2284,13 +2332,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5202005259243538193, guid: 5c6943acfba341448b936cb4c4eb906c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1701067728}
   m_SourcePrefab: {fileID: 100100000, guid: 5c6943acfba341448b936cb4c4eb906c, type: 3}
 --- !u!224 &1701067726 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7130587535953066044, guid: 5c6943acfba341448b936cb4c4eb906c, type: 3}
   m_PrefabInstance: {fileID: 1701067725}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1701067727 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5202005259243538193, guid: 5c6943acfba341448b936cb4c4eb906c, type: 3}
+  m_PrefabInstance: {fileID: 1701067725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1701067728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1701067727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1731797152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,6 +2376,7 @@ GameObject:
   - component: {fileID: 1731797154}
   - component: {fileID: 1731797157}
   - component: {fileID: 1731797158}
+  - component: {fileID: 1731797159}
   m_Layer: 5
   m_Name: LearnButton
   m_TagString: Untagged
@@ -2453,6 +2525,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1731797159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731797152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1760206989
 GameObject:
   m_ObjectHideFlags: 0

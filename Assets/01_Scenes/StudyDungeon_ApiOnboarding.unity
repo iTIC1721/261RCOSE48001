@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 181394982}
   - component: {fileID: 181394981}
   - component: {fileID: 181394980}
+  - component: {fileID: 181394983}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -468,6 +469,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181394978}
   m_CullTransparentMesh: 1
+--- !u!114 &181394983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181394978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &388312889
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,6 +1174,7 @@ GameObject:
   - component: {fileID: 708900009}
   - component: {fileID: 708900008}
   - component: {fileID: 708900007}
+  - component: {fileID: 708900010}
   m_Layer: 5
   m_Name: Rating (1)
   m_TagString: Untagged
@@ -1279,6 +1296,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 708900005}
   m_CullTransparentMesh: 1
+--- !u!114 &708900010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708900005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &771436155
 GameObject:
   m_ObjectHideFlags: 0
@@ -2049,6 +2081,7 @@ GameObject:
   - component: {fileID: 1460810606}
   - component: {fileID: 1460810605}
   - component: {fileID: 1460810604}
+  - component: {fileID: 1460810607}
   m_Layer: 5
   m_Name: Rating
   m_TagString: Untagged
@@ -2170,6 +2203,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1460810602}
   m_CullTransparentMesh: 1
+--- !u!114 &1460810607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460810602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1469326457
 GameObject:
   m_ObjectHideFlags: 0
@@ -2696,6 +2744,7 @@ GameObject:
   - component: {fileID: 1800330998}
   - component: {fileID: 1800330997}
   - component: {fileID: 1800330996}
+  - component: {fileID: 1800330999}
   m_Layer: 5
   m_Name: ConfirmButton
   m_TagString: Untagged
@@ -2817,6 +2866,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800330994}
   m_CullTransparentMesh: 1
+--- !u!114 &1800330999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800330994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b58bf0fbb9916c4180648bc75060926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonSFXHandler
+  sfxKey: button_click
+  volumeScale: 1
+  usePooled: 0
 --- !u!1 &1823718936
 GameObject:
   m_ObjectHideFlags: 0
