@@ -70,6 +70,11 @@ public class Player : Entity
         hp = maxHp;
         IsDied = false;
         animator.SetBool("isDeath", false);
+
+        // 영구 업그레이드 적용
+        PermanentUpgradeManager.Instance?.ApplyToPlayer(this);
+
+        OnDamaged?.Invoke(hp, maxHp);
     }
 
     public void SetCharacter()

@@ -19,13 +19,12 @@ public class HPBar : MonoBehaviour
     private void Awake()
     {
         parent = GetComponentInParent<Entity>();
+        parent.OnDamaged += SetHPBar;
     }
 
     private void Start()
     {
         SetHPBar(parent.hp, parent.maxHp);
-
-        parent.OnDamaged += SetHPBar;
     }
 
     public void SetHPBar(float currentHP, float maxHP)
