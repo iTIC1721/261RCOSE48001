@@ -36,7 +36,12 @@ public class MapManager : MonoBehaviour
     [Header("Map")]
     public List<StageData> stageDatas;
 
-    private int lastStageIndex = 0;
+    // ── 스탯 스케일링 ──────────────────────────────────────────────
+    [Header("Stat Scaling")]
+    [Tooltip("StageStatScaler 컴포넌트를 연결하세요. 비워두면 스케일링을 건너뜁니다.")]
+    public StageStatScaler statScaler;
+
+    public int LastStageIndex { get; private set; } = 0;
 
     private int currentStage = -1;
     private GameObject currentMap = null;
@@ -66,7 +71,7 @@ public class MapManager : MonoBehaviour
 
         foreach (StageData data in stageDatas)
         {
-            lastStageIndex += data.stageCount;
+            LastStageIndex += data.stageCount;
 
             data.Initialize();
         }
@@ -80,7 +85,7 @@ public class MapManager : MonoBehaviour
         isClearStage = false;
         Log.LogMessage($"Stage {currentStage}");
 
-        if (currentStage > lastStageIndex)
+        if (currentStage > LastStageIndex)
             return;
 
         // 맵 결정
@@ -97,6 +102,10 @@ public class MapManager : MonoBehaviour
         }
         currentMapMonsters = currentMap.GetComponentsInChildren<Monster>().ToList();
         currentMapGate = currentMap.GetComponentInChildren<Gate>();
+
+        // 스탯 스케일링 적용
+        // 몬스터 리스트를 가져온 직후, 맵 이동 전에 적용합니다.
+        statScaler?.ApplyStats(currentStage, LastStageIndex, currentMapMonsters);
 
         Transform startPosObj = currentMap.transform.Find("StartPos");
         Vector3 startPos = Vector2.zero;

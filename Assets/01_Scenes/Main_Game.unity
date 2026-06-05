@@ -23376,6 +23376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1133148840}
   - component: {fileID: 1133148841}
+  - component: {fileID: 1133148842}
   m_Layer: 0
   m_Name: MAPS
   m_TagString: Untagged
@@ -23432,6 +23433,22 @@ MonoBehaviour:
   - stageCount: 1
     mapPool:
     - {fileID: 845652050}
+  statScaler: {fileID: 1133148842}
+--- !u!114 &1133148842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133148839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623d3f751b8c4ae4abde64ba69d977dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageStatScaler
+  hpFormula: {fileID: 11400000, guid: 0b6621c17ad292245ae219dcb53c4b34, type: 2}
+  damageFormula: {fileID: 11400000, guid: 0b6621c17ad292245ae219dcb53c4b34, type: 2}
+  logScaling: 1
 --- !u!1 &1140497909
 GameObject:
   m_ObjectHideFlags: 0
