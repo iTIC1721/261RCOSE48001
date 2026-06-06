@@ -9950,7 +9950,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 7
-  m_Spacing: 1100
+  m_Spacing: 1300
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -10688,6 +10688,7 @@ MonoBehaviour:
   year: 2026
   month: 3
   day: 30
+  fps: 60
 --- !u!4 &2141807199
 Transform:
   m_ObjectHideFlags: 0

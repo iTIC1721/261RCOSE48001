@@ -89,7 +89,7 @@ public class MainManager : MonoBehaviour
     private IEnumerator MovePanelVerticalCoroutine(int index)
     {
         float panelStartPos = dungeonPanel.anchoredPosition.y;
-        float panelDestPos = 1600f * index;
+        float panelDestPos = 1800f * index;
 
         Color bgStartColor = bgColors[currentDungeonIndex];
         Color bgDestColor = bgColors[index];
