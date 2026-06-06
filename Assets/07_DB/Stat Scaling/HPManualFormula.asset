@@ -9,7 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29495c6cd6df95d4082fc0f2d49ce29e, type: 3}
-  m_Name: LinearFormula
-  m_EditorClassIdentifier: Assembly-CSharp::LinearFormula
-  increasePerStage: 0.1
+  m_Script: {fileID: 11500000, guid: 455ab84a21220d64f8cc59c5ff6c2f32, type: 3}
+  m_Name: HPManualFormula
+  m_EditorClassIdentifier: Assembly-CSharp::ManualFormula
+  multipliers:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2
+  - 2

@@ -3749,7 +3749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   hp: 0
   maxHp: 200
-  baseDamage: 20
+  baseDamage: 15
   baseAttackDelay: 3
   skillManager: {fileID: 0}
   ricochetCount: 0

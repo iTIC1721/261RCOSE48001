@@ -51053,8 +51053,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623d3f751b8c4ae4abde64ba69d977dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageStatScaler
-  hpFormula: {fileID: 11400000, guid: 0b6621c17ad292245ae219dcb53c4b34, type: 2}
-  damageFormula: {fileID: 11400000, guid: 0b6621c17ad292245ae219dcb53c4b34, type: 2}
+  hpFormula: {fileID: 11400000, guid: 6d68bdfeeb5d63948bd2e7b1fb16d681, type: 2}
+  damageFormula: {fileID: 11400000, guid: 58db8ac026546224dbfa60cd3deeb7c9, type: 2}
   logScaling: 1
 --- !u!1 &1137672083
 GameObject:
@@ -94371,7 +94371,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1133148841}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: ClearGame
+        m_MethodName: NextStage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -95489,8 +95489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d81900712eb6f04daa0604aa8d1ec8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  hp: 50
-  maxHp: 50
+  hp: 100
+  maxHp: 100
   baseDamage: 10
   baseAttackDelay: 1
   skillManager: {fileID: 0}
