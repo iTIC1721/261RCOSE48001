@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-#if UNITY_2023_1_OR_NEWER
+#if UNITY_EDITOR && UNITY_2023_1_OR_NEWER
 using UnityEditor.U2D.Sprites;
 #endif
 

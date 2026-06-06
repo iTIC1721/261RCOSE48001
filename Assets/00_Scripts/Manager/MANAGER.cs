@@ -19,6 +19,9 @@ public class MANAGER : MonoBehaviour
     public int month = DateTime.Now.Month;
     public int day = DateTime.Now.Day;
 
+    [Header("FPS")]
+    [SerializeField] private int fps = 60;
+
     private void Awake()
     {
         if (Instance == null)
@@ -43,5 +46,7 @@ public class MANAGER : MonoBehaviour
     {
         CustomTime.useCustomTime = useCustomTime;
         CustomTime.customToday = new DateTime(year, month, day);
+
+        Application.targetFrameRate = fps;
     }
 }
