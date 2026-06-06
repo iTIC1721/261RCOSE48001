@@ -31,7 +31,10 @@ public class MapManager : MonoBehaviour
         }
     }
 
+    [Header("Skill Slot Machine")]
     public SlotMachine skillSlotMachine;
+    [Tooltip("몇 스테이지마다 스킬을 획득할지 설정합니다.")]
+    public int skillEveryNStages = 2;
 
     [Header("Map")]
     public List<StageData> stageDatas;
@@ -139,7 +142,10 @@ public class MapManager : MonoBehaviour
 
         GLOBAL_CANVAS.Fade.FadeOut(0.1f);
 
-        skillSlotMachine.StartSlotMachine();
+        if ((currentStage - 1) % skillEveryNStages == 0)
+        {
+            skillSlotMachine.StartSlotMachine();
+        }
     }
 
     private void MoveMap(Vector3 startPos)
