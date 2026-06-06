@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 /// <summary>
 /// Grid의 셀 1개. UpgradePanel이 데이터를 주입합니다.
@@ -16,6 +17,8 @@ public class UpgradeSlotUI : MonoBehaviour
     public Button upgradeButton;
 
     private UpgradeEntry entry;
+
+    public Action onUpgraded;
 
     public void Bind(UpgradeEntry upgradeEntry)
     {
@@ -70,6 +73,9 @@ public class UpgradeSlotUI : MonoBehaviour
     public void OnClickUpgrade()
     {
         if (PermanentUpgradeManager.Instance.TryUpgrade(entry.upgradeId))
+        {
             Refresh();
+            onUpgraded?.Invoke();
+        }
     }
 }

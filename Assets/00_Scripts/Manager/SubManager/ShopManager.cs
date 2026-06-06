@@ -41,17 +41,21 @@ public class ShopManager : MonoBehaviour
     private List<GameObject> characterItems = new List<GameObject>();
 
     private Coroutine characterMoveCoroutine = null;
-    
+
     // -----------------------------
 
     // 업그레이드 샵
-
-
+    [Header("업그레이드")]
+    [SerializeField] UpgradePanelUI upgradePanelUI;
 
     private void Start()
     {
         ActivePanel(currentPanelIndex);
         CharacterPanelInitialize();
+
+        if (upgradePanelUI != null)
+            upgradePanelUI.onAnyUpgraded += () =>
+                SetMoneyText(SaveSystem.LoadPlayerData().money);
     }
 
     public void ActivePanel(int index)

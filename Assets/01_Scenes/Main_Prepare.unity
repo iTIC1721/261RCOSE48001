@@ -5283,6 +5283,7 @@ MonoBehaviour:
   selectText: "\uC120\uD0DD\uD558\uAE30"
   purchaseText: C
   moveToNextText: "\uB2E4\uC74C"
+  upgradePanelUI: {fileID: 2064048809}
 --- !u!1 &428120149
 GameObject:
   m_ObjectHideFlags: 0
