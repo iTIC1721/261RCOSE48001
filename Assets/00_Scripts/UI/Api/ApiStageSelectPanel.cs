@@ -34,11 +34,13 @@ public class ApiStageSelectPanel : MonoBehaviour
 
     // ── PlayerPrefs 헬퍼 ──
 
+    private string UserId => ApiManager.Instance.UserId;
+
     private bool IsLearnCompleted()
-        => PlayerPrefs.GetInt($"{LearnCompletedKeyPrefix}{DateTime.Today:yyyy-MM-dd}", 0) == 1;
+        => PlayerPrefs.GetInt($"{LearnCompletedKeyPrefix}{UserId}_{DateTime.Today:yyyy-MM-dd}", 0) == 1;
 
     private bool IsQuizCompleted(int diffIndex)
-        => PlayerPrefs.GetInt($"{QuizCompletedKeyPrefix}{diffIndex}_{DateTime.Today:yyyy-MM-dd}", 0) == 1;
+        => PlayerPrefs.GetInt($"{QuizCompletedKeyPrefix}{diffIndex}_{UserId}_{DateTime.Today:yyyy-MM-dd}", 0) == 1;
 
     // ══════════════════════════════════════════
     // 패널 표시 (기존 ShowStageSelectPanel과 동일한 구조)

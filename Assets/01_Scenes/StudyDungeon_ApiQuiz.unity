@@ -1906,8 +1906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB0AE\uC740 \uB09C\uC774\uB3C4\uC5D0\uC11C \n\uB354 \uACF5\uBD80\uD55C
-    \uB4A4 \n\uB2E4\uC2DC \uB3C4\uC804\uD574\uBCF4\uC138\uC694!"
+  m_text: "\uB2E4\uC2DC \uB3C4\uC804\uD574\uBCF4\uC138\uC694!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}
   m_sharedMaterial: {fileID: -31177075467478427, guid: 6955eeedbf5cfc547b4139051f81e57b, type: 2}

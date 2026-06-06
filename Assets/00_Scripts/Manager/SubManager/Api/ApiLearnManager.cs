@@ -242,6 +242,7 @@ public class ApiLearnManager : MonoBehaviour
         // 제출 성공 시에만 보상 지급 및 learnCompleted 저장, 실패해도 결과 화면은 표시
         if (submitted)
         {
+            SaveTodayWords();
             SaveLearnCompleted();
             GetReward();
         }
@@ -285,17 +286,60 @@ public class ApiLearnManager : MonoBehaviour
     // 보상 (기존 GetReward와 동일)
     // ══════════════════════════════════════════
 
+    // ── PlayerPrefs 키 (ApiQuizManager와 동일한 형식) ──
+    private string TodayWordsKey
+        => $"studied_words_{ApiManager.Instance.UserId}_{DateTime.Today:yyyy-MM-dd}";
+
+    /// <summary>오늘 학습한 단어를 PlayerPrefs에 저장합니다. 기존 저장분과 합산됩니다.</summary>
+    private void SaveTodayWords()
+    {
+        // 기존 저장분 불러오기
+        var savedWords = new Dictionary<string, DailyScheduleWord>();
+        string existingJson = PlayerPrefs.GetString(TodayWordsKey, "");
+        if (!string.IsNullOrEmpty(existingJson))
+        {
+            try
+            {
+                var existing = JsonUtility.FromJson<DailyScheduleWordListWrapper>(existingJson);
+                foreach (var w in existing.words ?? new DailyScheduleWord[0])
+                    savedWords[w.word] = w;
+            }
+            catch { }
+        }
+
+        // 오늘 학습한 단어로 갱신 (최신 정보로 덮어쓰기)
+        foreach (var w in _wordQueue)
+            savedWords[w.word] = w;
+
+        // 이전 날짜 키 정리 (최근 30일)
+        for (int i = 1; i <= 30; i++)
+        {
+            string oldKey = $"studied_words_{ApiManager.Instance.UserId}_{DateTime.Today.AddDays(-i):yyyy-MM-dd}";
+            if (PlayerPrefs.HasKey(oldKey))
+                PlayerPrefs.DeleteKey(oldKey);
+        }
+
+        // 저장
+        var wrapper = new DailyScheduleWordListWrapper
+        {
+            words = new List<DailyScheduleWord>(savedWords.Values).ToArray()
+        };
+        PlayerPrefs.SetString(TodayWordsKey, JsonUtility.ToJson(wrapper));
+        PlayerPrefs.Save();
+        Debug.Log($"[ApiLearnManager] 오늘 학습 단어 {savedWords.Count}개 저장 완료");
+    }
+
     private void SaveLearnCompleted()
     {
         // 과거 날짜 키 정리 (최근 30일)
         for (int i = 1; i <= 30; i++)
         {
-            string oldKey = $"learnCompleted_{DateTime.Today.AddDays(-i):yyyy-MM-dd}";
+            string oldKey = $"learnCompleted_{ApiManager.Instance.UserId}_{DateTime.Today.AddDays(-i):yyyy-MM-dd}";
             if (PlayerPrefs.HasKey(oldKey))
                 PlayerPrefs.DeleteKey(oldKey);
         }
 
-        PlayerPrefs.SetInt($"learnCompleted_{DateTime.Today:yyyy-MM-dd}", 1);
+        PlayerPrefs.SetInt($"learnCompleted_{ApiManager.Instance.UserId}_{DateTime.Today:yyyy-MM-dd}", 1);
         PlayerPrefs.Save();
         Debug.Log($"[ApiLearnManager] learnCompleted 저장 — 날짜: {DateTime.Today:yyyy-MM-dd}");
     }

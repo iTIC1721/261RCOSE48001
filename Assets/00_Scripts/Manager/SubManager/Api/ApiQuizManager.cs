@@ -136,45 +136,75 @@ public class ApiQuizManager : MonoBehaviour
     // 스케줄 로드 (기존 StartQuiz의 MainScheduler 역할을 서버로 대체)
     // ══════════════════════════════════════════
 
+    // ── PlayerPrefs 키 (TestQuizManager와 동일한 형식) ──
+    private string TodayWordsKey
+        => $"studied_words_{ApiManager.Instance.UserId}_{System.DateTime.Today:yyyy-MM-dd}";
+
+    private List<DailyScheduleWord> LoadTodayWords()
+    {
+        string json = PlayerPrefs.GetString(TodayWordsKey, "");
+        if (string.IsNullOrEmpty(json)) return new List<DailyScheduleWord>();
+        try
+        {
+            var wrapper = JsonUtility.FromJson<DailyScheduleWordListWrapper>(json);
+            return new List<DailyScheduleWord>(wrapper.words ?? new DailyScheduleWord[0]);
+        }
+        catch
+        {
+            return new List<DailyScheduleWord>();
+        }
+    }
+
     private IEnumerator LoadScheduleAndStart()
     {
-        yield return ApiManager.Instance.GetTodaySchedule(
-            dailyLimit: dailyLimit,
-            onSuccess: schedule => {
-                // 큐 구성: 신규 → 복습 → 보충 순
-                // 뜻이 있는 단어만 퀴즈에 사용 (오답 보기 생성에 뜻 필요)
-                _wordQueue.Clear();
-                foreach (var w in schedule.new_words)
-                    if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
-                foreach (var w in schedule.review_words)
-                    if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
-                foreach (var w in schedule.db_supplement)
-                    if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
+        yield return null; // 프레임 대기
 
-                // 랜덤 셔플 (기존 RandomQueue 역할)
-                Shuffle(_wordQueue);
+        // 오늘 학습한 단어를 PlayerPrefs에서 불러옴
+        var todayWords = LoadTodayWords();
+        Debug.Log($"[ApiQuizManager] 오늘 학습 단어 로드: {todayWords.Count}개");
 
-                todayCount = _wordQueue.Count;
-                _queueIndex = 0;
+        _wordQueue.Clear();
+        foreach (var w in todayWords)
+            if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
 
-                Debug.Log($"[ApiQuizManager] 스케줄 로드 완료 — 퀴즈 단어 수: {todayCount}");
-
-                if (todayCount == 0)
-                {
-                    HideLoading();
-                    DisplayResult();
-                    return;
+        // 학습 이력이 없으면 서버에서 현재 스케줄로 fallback
+        if (_wordQueue.Count == 0)
+        {
+            Debug.Log("[ApiQuizManager] 오늘 학습 이력 없음 → 서버 스케줄로 fallback");
+            yield return ApiManager.Instance.GetTodaySchedule(
+                dailyLimit: dailyLimit,
+                onSuccess: schedule => {
+                    foreach (var w in schedule.new_words)
+                        if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
+                    foreach (var w in schedule.review_words)
+                        if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
+                    foreach (var w in schedule.db_supplement)
+                        if (!string.IsNullOrEmpty(w.meaning)) _wordQueue.Add(w);
+                    Debug.Log($"[ApiQuizManager] fallback 스케줄 단어: {_wordQueue.Count}개");
+                },
+                onError: err => {
+                    Debug.LogError($"[ApiQuizManager] 스케줄 로드 실패: {err}");
                 }
+            );
+        }
 
-                HideLoading();
-                StartCoroutine(CountDownCoroutine());
-            },
-            onError: err => {
-                Debug.LogError($"[ApiQuizManager] 스케줄 로드 실패: {err}");
-                HideLoading();
-                DisplayResult();
-            }
-        );
+        // 랜덤 셔플
+        Shuffle(_wordQueue);
+
+        todayCount = _wordQueue.Count;
+        _queueIndex = 0;
+
+        Debug.Log($"[ApiQuizManager] 퀴즈 단어 수: {todayCount}");
+
+        HideLoading();
+
+        if (todayCount == 0)
+        {
+            DisplayResult();
+            yield break;
+        }
+
+        StartCoroutine(CountDownCoroutine());
     }
 
     // ══════════════════════════════════════════
@@ -387,7 +417,7 @@ public class ApiQuizManager : MonoBehaviour
     // ── quizCompleted: PlayerPrefs 날짜 키 기반 ──
 
     private string QuizCompletedKey(int diffIndex)
-        => $"quizCompleted_{diffIndex}_{DateTime.Today:yyyy-MM-dd}";
+        => $"quizCompleted_{diffIndex}_{ApiManager.Instance.UserId}_{DateTime.Today:yyyy-MM-dd}";
 
     private bool IsQuizCompleted(int diffIndex)
         => PlayerPrefs.GetInt(QuizCompletedKey(diffIndex), 0) == 1;
@@ -401,7 +431,7 @@ public class ApiQuizManager : MonoBehaviour
         {
             for (int d = 0; d < quizSettingDict.Count; d++)
             {
-                string oldKey = $"quizCompleted_{d}_{DateTime.Today.AddDays(-i):yyyy-MM-dd}";
+                string oldKey = $"quizCompleted_{d}_{ApiManager.Instance.UserId}_{DateTime.Today.AddDays(-i):yyyy-MM-dd}";
                 if (PlayerPrefs.HasKey(oldKey))
                     PlayerPrefs.DeleteKey(oldKey);
             }
