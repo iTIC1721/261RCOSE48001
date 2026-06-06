@@ -111,7 +111,10 @@ public class DefaultMonsterBT : MonsterBT
 
     public override void GetDamagedAnimation()
     {
-        if (!isPreparingSkill) animator.SetTrigger("3_Damaged");
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (!isPreparingSkill && !(state.IsName("ATTACK") && state.normalizedTime < 1f)) 
+            animator.SetTrigger("3_Damaged");
     }
 
     public override void DieAnimation()
