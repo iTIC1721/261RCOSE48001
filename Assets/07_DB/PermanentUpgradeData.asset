@@ -14,14 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PermanentUpgradeData
   upgrades:
   - upgradeId: maxhp
-    displayName: "\uCD5C\uB300 \uCC44\uB825 \uC99D\uAC00"
+    displayName: "\uCCB4\uB825 \uC99D\uAC00"
     description: 
     statType: 0
     valuePerLevel:
-    - 5
-    - 5
-    - 5
-    costPerLevel: 64000000c80000002c010000
+    - 50
+    - 70
+    - 100
+    - 130
+    - 150
+    - 150
+    - 100
+    - 80
+    - 70
+    costPerLevel: 1e0000002800000032000000460000005a00000078000000a0000000c8000000f0000000
     icon: {fileID: 0}
   - upgradeId: movespeed
     displayName: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
@@ -31,7 +37,9 @@ MonoBehaviour:
     - 1
     - 1
     - 1
-    costPerLevel: 64000000c80000002c010000
+    - 1
+    - 1
+    costPerLevel: 1e0000003c000000640000008c000000aa000000
     icon: {fileID: 0}
   - upgradeId: attackdelay
     displayName: "\uACF5\uACA9 \uB51C\uB808\uC774 \uAC10\uC18C"
@@ -41,15 +49,23 @@ MonoBehaviour:
     - 0.1
     - 0.1
     - 0.1
-    costPerLevel: 64000000c80000002c010000
+    - 0.1
+    - 0.1
+    costPerLevel: 1e0000003c000000640000008c000000aa000000
     icon: {fileID: 0}
   - upgradeId: attackdamage
     displayName: "\uACF5\uACA9\uB825 \uC99D\uAC00"
     description: 
     statType: 3
     valuePerLevel:
-    - 2
-    - 2
-    - 2
-    costPerLevel: 64000000c80000002c010000
+    - 5
+    - 6
+    - 7
+    - 9
+    - 11
+    - 13
+    - 15
+    - 16
+    - 18
+    costPerLevel: 1e0000002800000032000000460000005a00000078000000a0000000c8000000f0000000
     icon: {fileID: 0}
