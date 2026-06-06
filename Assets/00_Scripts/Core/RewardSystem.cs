@@ -7,9 +7,9 @@ public static class RewardSystem
         switch (diff)
         {
             case StageDifficulty.Easy:
-                return 30;
+                return 100;
             case StageDifficulty.Hard:
-                return 50;
+                return 100;
         }
 
         return 0;
@@ -17,6 +17,6 @@ public static class RewardSystem
 
     public static int CalculateLearnReward()
     {
-        return 20;
+        return 0;
     }
 }

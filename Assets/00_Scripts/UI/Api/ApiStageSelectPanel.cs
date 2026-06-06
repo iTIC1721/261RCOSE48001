@@ -57,19 +57,19 @@ public class ApiStageSelectPanel : MonoBehaviour
         if (!IsLearnCompleted())
         {
             // 오늘 Learn 미완료 → learnButton 활성, 퀴즈 전체 비활성
-            rewardDecoration[0].SetActive(true);
+            if (rewardDecoration[0] != null) rewardDecoration[0].SetActive(true);
             learnStageButton.interactable = true;
 
             for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
             {
-                rewardDecoration[d + 1].SetActive(true);
+                if (rewardDecoration[d + 1] != null) rewardDecoration[d + 1].SetActive(true);
                 stageSelectButtons[d].interactable = false;
             }
         }
         else
         {
             // 오늘 Learn 완료 → learnButton 비활성, 퀴즈 클리어 여부에 따라 활성/비활성
-            rewardDecoration[0].SetActive(false);
+            if (rewardDecoration[0] != null) rewardDecoration[0].SetActive(false);
             learnStageButton.interactable = false;
 
             bool isCleared = false;
@@ -78,12 +78,12 @@ public class ApiStageSelectPanel : MonoBehaviour
                 if (isCleared || IsQuizCompleted(d))
                 {
                     isCleared = true;
-                    rewardDecoration[d + 1].SetActive(false);
+                    if (rewardDecoration[d + 1] != null) rewardDecoration[d + 1].SetActive(false);
                     stageSelectButtons[d].interactable = false;
                 }
                 else
                 {
-                    rewardDecoration[d + 1].SetActive(true);
+                    if (rewardDecoration[d + 1] != null) rewardDecoration[d + 1].SetActive(true);
                     stageSelectButtons[d].interactable = true;
                 }
             }
