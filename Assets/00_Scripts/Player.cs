@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Unity.VisualScripting.Member;
 
 public class Player : Entity
 {
@@ -179,6 +180,7 @@ public class Player : Entity
     {
         if (IsDied) return;
 
+        if (!damagedSfxName.Equals("")) AudioManager.Instance.PlaySFXPooled(damagedSfxName);
         animator.SetTrigger("3_Damaged");
 
         foreach (DamageInfo damageInfo in damageInfos)

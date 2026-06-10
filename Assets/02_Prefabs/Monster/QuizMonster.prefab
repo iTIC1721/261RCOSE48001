@@ -1575,11 +1575,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   hp: 10
   maxHp: 10
+  baseDamage: 0
+  baseAttackDelay: 1
+  skillManager: {fileID: 0}
+  ricochetCount: 0
+  piercingCount: 0
+  reflectCount: 0
+  attackSfxName: enemy_attack
+  damagedSfxName: enemy_hit
+  spriteRoot: {fileID: 0}
   invulnerable: 1
   attackPositionOffset: 0.2
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 0}
-  spriteRoot: {fileID: 0}
 --- !u!114 &1953716209619576097
 MonoBehaviour:
   m_ObjectHideFlags: 0

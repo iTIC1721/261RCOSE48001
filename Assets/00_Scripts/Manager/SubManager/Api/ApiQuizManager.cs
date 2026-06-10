@@ -324,6 +324,8 @@ public class ApiQuizManager : MonoBehaviour
             SetCombo(combo + 1);
             stayTime = setting.correctStayTime;
 
+            //AudioManager.Instance.PlaySFX("quiz_correct");
+
             float damage = baseDamage + GetAdditionalDamage(questionResponseTime) * baseDamage * 0.8f;
             player.Attack();
             StartCoroutine(EntityAttackCoroutine(() => EnemyHurt(damage)));
@@ -333,6 +335,8 @@ public class ApiQuizManager : MonoBehaviour
             Log.LogMessage("오답");
             SetCombo(0);
             stayTime = setting.incorrectStayTime;
+
+            //AudioManager.Instance.PlaySFX("quiz_error");
 
             monster.Attack();
             StartCoroutine(EntityAttackCoroutine(() => PlayerHurt()));

@@ -63,6 +63,7 @@ public class Monster : Entity
     {
         if (IsDied) return;
 
+        if (!damagedSfxName.Equals("")) AudioManager.Instance.PlaySFXPooled(damagedSfxName);
         monsterBT.GetDamagedAnimation();
 
         for (int i = 0; i < damageInfos.Length; i++)

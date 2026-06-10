@@ -2372,6 +2372,8 @@ MonoBehaviour:
   ricochetCount: 0
   piercingCount: 0
   reflectCount: 0
+  attackSfxName: enemy_attack
+  damagedSfxName: enemy_hit
   spriteRoot: {fileID: 943674861432952428}
   invulnerable: 0
   attackPositionOffset: 0.2

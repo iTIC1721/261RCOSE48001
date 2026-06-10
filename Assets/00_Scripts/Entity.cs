@@ -21,6 +21,10 @@ public abstract class Entity : MonoBehaviour, IAttackable, IDamageable
     public int piercingCount = 0;
     public int reflectCount = 0;
 
+    [Header("SFX")]
+    public string attackSfxName;
+    public string damagedSfxName;
+
     [Header("Entity Ref")]
     public Transform spriteRoot;
 

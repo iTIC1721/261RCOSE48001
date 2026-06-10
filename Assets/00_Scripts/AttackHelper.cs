@@ -11,6 +11,7 @@ public class AttackHelper : MonoBehaviour
 
     public void Attack()
     {
+        if (!source.attackSfxName.Equals("")) AudioManager.Instance.PlaySFXPooled(source.attackSfxName);
         TriggerSkill(SkillTriggerType.OnAttack);
     }
 

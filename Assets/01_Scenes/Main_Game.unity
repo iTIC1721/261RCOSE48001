@@ -95530,6 +95530,8 @@ MonoBehaviour:
   ricochetCount: 0
   piercingCount: 0
   reflectCount: 0
+  attackSfxName: player_attack
+  damagedSfxName: player_hit
   spriteRoot: {fileID: 8437719919518125510}
   enableMove: 1
   enableAttack: 1
