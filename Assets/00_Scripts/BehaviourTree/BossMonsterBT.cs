@@ -39,7 +39,7 @@ public class BossMonsterBT : MonsterBT
                             new BTCheckPlayerIsInRange(monster, 7.5f, true),
                             new BTMoveStop(monster),
                             new BTInvoke(PrepareSkill)
-                        }), monster.AttackDelay),
+                        }), attackDelay),
                         // 스킬 쿨타임이 안 찼을 땐 플레이어에게로 이동
                         new BTSequenceNode(new List<BTNode>
                         {
@@ -100,6 +100,7 @@ public class BossMonsterBT : MonsterBT
     {
         isPreparingSkill = false;
 
+        SetRandomAttackDelay(0.15f);
         monster.Attack();
     }
 
