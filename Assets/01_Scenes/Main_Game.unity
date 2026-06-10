@@ -11325,6 +11325,7 @@ GameObject:
   - component: {fileID: 287435343}
   - component: {fileID: 287435342}
   - component: {fileID: 287435346}
+  - component: {fileID: 287435347}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -11471,6 +11472,22 @@ MonoBehaviour:
   sfxKey: button_click
   volumeScale: 1
   usePooled: 0
+--- !u!114 &287435347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287435340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0733b5614fa111c4f92e12156839fb52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneMoveButton
+  sceneName: Lobby
+  fadeInTime: 0.1
+  fadeOutTime: 0.2
+  autoLink: 1
 --- !u!1 &289095994
 GameObject:
   m_ObjectHideFlags: 0
@@ -102150,6 +102167,7 @@ MonoBehaviour:
   year: 2026
   month: 3
   day: 25
+  fps: 60
 --- !u!4 &1940702203
 Transform:
   m_ObjectHideFlags: 0
