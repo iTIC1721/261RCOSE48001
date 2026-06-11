@@ -12,7 +12,8 @@ public class CsvUploadPanel : MonoBehaviour
     [SerializeField] private GameObject resultPanel;
     [SerializeField] private TextMeshProUGUI resultTitleText;
     [SerializeField] private TextMeshProUGUI resultDetailText;
-    [SerializeField] private Button resultCloseButton;
+    [SerializeField] private Button resultConfirmButton;
+    [SerializeField] private Button resultCancelButton;
 
     [Header("로딩")]
     [SerializeField] private GameObject loadingPanel;
@@ -23,7 +24,8 @@ public class CsvUploadPanel : MonoBehaviour
     private void Start()
     {
         uploadButton.onClick.AddListener(OnUploadButtonClicked);
-        resultCloseButton.onClick.AddListener(OnResultCloseClicked);
+        resultConfirmButton.onClick.AddListener(OnConfirmClicked);
+        resultCancelButton.onClick.AddListener(OnCancelClicked);
         resultPanel.SetActive(false);
     }
 
@@ -40,7 +42,7 @@ public class CsvUploadPanel : MonoBehaviour
         );
     }
 
-    private void OnResultCloseClicked()
+    private void OnConfirmClicked()
     {
         resultPanel.SetActive(false);
 
@@ -49,6 +51,12 @@ public class CsvUploadPanel : MonoBehaviour
             _isGuideMode = false;
             NativeFilePicker.PickFile(OnFilePicked, new string[] { "text/csv", "text/plain" });
         }
+    }
+
+    private void OnCancelClicked()
+    {
+        _isGuideMode = false;
+        resultPanel.SetActive(false);
     }
 
     private void OnFilePicked(string path)

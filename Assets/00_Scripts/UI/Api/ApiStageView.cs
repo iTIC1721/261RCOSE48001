@@ -28,12 +28,13 @@ public class ApiStageView : MonoBehaviour
     [SerializeField] float maxX = 100;
     [SerializeField] int pathLineCount = 10;
     [SerializeField] float pathCurvature = 0.5f;
+    [SerializeField] int futureStageCount = 3;
 
     [Header("Prefab")]
     [SerializeField] GameObject currentStagePrefab;
     [SerializeField] GameObject pastStagePrefab;
     [SerializeField] GameObject pathPrefab;
-    // futureStagePrefab 제거 (leftDays = 0으로 실제 생성되지 않음)
+    [SerializeField] GameObject futureStagePrefab; // future 노드 프리팹
 
     [Header("로딩")]
     [SerializeField] GameObject loadingPanel;
@@ -121,36 +122,48 @@ public class ApiStageView : MonoBehaviour
         // currentDay는 1-based DayCount이므로 0-based 인덱스로 변환
         int currentDayIndex = currentDay - 1;
 
-        int totalStageCount = currentDay; // 과거(0 ~ currentDayIndex-1) + 현재(currentDayIndex)
-        float totalSizeY =
-            pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y * currentDayIndex +
-            currentStagePrefab.GetComponent<RectTransform>().sizeDelta.y +
-            spaceY * (totalStageCount - 1) +
-            upperMarginY + belowMarginY;
+        int totalStageCount = currentDay + futureStageCount;
+
+        float pastHeight = pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
+        float currentHeight = currentStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
+        float futureHeight = futureStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
+
+        float totalSizeY = pastHeight * currentDayIndex
+                         + currentHeight
+                         + futureHeight * futureStageCount
+                         + spaceY * (totalStageCount - 1)
+                         + upperMarginY + belowMarginY;
         totalSizeY = Mathf.Max(totalSizeY, viewport.rect.height);
 
+        float accumulatedY = 0f;
         for (int i = 0; i < totalStageCount; i++)
         {
-            GameObject stagePrefab = (i < currentDayIndex) ? pastStagePrefab : currentStagePrefab;
+            bool isPast = i < currentDayIndex;
+            bool isCurrent = i == currentDayIndex;
+            bool isFuture = i > currentDayIndex;
+
+            GameObject stagePrefab = isPast ? pastStagePrefab
+                                   : isCurrent ? currentStagePrefab
+                                               : futureStagePrefab;
+
+            float stageHeight = stagePrefab.GetComponent<RectTransform>().sizeDelta.y;
 
             float x = GetRandomPosX(i, userId, minX, maxX);
-            float y = stagePrefab.GetComponent<RectTransform>().sizeDelta.y * 0.5f;
-            for (int j = 0; j < i; j++)
-            {
-                float tmpY = (j < currentDayIndex)
-                    ? pastStagePrefab.GetComponent<RectTransform>().sizeDelta.y
-                    : currentStagePrefab.GetComponent<RectTransform>().sizeDelta.y;
-                y += tmpY + spaceY;
-            }
+            float y = accumulatedY + stageHeight * 0.5f;
             y -= totalSizeY * 0.5f - belowMarginY;
+
+            accumulatedY += stageHeight + spaceY;
 
             GameObject stage = Instantiate(stagePrefab, content);
             RectTransform stageTr = stage.GetComponent<RectTransform>();
             stageTr.anchoredPosition = new Vector2(x, y);
-            stage.GetComponent<StageButton>().dayText.text = $"{i + 1}일차";
 
-            // 현재 Day 노드에만 클릭 이벤트 연결 (기존과 동일)
-            if (i == currentDayIndex)
+            // dayText: future 마지막 노드는 "...", 그 외는 "N일차"
+            bool isLastFuture = isFuture && (i == totalStageCount - 1);
+            stage.GetComponent<StageButton>().dayText.text = isLastFuture ? "..." : $"{i + 1}일차";
+
+            // 현재 Day 노드에만 클릭 이벤트 연결
+            if (isCurrent)
             {
                 stage.GetComponent<Button>().onClick.AddListener(() => {
                     stageSelectPanel.ShowStageSelectPanel();
