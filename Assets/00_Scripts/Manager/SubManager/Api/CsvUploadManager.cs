@@ -49,7 +49,13 @@ public class CsvUploadPanel : MonoBehaviour
         if (_isGuideMode)
         {
             _isGuideMode = false;
-            NativeFilePicker.PickFile(OnFilePicked, new string[] { "text/csv", "text/plain" });
+            NativeFilePicker.PickFile(OnFilePicked, new string[] {
+                "text/csv",
+                "text/plain",
+                "text/comma-separated-values",
+                "application/csv",
+                "*/*"
+            });
         }
     }
 
