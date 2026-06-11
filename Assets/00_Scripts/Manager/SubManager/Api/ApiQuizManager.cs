@@ -22,6 +22,7 @@ public class ApiQuizManager : MonoBehaviour
     [SerializeField] DamageEffect damageEffect;
     [SerializeField] QuizResultPanel resultPanel;
     [SerializeField] GameObject diePanel;
+    [SerializeField] TextMeshProUGUI diePanelRewardText;
     [SerializeField] TextMeshProUGUI wordText;
     [SerializeField] TextMeshProUGUI meaningText;
     [SerializeField] TextMeshProUGUI leftHpText;
@@ -403,6 +404,12 @@ public class ApiQuizManager : MonoBehaviour
         Log.LogMessage("플레이어 사망");
         isDied = true;
         player.Die();
+        GetReward();
+        if (diePanelRewardText != null)
+        {
+            string userId = ApiManager.Instance.UserId;
+            diePanelRewardText.text = $"보상: {RewardSystem.GetEarnedTotal(userId)} / {RewardSystem.TotalReward}";
+        }
         diePanel.SetActive(true);
     }
 
@@ -413,37 +420,8 @@ public class ApiQuizManager : MonoBehaviour
     private void CompleteStage()
     {
         Log.LogMessage("학습이 종료되었습니다.");
-        SaveQuizCompleted();
         GetReward();
         DisplayResult();
-    }
-
-    // ── quizCompleted: PlayerPrefs 날짜 키 기반 ──
-
-    private string QuizCompletedKey(int diffIndex)
-        => $"quizCompleted_{diffIndex}_{ApiManager.Instance.UserId}_{DateTime.Today:yyyy-MM-dd}";
-
-    private bool IsQuizCompleted(int diffIndex)
-        => PlayerPrefs.GetInt(QuizCompletedKey(diffIndex), 0) == 1;
-
-    private void SaveQuizCompleted()
-    {
-        int diffIndex = (int)_currentDifficulty;
-
-        // 과거 날짜 키 정리 (최근 30일)
-        for (int i = 1; i <= 30; i++)
-        {
-            for (int d = 0; d < quizSettingDict.Count; d++)
-            {
-                string oldKey = $"quizCompleted_{d}_{ApiManager.Instance.UserId}_{DateTime.Today.AddDays(-i):yyyy-MM-dd}";
-                if (PlayerPrefs.HasKey(oldKey))
-                    PlayerPrefs.DeleteKey(oldKey);
-            }
-        }
-
-        PlayerPrefs.SetInt(QuizCompletedKey(diffIndex), 1);
-        PlayerPrefs.Save();
-        Debug.Log($"[ApiQuizManager] quizCompleted 저장 — 난이도: {diffIndex}, 날짜: {DateTime.Today:yyyy-MM-dd}");
     }
 
     // ══════════════════════════════════════════
@@ -454,10 +432,11 @@ public class ApiQuizManager : MonoBehaviour
     {
         if (todayCount > 0)
         {
+            string userId = ApiManager.Instance.UserId;
             float correctRate = (float)correctCount / todayCount;
             resultPanel.descTexts[0].text = $"정답률: {(correctRate * 100f):F0}%";
             resultPanel.descTexts[1].text = $"총 데미지: {Mathf.FloorToInt(totalDamage)}";
-            resultPanel.descTexts[2].text = $"총 문제 수: {todayCount}개";
+            resultPanel.descTexts[2].text = $"보상: {RewardSystem.GetEarnedTotal(userId)} / {RewardSystem.TotalReward}";
         }
         else
         {
@@ -472,14 +451,10 @@ public class ApiQuizManager : MonoBehaviour
     // ── GetReward: quizCompleted를 PlayerPrefs 기반으로 참조 ──
     private void GetReward()
     {
-        int reward = 0;
-        int diffIndex = (int)_currentDifficulty;
-        for (int i = diffIndex; i >= 0; i--)
-        {
-            if (IsQuizCompleted(i)) continue;
-            reward += RewardSystem.CalculateQuizReward((StageDifficulty)i);
-        }
-        MANAGER.Inventory.AddMoney(reward);
+        string userId = ApiManager.Instance.UserId;
+        int reward = RewardSystem.CalculateReward(correctCount, todayCount, userId);
+        if (reward > 0)
+            MANAGER.Inventory.AddMoney(reward);
     }
 
     // ══════════════════════════════════════════

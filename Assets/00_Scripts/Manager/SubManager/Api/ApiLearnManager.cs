@@ -21,6 +21,7 @@ public class ApiLearnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI progressText;
     [SerializeField] Button answerButton;
     [SerializeField] TextMeshProUGUI[] nextDueTexts; // 1~4 레이팅별 다음 복습 예정 텍스트
+    [SerializeField] private float meaningTextBaseOffsetY = 220f;
 
     // ── 로딩 UI (ApiManager 통신 대기 표시용) ──
     [Header("로딩")]
@@ -128,6 +129,12 @@ public class ApiLearnManager : MonoBehaviour
             ? "(뜻 정보 없음)"
             : _currentWord.meaning;
 
+        // meaningText 위치 초기화 (짧은 단어일 때 기본값 복원)
+        RectTransform meaningRT = meaningText.GetComponent<RectTransform>();
+        Vector2 pos = meaningRT.anchoredPosition;
+        pos.y = -Mathf.Abs(meaningTextBaseOffsetY);
+        meaningRT.anchoredPosition = pos;
+
         // 기존: FSRSScheduler.PreviewNextDues() → 서버 기반이므로 레이팅 레이블로 대체
         // TODO: 서버에 /api/schedule/preview-dues 엔드포인트가 생기면 여기서 교체
         UpdateNextDueTexts();
@@ -154,8 +161,30 @@ public class ApiLearnManager : MonoBehaviour
 
     public void ShowAnswer()
     {
-        meaningText.gameObject.SetActive(true);
+        StartCoroutine(ShowAnswerCoroutine());
+    }
+
+    private float _wordTextBaseHeight = -1f;
+    private IEnumerator ShowAnswerCoroutine()
+    {
         answerButton.gameObject.SetActive(false);
+        yield return new WaitForEndOfFrame();
+
+        float currentHeight = wordText.preferredHeight;
+
+        // 첫 번째 호출 시 한 줄 기준 높이 저장
+        if (_wordTextBaseHeight < 0f)
+            _wordTextBaseHeight = currentHeight;
+
+        // 기준 높이 초과분만큼 아래로 추가 이동
+        float extraOffset = currentHeight - _wordTextBaseHeight;
+
+        RectTransform meaningRT = meaningText.GetComponent<RectTransform>();
+        Vector2 pos = meaningRT.anchoredPosition;
+        pos.y = -(Mathf.Abs(meaningTextBaseOffsetY) + extraOffset);
+        meaningRT.anchoredPosition = pos;
+
+        meaningText.gameObject.SetActive(true);
     }
 
     // ══════════════════════════════════════════

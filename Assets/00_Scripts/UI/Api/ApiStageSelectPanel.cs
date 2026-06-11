@@ -27,7 +27,6 @@ public class ApiStageSelectPanel : MonoBehaviour
     [SerializeField] float panelMoveTime = 0.5f;
 
     private const string LearnCompletedKeyPrefix = "learnCompleted_";
-    private const string QuizCompletedKeyPrefix = "quizCompleted_";
     private const string DifficultyKey = "selectedDifficulty";
 
     Coroutine panelMoveCoroutine = null;
@@ -39,13 +38,9 @@ public class ApiStageSelectPanel : MonoBehaviour
     private bool IsLearnCompleted()
         => PlayerPrefs.GetInt($"{LearnCompletedKeyPrefix}{UserId}_{DateTime.Today:yyyy-MM-dd}", 0) == 1;
 
-    private bool IsQuizCompleted(int diffIndex)
-        => PlayerPrefs.GetInt($"{QuizCompletedKeyPrefix}{diffIndex}_{UserId}_{DateTime.Today:yyyy-MM-dd}", 0) == 1;
-
     // ══════════════════════════════════════════
     // 패널 표시 (기존 ShowStageSelectPanel과 동일한 구조)
     // ══════════════════════════════════════════
-
     public void ShowStageSelectPanel()
     {
         if (panelMoveCoroutine != null) return;
@@ -56,6 +51,9 @@ public class ApiStageSelectPanel : MonoBehaviour
         int currentDay = PlayerPrefs.GetInt("currentDay", 1);
         titleText.text = $"{currentDay}{title}";
 
+        string userId = UserId;
+        int quizRemaining = RewardSystem.TotalReward - RewardSystem.GetEarnedTotal(userId);
+
         if (!IsLearnCompleted())
         {
             // 오늘 Learn 미완료 → learnButton 활성, 퀴즈 전체 비활성
@@ -64,7 +62,7 @@ public class ApiStageSelectPanel : MonoBehaviour
 
             for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
             {
-                if (rewardDecoration[d + 1] != null) rewardDecoration[d + 1].SetActive(true);
+                SetRewardText(rewardDecoration[d + 1], quizRemaining);
                 stageSelectButtons[d].interactable = false;
             }
         }
@@ -74,20 +72,10 @@ public class ApiStageSelectPanel : MonoBehaviour
             if (rewardDecoration[0] != null) rewardDecoration[0].SetActive(false);
             learnStageButton.interactable = false;
 
-            bool isCleared = false;
             for (int d = Enum.GetValues(typeof(StageDifficulty)).Length - 1; d >= 0; d--)
             {
-                if (isCleared || IsQuizCompleted(d))
-                {
-                    isCleared = true;
-                    if (rewardDecoration[d + 1] != null) rewardDecoration[d + 1].SetActive(false);
-                    stageSelectButtons[d].interactable = false;
-                }
-                else
-                {
-                    if (rewardDecoration[d + 1] != null) rewardDecoration[d + 1].SetActive(true);
-                    stageSelectButtons[d].interactable = true;
-                }
+                SetRewardText(rewardDecoration[d + 1], quizRemaining);
+                stageSelectButtons[d].interactable = true;
             }
         }
 
@@ -132,6 +120,19 @@ public class ApiStageSelectPanel : MonoBehaviour
         group.alpha = endAlpha;
         buttonPanel.anchoredPosition = destPos;
         panelMoveCoroutine = null;
+    }
+
+    private void SetRewardText(GameObject decoration, int amount)
+    {
+        if (decoration == null) return;
+        if (amount <= 0)
+        {
+            decoration.SetActive(false);
+            return;
+        }
+        var tmp = decoration.GetComponent<TextMeshProUGUI>();
+        if (tmp != null) tmp.text = $"+{amount}C";
+        decoration.SetActive(true);
     }
 
     public void HideStageSelectPanel()
