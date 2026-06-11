@@ -21,7 +21,8 @@ public class ApiManagerEditor : Editor
 
         // 현재 user_id 표시
         string userId = PlayerPrefs.GetString("user_id", "(없음)");
-        EditorGUILayout.LabelField("현재 user_id", userId);
+        EditorGUILayout.LabelField("현재 user_id");
+        EditorGUILayout.SelectableLabel(userId, EditorStyles.textField, GUILayout.Height(EditorGUIUtility.singleLineHeight));
 
         EditorGUILayout.Space(4);
 
