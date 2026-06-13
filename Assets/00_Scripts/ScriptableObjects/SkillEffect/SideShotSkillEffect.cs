@@ -6,7 +6,7 @@ public class SideShotSkillEffect : ShotSkillEffect
     public float[] angles = new float[3] { 0, 10f, -10f };
     public float damageMultiplier = 1f;
 
-    public override void Execute(EntityContext context, int stack)
+    public override bool Execute(EntityContext context, int stack)
     {
         Vector2 baseDirection = context.direction;
 
@@ -26,5 +26,7 @@ public class SideShotSkillEffect : ShotSkillEffect
             Vector2 rightRotated = Quaternion.Euler(0, 0, angles[i]) * rightDirection;
             SpawnProjectile(context.source, damage, rightRotated);
         }
+
+        return true;
     }
 }

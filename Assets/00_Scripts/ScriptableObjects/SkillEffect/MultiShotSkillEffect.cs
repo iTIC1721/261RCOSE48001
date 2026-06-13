@@ -11,12 +11,12 @@ public class MultiShotSkillEffect : SkillEffect
 
     private readonly Dictionary<Entity, MultiShotHandler> _activeHandlers = new();
 
-    public override void Execute(EntityContext context, int stack)
+    public override bool Execute(EntityContext context, int stack)
     {
         var entity = context.source as Entity;
 
         // 이미 실행 중이면 무시
-        if (_activeHandlers.ContainsKey(entity)) return;
+        if (_activeHandlers.ContainsKey(entity)) return false;
 
         // Handler가 stack번 공격 후 소멸
         var handler = new MultiShotHandler(entity, stack, shotDelay);
@@ -24,6 +24,8 @@ public class MultiShotSkillEffect : SkillEffect
 
         handler.OnComplete += () => _activeHandlers.Remove(entity);
         handler.Start();
+
+        return true;
     }
 }
 

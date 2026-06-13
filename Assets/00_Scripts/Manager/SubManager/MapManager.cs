@@ -57,6 +57,16 @@ public class MapManager : MonoBehaviour
         Initialize();
     }
 
+    private void OnEnable()
+    {
+        SummonOnHalfHPEffect.OnMonsterSummoned += AddSummonedMonster;
+    }
+
+    private void OnDisable()
+    {
+        SummonOnHalfHPEffect.OnMonsterSummoned -= AddSummonedMonster;
+    }
+
     private void Update()
     {
         // TODO: 임시 - 맵 클리어 여부 체크
@@ -247,5 +257,10 @@ public class MapManager : MonoBehaviour
         float clampedY = Mathf.Clamp(targetPos.y, minY, maxY);
 
         return new Vector3(clampedX, clampedY, originalPosition.z);
+    }
+
+    private void AddSummonedMonster(Monster monster)
+    {
+        currentMapMonsters.Add(monster);
     }
 }

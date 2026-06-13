@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14975bdac0650ee4cbfcae1d27e1565f, type: 3}
-  m_Name: DefaultMonsterSkill
+  m_Name: Boss2MonsterSpawnSkill
   m_EditorClassIdentifier: Assembly-CSharp::SkillData
   skillSprite: {fileID: 0}
-  skillName: DefaultMonsterSkill
+  skillName: Boss2MonsterSpawnSkill
   skillDesc: 
   skillEffects:
-  - {fileID: 11400000, guid: 4e27bd217a75af240b4c86aafcd81cd9, type: 2}
+  - {fileID: 11400000, guid: 1a22757b8c8dbf1439a546cf848a3879, type: 2}
   isStackable: 0
   maxStack: 5

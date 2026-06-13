@@ -18,6 +18,9 @@ public class SkillManager : MonoBehaviour
     // 스킬 이름 → (SkillData, 현재 스택) 딕셔너리
     private Dictionary<string, (SkillData data, int stack)> activeSkills = new();
 
+    // 1회성 트리거 기록 (skillName_triggerType 조합)
+    private HashSet<string> firedOnceSkills = new();
+
     private void Awake()
     {
         entity = GetComponent<Entity>();
@@ -30,8 +33,10 @@ public class SkillManager : MonoBehaviour
 
     public void InitializeSkill()
     {
+        //Debug.Log($"[SkillManager] InitializeSkill 호출, skills 수: {skills.Count}");
         foreach (var item in skills)
         {
+            //Debug.Log($"[SkillManager] 등록 시도: {item.skillData?.skillName ?? "NULL"}");
             if (item.stack < 1) item.stack = 1;
 
             for (int i = 0; i < item.stack; i++)
@@ -46,6 +51,9 @@ public class SkillManager : MonoBehaviour
     // ─────────────────────────────────────────────
     public void AddSkill(SkillData data)
     {
+        //Debug.Log($"[SkillManager] AddSkill 호출: {(data == null ? "NULL" : data.skillName)}");
+        if (data == null) return;
+
         if (activeSkills.TryGetValue(data.skillName, out var existing))
         {
             if (!data.isStackable) return;
@@ -78,19 +86,44 @@ public class SkillManager : MonoBehaviour
             foreach (var effect in data.skillEffects)
             {
                 if (effect == null) continue;
-
-                // 발동 조건 체크
                 if (!effect.CanTrigger(trigger)) continue;
-
-                // 패시브는 TriggerSkills로 발동하지 않음
                 if (effect.triggerType == SkillTriggerType.Passive) continue;
 
-                // 실행
-                EntityContext context = entity.BuildContext();
-                effect.Execute(context, stack);
+                // onlyOnce 체크
+                string key = $"{skillName}_{trigger}";
+                if (effect.onlyOnce && firedOnceSkills.Contains(key)) continue;
 
-                Log.LogMessage($"스킬 발동: {data.name}");
+                EntityContext context = entity.BuildContext();
+                bool executed = effect.Execute(context, stack);
+
+                // Execute 성공 시에만 등록
+                if (effect.onlyOnce && executed)
+                    firedOnceSkills.Add(key);
             }            
+        }
+    }
+
+    public void TriggerSkills(SkillTriggerType trigger, EntityContext context)
+    {
+        foreach (var (skillName, entry) in activeSkills)
+        {
+            var (data, stack) = entry;
+            foreach (var effect in data.skillEffects)
+            {
+                if (effect == null) continue;
+                if (!effect.CanTrigger(trigger)) continue;
+                if (effect.triggerType == SkillTriggerType.Passive) continue;
+
+                // onlyOnce 체크
+                string key = $"{skillName}_{trigger}";
+                if (effect.onlyOnce && firedOnceSkills.Contains(key)) continue;
+
+                bool executed = effect.Execute(context, stack);
+
+                // Execute 성공 시에만 등록
+                if (effect.onlyOnce && executed)
+                    firedOnceSkills.Add(key);
+            }
         }
     }
 

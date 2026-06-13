@@ -6921,6 +6921,8 @@ MonoBehaviour:
   skills:
   - skillData: {fileID: 11400000, guid: 86b6e98695e540b4d944218a2de4db9e, type: 2}
     stack: 1
+  - skillData: {fileID: 11400000, guid: 44af8b17976745546bd5464ab146104b, type: 2}
+    stack: 1
 --- !u!1 &7755202641037062546
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,6 +98,9 @@ public class Monster : Entity
             }
         }
 
+        EntityContext ctx = BuildContext();
+        skillManager?.TriggerSkills(SkillTriggerType.OnDamaged, ctx);
+
         OnDamaged?.Invoke(hp, maxHp);
     }
 

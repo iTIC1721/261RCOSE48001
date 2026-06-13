@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum SkillTriggerType
 {
-    Passive, OnAttack, OnHit, OnKill, TimeBased
+    Passive, OnAttack, OnDamaged, OnHit, OnKill, TimeBased
 }
 
 public abstract class SkillEffect : ScriptableObject
@@ -11,7 +11,10 @@ public abstract class SkillEffect : ScriptableObject
     [Header("발동 조건")]
     public SkillTriggerType triggerType;
 
-    public abstract void Execute(EntityContext context, int stack);
+    [Header("옵션")]
+    public bool onlyOnce = false;   // 전투 중 1회만 발동
+
+    public abstract bool Execute(EntityContext context, int stack);
 
     public virtual bool CanTrigger(SkillTriggerType currentTrigger)
        => triggerType == currentTrigger;
@@ -19,7 +22,7 @@ public abstract class SkillEffect : ScriptableObject
 
 public abstract class PassiveSkillEffect : SkillEffect
 {
-    public override void Execute(EntityContext context, int stack) { }
+    public override bool Execute(EntityContext context, int stack) => true;
 
     public abstract void ApplyPassive(EntityContext context, int stack);
 }

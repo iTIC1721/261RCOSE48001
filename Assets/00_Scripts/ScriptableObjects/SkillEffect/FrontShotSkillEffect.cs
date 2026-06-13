@@ -6,7 +6,7 @@ public class FrontShotSkillEffect : ShotSkillEffect
     public float[] angles = new float[3] { 0, 7.5f, 15f };
     public float damageMultiplier = 0.75f;
 
-    public override void Execute(EntityContext context, int stack)
+    public override bool Execute(EntityContext context, int stack)
     {
         Vector2 baseDirection = context.direction;
 
@@ -30,5 +30,7 @@ public class FrontShotSkillEffect : ShotSkillEffect
                 SpawnProjectile(context.source, damage, rightRotated);
             }            
         }
+
+        return true;
     }
 }
