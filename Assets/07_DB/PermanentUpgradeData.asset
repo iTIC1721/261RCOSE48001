@@ -34,11 +34,11 @@ MonoBehaviour:
     description: 
     statType: 1
     valuePerLevel:
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
+    - 0.5
     costPerLevel: 1e0000003c000000640000008c000000aa000000
     icon: {fileID: 21300000, guid: a4f839c97b9f0c14ebdadfdda588bd8f, type: 3}
   - upgradeId: attackdelay
