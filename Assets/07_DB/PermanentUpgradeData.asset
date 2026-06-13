@@ -28,7 +28,7 @@ MonoBehaviour:
     - 80
     - 70
     costPerLevel: 1e0000002800000032000000460000005a00000078000000a0000000c8000000f0000000
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 39d5a2d3e7638724b88175bd6ffc8ce8, type: 3}
   - upgradeId: movespeed
     displayName: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00"
     description: 
@@ -40,7 +40,7 @@ MonoBehaviour:
     - 1
     - 1
     costPerLevel: 1e0000003c000000640000008c000000aa000000
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: a4f839c97b9f0c14ebdadfdda588bd8f, type: 3}
   - upgradeId: attackdelay
     displayName: "\uACF5\uACA9 \uB51C\uB808\uC774 \uAC10\uC18C"
     description: 
@@ -52,7 +52,7 @@ MonoBehaviour:
     - 0.1
     - 0.1
     costPerLevel: 1e0000003c000000640000008c000000aa000000
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 88bff879b2a40a948b0123a116900d71, type: 3}
   - upgradeId: attackdamage
     displayName: "\uACF5\uACA9\uB825 \uC99D\uAC00"
     description: 
@@ -68,4 +68,4 @@ MonoBehaviour:
     - 16
     - 18
     costPerLevel: 1e0000002800000032000000460000005a00000078000000a0000000c8000000f0000000
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 0292e50e5e0c74249a4cc7baf7f5e02b, type: 3}
