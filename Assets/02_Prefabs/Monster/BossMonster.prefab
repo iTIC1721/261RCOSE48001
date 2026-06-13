@@ -6919,7 +6919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillManager
   skills:
-  - skillData: {fileID: 11400000, guid: 86b6e98695e540b4d944218a2de4db9e, type: 2}
+  - skillData: {fileID: 11400000, guid: 2e24d6cca9dcecd44847224e3a0ec119, type: 2}
     stack: 1
   - skillData: {fileID: 11400000, guid: 44af8b17976745546bd5464ab146104b, type: 2}
     stack: 1
