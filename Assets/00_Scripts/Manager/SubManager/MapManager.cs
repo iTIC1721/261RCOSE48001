@@ -261,6 +261,7 @@ public class MapManager : MonoBehaviour
 
     private void AddSummonedMonster(Monster monster)
     {
+        statScaler?.ApplyStats(currentStage, LastStageIndex, new List<Monster> { monster });
         currentMapMonsters.Add(monster);
     }
 }
