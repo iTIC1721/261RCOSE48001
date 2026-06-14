@@ -37,7 +37,7 @@ public class CsvUploadPanel : MonoBehaviour
             "단어 업로드",
             "csv파일의 첫 번째 줄은 반드시 칼럼명이어야 합니다.\n\n" +
             "• 단어 칼럼명: word\n" +
-            "• 뜻 칼럼명: meaning (선택)\n\n" +
+            "• 뜻 칼럼명: meaning\n\n" +
             "확인을 누르면 파일 선택 창이 열립니다."
         );
     }
