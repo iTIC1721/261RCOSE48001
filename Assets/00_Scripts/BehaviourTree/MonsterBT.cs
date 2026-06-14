@@ -1,9 +1,18 @@
+using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class MonsterBT : BehaviourTree
 {
+    [Serializable]
+    protected class SpecialSkillEntry
+    {
+        public string name;
+        public bool onlyOnce;
+        [HideInInspector] public bool used;
+    }
+
     protected Monster monster;
     private NavMeshAgent agent;
 
@@ -34,7 +43,7 @@ public abstract class MonsterBT : BehaviourTree
 
     protected void SetRandomAttackDelay(float range)
     {
-        float delay = monster.AttackDelay + Random.Range(-range, range);
+        float delay = monster.AttackDelay + UnityEngine.Random.Range(-range, range);
         attackDelay = delay < MinAttackDelay ? MinAttackDelay : delay;
     }
 }

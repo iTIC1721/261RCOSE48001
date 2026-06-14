@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMonsterBT : MonsterBT
+public class Boss2MonsterBT : MonsterBT
 {
     [SerializeField] private SpecialSkillEntry spawnSkill;
+    [SerializeField] private SpecialSkillEntry spawnSkill2;
 
     private Animator animator;
 
@@ -36,12 +37,18 @@ public class BossMonsterBT : MonsterBT
                     new BTCheckAnimationEnd(monster, "ATTACK"),
                     new BTSelectorNode(new List<BTNode>
                     {
-                        // 체력 절반 이하일 때 스킬 시전 시도
+                        // 체력 2/3 이하일 때 스킬 시전 시도
                         new BTConditionDecorator(new BTSequenceNode(new List<BTNode>
                         {
                             new BTMoveStop(monster),
                             new BTInvoke(() => PrepareSkill(spawnSkill))
-                        }), () => monster.hp < monster.maxHp * 0.5f && !spawnSkill.used),
+                        }), () => monster.hp < monster.maxHp * 0.667f && !spawnSkill.used),
+                        // 체력 1/3 이하일 때 스킬 시전 시도
+                        new BTConditionDecorator(new BTSequenceNode(new List<BTNode>
+                        {
+                            new BTMoveStop(monster),
+                            new BTInvoke(() => PrepareSkill(spawnSkill2))
+                        }), () => monster.hp < monster.maxHp * 0.333f && !spawnSkill2.used),
                         // 쿨타임마다 공격 시전 시도
                         new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
                         {

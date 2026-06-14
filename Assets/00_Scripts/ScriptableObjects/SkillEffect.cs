@@ -3,7 +3,7 @@ using UnityEngine;
 
 public enum SkillTriggerType
 {
-    Passive, OnAttack, OnDamaged, OnHit, OnKill, TimeBased
+    Passive, OnAttack, OnDamaged, OnHit, OnKill, TimeBased, Special
 }
 
 public abstract class SkillEffect : ScriptableObject

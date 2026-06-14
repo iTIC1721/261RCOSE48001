@@ -127,6 +127,29 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public bool TriggerSpecialSkill(string skillName, EntityContext context)
+    {
+        if (!activeSkills.TryGetValue(skillName, out var entry)) return false;
+
+        var (data, stack) = entry;
+        foreach (var effect in data.skillEffects)
+        {
+            if (effect == null) continue;
+            if (effect.triggerType != SkillTriggerType.Special) continue;
+
+            string key = $"{skillName}_{SkillTriggerType.Special}";
+            if (effect.onlyOnce && firedOnceSkills.Contains(key)) continue;
+
+            bool executed = effect.Execute(context, stack);
+
+            if (effect.onlyOnce && executed)
+                firedOnceSkills.Add(key);
+
+            return executed;
+        }
+        return false;
+    }
+
     // ─────────────────────────────────────────────
     // 패시브 스킬 적용 (스탯에 직접 반영)
     // ─────────────────────────────────────────────

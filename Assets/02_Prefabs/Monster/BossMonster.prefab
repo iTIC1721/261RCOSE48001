@@ -4881,6 +4881,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9c7da409577ae4280c23a0f4f92fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossMonsterBT
+  spawnSkill:
+    name: Boss1MonsterSpawnSkill
+    onlyOnce: 1
+    used: 0
 --- !u!114 &4375315869222627116
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,24 +10,17 @@ public class SummonOnHalfHPEffect : SkillEffect
     public int summonCount = 2;
     public float spawnRadius = 1.5f;
 
-    [Header("발동 조건")]
-    [Tooltip("HP가 이 비율 이하일 때 소환 (0~1, 예: 0.5 = 50%)")]
-    [Range(0f, 1f)] public float hpThreshold = 0.5f;
-
     public static event Action<Monster> OnMonsterSummoned;
 
     public override bool Execute(EntityContext context, int stack)
     {
         if (context.source is not Entity entity) return false;
-        if (entity.hp > entity.maxHp * hpThreshold) return false;
 
         Transform parent = entity.transform.parent;
-
-        int totalCount = summonCount;
         int spawned = 0;
-        int maxAttempts = totalCount * 10;
+        int maxAttempts = summonCount * 10;
 
-        for (int attempt = 0; attempt < maxAttempts && spawned < totalCount; attempt++)
+        for (int attempt = 0; attempt < maxAttempts && spawned < summonCount; attempt++)
         {
             Vector2 offset = UnityEngine.Random.insideUnitCircle.normalized * spawnRadius;
             Vector3 candidate = entity.transform.position + (Vector3)offset;

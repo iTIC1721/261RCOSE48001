@@ -3808,13 +3808,13 @@ GameObject:
   m_Component:
   - component: {fileID: 6152816786792896988}
   - component: {fileID: 5942781764806884298}
-  - component: {fileID: 2902099382392291310}
   - component: {fileID: 4375315869222627116}
   - component: {fileID: 2294669530504749533}
   - component: {fileID: 4581387865772775076}
   - component: {fileID: 4665736514016554095}
   - component: {fileID: 3517383401932701657}
   - component: {fileID: 3726827672052264393}
+  - component: {fileID: 2329987611534754530}
   m_Layer: 7
   m_Name: BossMonster2
   m_TagString: Untagged
@@ -3870,18 +3870,6 @@ MonoBehaviour:
   attackPositionOffset: 0.4
   damageTMPName: StudyDamageTMP
   targetEffect: {fileID: 7560267462869717245}
---- !u!114 &2902099382392291310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7597409516553780487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf9c7da409577ae4280c23a0f4f92fdd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BossMonsterBT
 --- !u!114 &4375315869222627116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5926,6 +5914,26 @@ MonoBehaviour:
     stack: 1
   - skillData: {fileID: 11400000, guid: e8c946c04a334ff4ea2178bdd10e5604, type: 2}
     stack: 1
+--- !u!114 &2329987611534754530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597409516553780487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca716d923da7e9944b4271e5362730f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Boss2MonsterBT
+  spawnSkill:
+    name: Boss2MonsterSpawnSkill
+    onlyOnce: 1
+    used: 0
+  spawnSkill2:
+    name: Boss2MonsterSpawnSkill 1
+    onlyOnce: 1
+    used: 0
 --- !u!1 &7704068796308190052
 GameObject:
   m_ObjectHideFlags: 0
