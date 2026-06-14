@@ -37,3 +37,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4147b76b1fbfc754cb29f7abcc2cab3c, type: 3}
   - key: ui_popup
     clip: {fileID: 8300000, guid: 1ee975aebcc2a1c48bdaec0f2c2d88fd, type: 3}
+  - key: boss_warning
+    clip: {fileID: 8300000, guid: 6d9c8a99cb3097c4db42c498f27efbf1, type: 3}

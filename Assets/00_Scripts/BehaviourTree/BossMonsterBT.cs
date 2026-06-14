@@ -97,6 +97,7 @@ public class BossMonsterBT : MonsterBT
     {
         isPreparingSkill = true;
 
+        if (!skill.sfxName.Equals("")) AudioManager.Instance.PlaySFXPooled(skill.sfxName, 0.9f);
         prepareSkillCoroutine = StartCoroutine(PrepareSkillCoroutine(skill, 0.75f));
     }
 

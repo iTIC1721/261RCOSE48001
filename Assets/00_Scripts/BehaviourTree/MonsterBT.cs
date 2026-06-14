@@ -11,6 +11,7 @@ public abstract class MonsterBT : BehaviourTree
         public string name;
         public bool onlyOnce;
         [HideInInspector] public bool used;
+        public string sfxName;
     }
 
     protected Monster monster;

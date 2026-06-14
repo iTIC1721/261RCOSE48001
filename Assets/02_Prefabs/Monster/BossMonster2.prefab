@@ -5930,10 +5930,12 @@ MonoBehaviour:
     name: Boss2MonsterSpawnSkill
     onlyOnce: 1
     used: 0
+    sfxName: boss_warning
   spawnSkill2:
     name: Boss2MonsterSpawnSkill 1
     onlyOnce: 1
     used: 0
+    sfxName: boss_warning
 --- !u!1 &7704068796308190052
 GameObject:
   m_ObjectHideFlags: 0
