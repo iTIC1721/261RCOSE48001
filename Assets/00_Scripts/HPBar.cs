@@ -29,9 +29,10 @@ public class HPBar : MonoBehaviour
 
     public void SetHPBar(float currentHP, float maxHP)
     {
-        hpText.text = currentHP.ToString("F0");
+        float hp = currentHP > 0 ? currentHP : 0;
+        hpText.text = hp.ToString("F0");
 
-        float amount = currentHP / maxHP;
+        float amount = hp / maxHP;
         fill.fillAmount = amount;
 
         if (backFill != null)
