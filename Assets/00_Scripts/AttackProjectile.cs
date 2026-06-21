@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackProjectile : AttackObject
@@ -25,18 +25,10 @@ public class AttackProjectile : AttackObject
     {
         base.Initialize(damage, parent);
 
-        if (ricochetCount > 0 || piercingCount > 0 || reflectCount > 0)
-        {
-            this.ricochetCount = ricochetCount;
-            this.piercingCount = piercingCount;
-            this.reflectCount = reflectCount;
-        }
+        this.ricochetCount = ricochetCount;
+        this.piercingCount = piercingCount;
+        this.reflectCount = reflectCount;
 
-        InitializeSetting();
-    }
-
-    private void InitializeSetting()
-    {
         ricochet = ricochetCount;
         piercing = piercingCount;
         reflect = reflectCount;
@@ -68,11 +60,29 @@ public class AttackProjectile : AttackObject
                 reflect--;
                 hitBox.Damage = hitBox.Damage * 0.5f;
 
+                Vector2 rayOrigin = (Vector2)transform.position + -direction.normalized * speed * Time.fixedDeltaTime;
+
+                RaycastHit2D hit = Physics2D.Raycast(
+                    rayOrigin,
+                    direction,
+                    speed * Time.fixedDeltaTime * 2f,
+                    LayerMask.GetMask("Wall")
+                );
+
                 Vector2 closestPoint = collision.ClosestPoint(transform.position);
-                Vector2 normal = ((Vector2)transform.position - closestPoint).normalized;
+                Vector2 rawDiff = (Vector2)transform.position - closestPoint;
+
+                Vector2 normal = hit.collider != null
+                    ? hit.normal
+                    : rawDiff.sqrMagnitude > 0.0001f
+                        ? rawDiff.normalized
+                        : -direction.normalized;
+
                 Vector2 nextDirection = Vector2.Reflect(direction, normal);
 
+                Vector2 oldDirection = new Vector2(direction.x, direction.y);
                 ChangeDirection(nextDirection);
+                Log.LogWarning($"[{gameObject.name} Reflect] {oldDirection} -> {direction}, closetPoint: {closestPoint}, normal: {normal}, nextDirection: {nextDirection}");
             }
         }
     }
@@ -84,12 +94,12 @@ public class AttackProjectile : AttackObject
 
     public virtual void HitCallBack(Collider2D coll)
     {
-        // OnHit ÀÌÆåÆ® ¸ÕÀú ½ÇÇà
+        // OnHit ì´íŽ™íŠ¸ ë¨¼ì € ì‹¤í–‰
         foreach (var effect in _onHitEffects)
             effect.Execute(this, coll, direction);
 
 
-        // Åõ»çÃ¼ ´ÙÀ½ Çàµ¿ °ü·Ã
+        // íˆ¬ì‚¬ì²´ ë‹¤ìŒ í–‰ë™ ê´€ë ¨
         if (ricochet > 0)
         {
             ricochet--;
