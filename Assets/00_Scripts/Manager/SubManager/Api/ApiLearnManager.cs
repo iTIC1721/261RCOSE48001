@@ -29,8 +29,9 @@ public class ApiLearnManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI loadingText;
 
     // ── 학습 설정 ──
-    [Header("학습 설정")]
-    [SerializeField][Range(10, 300)] private int dailyLimit = 100;
+    private const string DailyLimitKey = "setting_daily_limit";
+    private const int DailyLimitDefault = 20;
+    private int dailyLimit => Mathf.Clamp(PlayerPrefs.GetInt(DailyLimitKey, DailyLimitDefault), 1, 100);
 
     // ── 세션 카운터 (기존 LearnManager와 동일한 역할) ──
     int newCount = 0;
