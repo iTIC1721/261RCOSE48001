@@ -39,3 +39,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 1ee975aebcc2a1c48bdaec0f2c2d88fd, type: 3}
   - key: boss_warning
     clip: {fileID: 8300000, guid: 6d9c8a99cb3097c4db42c498f27efbf1, type: 3}
+  - key: slot_run
+    clip: {fileID: 8300000, guid: b729d22a17694694f8004c474ea5ec7a, type: 3}

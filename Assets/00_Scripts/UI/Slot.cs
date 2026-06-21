@@ -43,6 +43,7 @@ public class Slot : MonoBehaviour
         float scaledRollSpeed = (rollCount + ((float)index / (images.Count - 1))) / rollTime;
 
         float moveDist = 0;
+        int lastSlotIndex = -1;
         while (moveDist < finalDist)
         {
             yield return null;
@@ -51,6 +52,14 @@ public class Slot : MonoBehaviour
                 Mathf.Lerp(scaledRollSpeed, scaledRollSpeed * decelerationAmount, (moveDist - finalDist * decelerationThreshold) / (finalDist * (1 - decelerationThreshold))) :
                 scaledRollSpeed;
             moveDist += speed * Time.unscaledDeltaTime;
+
+            int currentSlotIndex = Mathf.FloorToInt((moveDist % 600) / imageSizeY);
+            if (currentSlotIndex != lastSlotIndex)
+            {
+                lastSlotIndex = currentSlotIndex;
+                AudioManager.Instance.PlaySFXPooled("slot_run", 0.33f);
+            }
+
             slotObject.anchoredPosition = Vector2.down * ((moveDist % 600) + 100);
         }
 
