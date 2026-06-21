@@ -33,14 +33,17 @@ public class DefaultMonsterBT : MonsterBT
                     new BTCheckAnimationEnd(monster, "DAMAGED"),
                     new BTCheckAnimationEnd(monster, "ATTACK"),
                     new BTSelectorNode(new List<BTNode>
-                    {
-                        // 쿨타임마다 스킬 시전 시도
-                        new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
+                    {                        
+                        new BTConditionDecorator(new BTSelectorNode(new List<BTNode>
                         {
-                            new BTCheckPlayerIsInRange(monster, 7.5f, true),
-                            new BTMoveStop(monster),
-                            new BTInvoke(PrepareSkill)
-                        }), attackDelay),
+                            // 쿨타임마다 스킬 시전 시도
+                            new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
+                            {
+                                new BTCheckPlayerIsInRange(monster, 7.5f, true),
+                                new BTMoveStop(monster),
+                                new BTInvoke(PrepareSkill)
+                            }), attackDelay),
+                        }), () => IsAttackEnabled),                        
                         // 스킬 쿨타임이 안 찼을 땐 플레이어에게로 이동
                         new BTSequenceNode(new List<BTNode>
                         {

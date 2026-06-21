@@ -148,6 +148,7 @@ public class MapManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        SetMonsterAttackFreeze();
         MoveMap(startPos);
 
         GLOBAL_CANVAS.Fade.FadeOut(0.1f);
@@ -155,6 +156,12 @@ public class MapManager : MonoBehaviour
         if ((currentStage - 1) % skillEveryNStages == 0)
         {
             skillSlotMachine.StartSlotMachine();
+        }
+
+        foreach (var m in currentMapMonsters)
+        {
+            if (m != null && !m.IsDied)
+                StartCoroutine(UnfreezeMonsterAfterDelay(m, UnityEngine.Random.Range(1.0f, 2.0f)));
         }
     }
 
@@ -165,6 +172,29 @@ public class MapManager : MonoBehaviour
 
         // 카메라 다음 맵 위치로 이동
         Camera.main.transform.position = new Vector3(currentMap.transform.position.x, currentMap.transform.position.y, Camera.main.transform.position.z);
+    }
+
+    private void SetMonsterAttackFreeze()
+    {
+        foreach (var m in currentMapMonsters)
+        {
+            if (m != null)
+            {
+                var bt = m.GetComponent<MonsterBT>();
+                if (bt != null) bt.IsAttackEnabled = false;
+            }
+        }
+    }
+
+    private IEnumerator UnfreezeMonsterAfterDelay(Monster monster, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (monster != null && !monster.IsDied)
+        {
+            var bt = monster.GetComponent<MonsterBT>();
+            if (bt != null) bt.IsAttackEnabled = true;
+        }
     }
 
     public bool CheckClearMap()

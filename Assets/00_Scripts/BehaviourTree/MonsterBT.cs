@@ -19,6 +19,8 @@ public abstract class MonsterBT : BehaviourTree
 
     public Vector2 AttackDirection { get; protected set; }
 
+    public bool IsAttackEnabled { get; set; } = true;
+
     protected float attackDelay = 1;
     private readonly float MinAttackDelay = 0.01f;
 

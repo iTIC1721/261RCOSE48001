@@ -36,19 +36,22 @@ public class BossMonsterBT : MonsterBT
                     new BTCheckAnimationEnd(monster, "ATTACK"),
                     new BTSelectorNode(new List<BTNode>
                     {
-                        // 체력 절반 이하일 때 스킬 시전 시도
-                        new BTConditionDecorator(new BTSequenceNode(new List<BTNode>
+                        new BTConditionDecorator(new BTSelectorNode(new List<BTNode>
                         {
-                            new BTMoveStop(monster),
-                            new BTInvoke(() => PrepareSkill(spawnSkill))
-                        }), () => monster.hp < monster.maxHp * 0.5f && !spawnSkill.used),
-                        // 쿨타임마다 공격 시전 시도
-                        new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
-                        {
-                            new BTCheckPlayerIsInRange(monster, 7.5f, true),
-                            new BTMoveStop(monster),
-                            new BTInvoke(PrepareAttack)
-                        }), attackDelay),
+                            // 체력 절반 이하일 때 스킬 시전 시도
+                            new BTConditionDecorator(new BTSequenceNode(new List<BTNode>
+                            {
+                                new BTMoveStop(monster),
+                                new BTInvoke(() => PrepareSkill(spawnSkill))
+                            }), () => monster.hp < monster.maxHp * 0.5f && !spawnSkill.used),
+                            // 쿨타임마다 공격 시전 시도
+                            new BTCooldownDecorator(new BTSequenceNode(new List<BTNode>
+                            {
+                                new BTCheckPlayerIsInRange(monster, 7.5f, true),
+                                new BTMoveStop(monster),
+                                new BTInvoke(PrepareAttack)
+                            }), attackDelay),
+                        }), () => IsAttackEnabled),                        
                         // 스킬 쿨타임이 안 찼을 땐 플레이어에게로 이동
                         new BTSequenceNode(new List<BTNode>
                         {
