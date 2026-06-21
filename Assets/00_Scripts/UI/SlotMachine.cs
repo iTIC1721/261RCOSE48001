@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -166,8 +167,19 @@ public class SlotMachine : MonoBehaviour
 
     private List<SkillData> GetSkillPool()
     {
-        // TODO: 플레이어가 가지고 있는 스킬은 제외
-        return new List<SkillData>(MANAGER.DB.skillDB.skillDatas);
+        var activeSkills = Player.Instance.skillManager.GetActiveSkills();
+        var activeDict = activeSkills.ToDictionary(e => e.data.skillName, e => e);
+
+        return MANAGER.DB.skillDB.skillDatas.Where(skill =>
+        {
+            if (!activeDict.TryGetValue(skill.skillName, out var entry))
+                return true; // 미보유 스킬은 항상 포함
+
+            if (!skill.isStackable)
+                return false; // 스택 불가 스킬은 제외
+
+            return entry.stack < skill.maxStack; // max stack 미달성만 포함
+        }).ToList();
     }
 
     private void Roll(int[] indexes, int baseRollCount = 4)
