@@ -129,6 +129,12 @@ public class PermanentUpgradeManager : MonoBehaviour
             upgradeLevels[data.upgradeKeys[i]] = data.upgradeValues[i];
     }
 
+    public void ReloadFromSave()
+    {
+        Load();
+        Debug.Log("[PermanentUpgrade] 업그레이드 데이터 재로드 완료");
+    }
+
     private UpgradeEntry GetEntry(string upgradeId)
         => upgradeData.upgrades.Find(e => e.upgradeId == upgradeId);
 }

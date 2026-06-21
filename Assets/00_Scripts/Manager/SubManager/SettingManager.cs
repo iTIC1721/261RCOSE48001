@@ -120,6 +120,14 @@ public class SettingManager : MonoBehaviour
 
         PlayerPrefs.Save();
         Debug.Log($"[UserResetManager] user_id({userId}) 관련 PlayerPrefs 삭제 완료");
+
+        // 로그라이트 세이브 데이터 초기화
+        SaveSystem.SavePlayerData(new PlayerSaveData());
+
+        if (PermanentUpgradeManager.Instance != null)
+            PermanentUpgradeManager.Instance.ReloadFromSave();
+
+        Debug.Log("[UserResetManager] PlayerSaveData 초기화 완료");
     }
 
     private void HandleError(string message)
