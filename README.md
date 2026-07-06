@@ -6,6 +6,9 @@
 - 개발 인원: 3인 팀 (기획 / **Unity 개발** / 서버 개발) — 본 레포는 Unity 클라이언트 전체(게임 시스템·UI·백엔드 API 연동) 담당분
 - 빌드 대상: Android (`com.Memorix.Memorix`)
 
+**Youtube Link**  
+[![Video Label](http://img.youtube.com/vi/dmcUIaUCXAY/0.jpg)](https://youtu.be/dmcUIaUCXAY?t=0s)
+
 ## 기술 스택
 
 | 구분 | 내용 |
